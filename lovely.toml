@@ -1,0 +1,25 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Paper Mario only functionality
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end"
+position = "after"
+payload = '''
+if v.set == 'Joker' and not v.stage and not (v.atlas == "pm_PaperMario" or v.atlas == "pm_Koopalings"or v.atlas == "pm_Things") and pm_config and pm_config.papermario_only then add = nil end
+if v.set == 'Joker' and v.stage and v.atlas == "pm_Things" and pm_config and not pm_config.things_added then add = nil end
+'''
+match_indent = true
+
+# Plunger functionality
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if next(find_joker('Splash')) then"
+position = "at"
+payload = "if next(find_joker('Splash')) or next(SMODS.find_card('j_pm_plunger')) then"
+match_indent = true

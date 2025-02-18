@@ -1,0 +1,18 @@
+{
+	"id": "PMCS",
+	"name": "Paper Mario Mod",
+	"display_name": "PMCS",
+	"author": ["TheSocialZombie"],
+	"description": "A mod that adds Paper Mario themed Jokers into Balatro!",
+	"prefix": "pm",
+	"main_file": "PMCS.lua",
+	"priority": 0,
+	"badge_colour": "EB4034",
+	"badge_text_colour": "C2C2C2",
+	"version": "1.0.0",
+	"dependencies": [
+        "Steamodded (>=1.*)",
+        "Lovely (>=0.6)",
+		"Talisman (>=2.*)"
+    ]
+}

@@ -1,0 +1,1 @@
+return {["papermario_only"]=true,["things_added"]=true}
