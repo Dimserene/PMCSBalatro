@@ -40,7 +40,18 @@ SMODS.Atlas { -- All Thing Jokers
 	-- Key for code to find it with
 	key = "Things",
 	-- The name of the file, for the code to pull the atlas from
-	path = "PaperMario.png",
+	path = "Things.png",
+	-- Width of each sprite in 1x size
+	px = 220,
+	-- Height of each sprite in 1x size
+	py = 307
+}
+
+SMODS.Atlas { -- All Consumables
+	-- Key for code to find it with
+	key = "BattleCards",
+	-- The name of the file, for the code to pull the atlas from
+	path = "BattleCards.png",
 	-- Width of each sprite in 1x size
 	px = 220,
 	-- Height of each sprite in 1x size
@@ -74,12 +85,169 @@ end
 -- load custom rarities
 SMODS.Rarity{
     key = "thing",
-    default_weight = 0.02,
+    default_weight = 1,
     badge_colour = HEX("EBD534"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
         return weight
     end,
+}
+
+-- load custom editions and shaders
+--SMODS.Shader{
+--    key = 'replica',
+--    path = 'replica.fs',
+--}
+SMODS.Edition{
+    key = "replica",
+    shader = false,
+    sound = { 
+        sound = "tarot1", 
+        per = 1.2, 
+        vol = 0.4,
+    },  
+    weight = 0.1, 
+    discovered = true,
+	in_shop = false,
+	extra_cost = -3,
+    badge_colour = G.C.PURPLE,
+    get_weight = function(self)
+		return G.GAME.edition_rate * self.weight
+	end,
+	config = {
+        x_mult = 0.9,
+    },
+	loc_vars = function(self, info_queue)
+		return { vars = { self.config.x_mult } }
+	end,
+    draw = function (self, card, layer)
+        if (layer == 'card' or layer == 'both') then
+            if card.sprite_facing == 'front' then 
+                card.children.front = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['pm_Things'], { x = 4, y = 3 })
+            end
+        end
+    end
+}
+
+SMODS.Shader{
+    key = 'drained',
+    path = 'drained.fs',
+}
+SMODS.Sticker{
+    key = "drained",
+    no_sticker_sheet = true,
+    badge_colour = HEX("C7C7C7"),
+    discovered = true,
+    sets = {
+        Joker = true
+    },
+    rate = 0,
+    config = {
+        extra = {
+            drained_turns = 3
+        }
+    },
+    needs_enable_flag = false,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability[self.key].extra.drained_turns } }
+    end,
+    apply = function(self, card, val)
+        card.ability[self.key] = val and copy_table(self.config)
+        card.cost = 1
+    end,
+    calculate = function (self, card, context)
+        if context.first_hand_drawn then
+            if card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+                if card.ability[self.key].extra.drained_turns == 1 then
+                    card.ability[self.key].extra.drained_turns = 0
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    SMODS.Stickers.pm_drained:apply(card, false)
+                else
+                    card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
+                    card:set_debuff(true)
+                end
+            end
+        end
+    end,
+    draw = function (self, card, layer)
+        if (layer == 'card' or layer == 'both') then
+            if card.sprite_facing == 'front' then
+                card.children.center:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
+                    if card.children.front and card.ability.effect ~= 'Stone Card' then
+                        card.children.front:draw_shader('pm_drained', nil, self.ARGS.send_to_shader)
+                    end
+            end
+        end
+    end
+}
+
+SMODS.Sticker{
+    key = "monochrome",
+    no_sticker_sheet = true,
+    badge_colour = HEX("C7C7C7"),
+    discovered = true,
+    sets = {
+        Joker = true
+    },
+    rate = 0,
+    config = {
+        extra = {
+            drained_turns = 3,
+            suit = "Spades"
+        }
+    },
+    needs_enable_flag = false,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability[self.key].extra.drained_turns, card.ability[self.key].extra.suit, colours = {G.C.SUITS[card.ability[self.key].extra.suit]} } }
+    end,
+    apply = function(self, card, val)
+        card.ability[self.key] = val and copy_table(self.config)
+        card.cost = 1
+        --card.ability[self.key].extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('mono'))
+    end,
+    calculate = function (self, card, context)
+        if context.individual and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+            if context.other_card:is_suit(card.ability.extra.suit) then
+                if card.ability[self.key].extra.drained_turns == 1 then
+                    card.ability[self.key].extra.drained_turns = 0
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    SMODS.Stickers.pm_drained:apply(card, false)
+                else
+                    card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                end
+            end
+        end
+        if context.first_hand_drawn and card.ability[self.key].extra.drained_turns then
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
+            card:set_debuff(true)
+        end
+    end,
+    draw = function (self, card, layer)
+        if (layer == 'card' or layer == 'both') then
+            if card.sprite_facing == 'front' then
+                card.children.center:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
+                if card.children.front and card.ability.effect ~= 'Stone Card' then
+                    card.children.front:draw_shader('pm_drained', nil, self.ARGS.send_to_shader)
+                end
+            end
+        end
+    end
+}
+
+-- load consumable type
+SMODS.ConsumableType{
+    key = "BattleCard",
+    primary_colour = HEX("CC2E23"),
+    secondary_colour = HEX("CC2E23"),
+    collection_row = {6, 6},
+    shop_rate = 4,
+    default = "c_pm_one_up",
+    prefix_config = { key = true },
+    loc_txt = { 
+        name = 'Battle Card', -- used on card type badges
+        collection = 'Battle Cards', -- label for the button to access the collection
+    },
 }
 
 pm_total_chips = function(card)
@@ -131,7 +299,6 @@ function Card:rand_enhance()
 
     self:set_ability(enhancement_type, nil, true)
 end  
-    
 
 -- checking if a value is in an array
 pm_in_array = function(table, value)
@@ -274,9 +441,11 @@ function SMODS.calculate_destroying_cards(context, cards_destroyed, scoring_hand
             end
             if should_break then break end
         end
-        
-        if scoring_hand and not next(SMODS.find_card('j_pm_instantcamera')) and SMODS.has_enhancement(card, 'm_glass') and not card.debuff and pseudorandom('glass') < G.GAME.probabilities.normal/(card.ability.name == 'Glass Card' and card.ability.extra or G.P_CENTERS.m_glass.config.extra) then
-            destroyed = true
+    
+        if scoring_hand then 
+            if not next(SMODS.find_card('j_pm_instantcamera')) and SMODS.has_enhancement(card, 'm_glass') and not card.debuff and pseudorandom('glass') < G.GAME.probabilities.normal/(card.ability.name == 'Glass Card' and card.ability.extra or G.P_CENTERS.m_glass.config.extra) then
+                destroyed = true
+            end
         end
         
         local eval, post = eval_card(card, context)
@@ -297,6 +466,19 @@ function SMODS.calculate_destroying_cards(context, cards_destroyed, scoring_hand
             end 
             cards_destroyed[#cards_destroyed+1] = card
         end
+    end
+end
+
+local set_debuff_ref = set_debuff
+function set_debuff(should_debuff)
+    local result = set_debuff_ref(should_debuff)
+    if next(SMODS.find_card('j_pm_huey')) then
+        local _card = next(SMODS.find_card('j_pm_huey'))
+        if _card.ability.extra.suit then
+            return self:is_suit(_card.ability.extra.suit)
+        else return result
+        end
+    else return result
     end
 end
 

@@ -2,7 +2,16 @@ return {
     descriptions = {
         Back={},
         Blind={},
-        Edition={},
+        Edition={
+            e_pm_replica = {
+                name = "Replica",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "{C:inactive}A less effective",
+                    "{C:inactive}duplicate of the original.{}",
+                },
+            },
+        },
         Enhanced={},
         Joker={
 
@@ -76,8 +85,9 @@ return {
               
                 name = "Yellow Slurp Guy",
                 text = {
-                    "This Joker gives {C:attention}$#2#{} per scoring", 
-                    "{C:attention}Enhanced card{} played,",
+                    "This Joker gives {C:money}$#1#{} per scoring", 
+                    "{C:attention}low enhanced card{} played and",
+                    "{C:money}$#2#{} per {C:attention}high enhanced card{} played,",
                     "removes card {C:attention}enhancement{}",
                 },
             },
@@ -268,6 +278,17 @@ return {
                 },
             },
 
+            j_pm_drybones = {
+              
+                name = "Dry Bones",
+                text = { 
+                    "{C:attention}Stone Cards{} give {V:1}+#1#{} #2#",
+                    "when scored. Prevents {C:red}death{} if chips scored",
+                    "are at least {C:attention}50%{} of required chips",
+                    "{C:inactive}(#3#){}"
+                },
+            },
+
             j_pm_boo = {
               
                 name = "Boo",
@@ -282,9 +303,7 @@ return {
               
                 name = "Scaredy Rat",
                 text = { 
-                    "{X:attention,C:white}WIP{}",
-                    "{X:chips,C:white}X#1#{} Chips.",
-                    "Debuffs itself until end of round.",
+                    "{X:chips,C:white}X#1#{} Chips",
                 },
             },
 
@@ -788,6 +807,36 @@ return {
                 },
             },
 
+            j_pm_bottle = {
+              
+                name = "Bottle Opener",
+                text = { 
+                    "Booster Packs contain {C:attention}#1#{} extra card",
+                    "and give {C:attention}#1#{} extra choice",
+                },
+            },
+
+            j_pm_icepick = {
+              
+                name = "Ice Pick",
+                text = { 
+                    "If {C:attention}first played hand{} is {C:attention}one{}",
+                    "{C:attention}Glass Card{}, this gains {C:mult}+#1#{} Mult",
+                    "and {C:red}shatter{} the played card",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive{} Mult){}",
+                },
+            },
+
+            j_pm_balloons = {
+              
+                name = "Balloons",
+                text = { 
+                    "This gains a {C:attention}new ability{} at the end of",
+                    "{C:attention}#1#{} rounds, up to {C:attention}3{} abilities",
+                    "{C:inactive}(Abilities stack){}",
+                },
+            },
+
             j_pm_teapot = {
               
                 name = "Teapot",
@@ -850,8 +899,145 @@ return {
                 },
             },
 
+            j_pm_cork = {
+              
+                name = "Cork",
+                text = { 
+                    "{C:red}Disables{} Boss Blinds and prevents",
+                    "{C:red}death{} if scored chips are",
+                    "at least {C:attention}50%{} of required chips",
+                    "{C:inactive}(#1#){}",
+                },
+            },
+
+            j_pm_washing = {
+              
+                name = "Washing Machine",
+                text = { 
+                    "If {C:attention}played hand{} contains a {C:attention}Flush{},",
+                    "convert the {C:attention}rank{} of all played cards to {C:attention}#1#{}",
+                    "{C:inactive}(Rank chosen upon creation){}",
+                },
+            },
+
+            j_pm_lightbulb = {
+              
+                name = "Lightbulb",
+                text = { 
+                    "{C:attention}Steel Cards{} become {C:money}Gold{} when played",
+                    "and give {C:money}$#1#{}. {C:money}Gold Cards{} become {C:attention}Steel{}",
+                    "and gain {X:mult,C:white}+X#2#{} Mult when held in hand",
+                },
+            },
+
+            j_pm_sapp = {
+              
+                name = "Salt and Pepper",
+                text = { 
+                    "Played {C:spades}#1#{} cards give {C:mult}+#5#{} Mult",
+                    "Played {C:attention}Stone Cards{} give {C:chips}+#4#{} Chips",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips and {C:mult}+#3#{C:inactive} Mult){}",
+                },
+            },
+
+            j_pm_grill = {
+              
+                name = "Charcoal Grill",
+                text = { 
+                    "If first hand has a max of {C:attention}#1#{} cards, increase the",
+                    "{C:attention}ranks{} of each played card.", 
+                    "If a card is an {C:attention}Ace{},",
+                    "make it a {C:attention}Stone Card{} instead",
+                },
+            },
+
+            j_pm_megaphone = {
+              
+                name = "Megaphone",
+                text = { 
+                    "Retrigger the Joker to the",
+                    "{C:attention}right #1#{} times",
+                },
+            },
+
+            j_pm_hairdryer = {
+              
+                name = "Hair Dryer",
+                text = { 
+                    "Destroying cards gives {C:money}$#1#{}. If {C:attention}first discard{}",
+                    "has only {C:attention}one card{}, {C:red}destroy{} it and this",
+                    "gains {X:mult,C:white}+X#2#{} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
+                },
+            },
+
+            j_pm_magnify = {
+              
+                name = "Magnifying Glass",
+                text = { 
+                    "{C:attention}Glass Cards{} now give {X:mult,C:white}X#1#{} Mult",
+                    "but have a {C:green}#2# in #3#{} chance to break",
+                },
+            },
+
+            j_pm_hammer = {
+              
+                name = "Claw Hammer",
+                text = { 
+                    "{C:attention}Stone Cards{} become {C:attention}Steel{} after scoring",
+                    "Gain {X:mult,C:white}+X#2#{} Mult per {C:attention}Steel Card{} in full deck",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
+                },
+            },
+
+            j_pm_recorder = {
+              
+                name = "Recorder",
+                text = { 
+                    "Sell this card to make a copy of the",
+                    "leftmost Joker with {C:dark_edition}Replica{}",
+                },
+            },
+
+            j_pm_discoball = {
+              
+                name = "Disco Ball",
+                text = { 
+                    "{C:attention}Glass Cards{} have a {C:green}#1# in #2#{}",
+                    "chance to become {C:dark_edition}Polychrome{}.", 
+                    "At the start of the round, gain a {C:attention}Justice{} card",
+                },
+            },
+
+            j_pm_huey = {
+              
+                name = "Huey",
+                text = { 
+                    "{V:1}#1#{} give {X:mult,C:white}X#2#{} and cannot be {C:red}debuffed{}.",
+                    "At the start of the round, gain {C:attention}#3#{}.",
+                    "{C:inactive}(Suit changes to suit with most cards in full deck){}",
+                },
+            },
+
         },
         Other={
+            -- STICKERS
+            pm_drained = {
+                name = "Drained",
+                text = {
+                    "{C:mult}Disabled{} for {C:attention}#1#{} rounds",
+                    "{C:inactive}(What happens when a creature loses its colo(u)r){}",
+                },
+            },
+
+            pm_monochrome = {
+                name = "Drained",
+                text = {
+                    "{C:mult}Disabled{}. Playing {C:attention}#1# {V:1}#2#{}",
+                    "will remove this sticker", 
+                },
+            },
+
             -- INFO CENTERS
             pm_wip = {
                 name = "WIP",
@@ -876,6 +1062,46 @@ return {
                     "in their name, or have {C:attention}\'slurping\'{} effects",
                 },
             },
+
+            pm_low = {
+                name = "Low Enhanced Card",
+                text = {
+                    "{C:attention}Stone, Bonus, Mult, Lucky{}",
+                }
+            },
+
+            pm_high = {
+                name = "High Enhanced Card",
+                text = {
+                    "{C:attention}Steel, Gold, Glass, Wild{}",
+                    "and modded {C:attention}enhanced cards{}",
+                }
+            },
+
+            pm_red = {
+                name = "Red Balloon",
+                text = {
+                    "Retrigger each played {C:hearts}Heart{} card",
+                }
+            },
+
+            pm_blue = {
+                name = "Blue Balloon",
+                text = {
+                    "Gain a {C:green}random {C:purple}Planet{} card",
+                    "at the end of the round",
+                    "{C:inactive}(Prioritizes the last played hand){}",
+                }
+            },
+
+            pm_yellow = {
+                name = "Yellow Balloon",
+                text = {
+                    "Played {C:diamonds}Diamond{} cards",
+                    "give {C:money}$2{} and have a {C:green}chance{}",
+                    "to get {C:money}Gold Seals{}",
+                }
+            },
         },
         Planet={},
         Spectral={},
@@ -883,6 +1109,50 @@ return {
         Tag={},
         Tarot={},
         Voucher={},
+        pm_BattleCard={
+            c_pm_one_up = {
+                name = "1-UP Mushroom",
+                text = {
+                    "Gain {C:blue}+#1#{} hands on {C:red}death{},",
+                    "{C:red}self-destructs{}",
+                }
+            },
+
+            c_pm_mushroom = {
+                name = "Mushroom",
+                text = {
+                    "{C:blue}+#1#{} hand",
+                }
+            },
+
+            c_pm_bigmushroom = {
+                name = "Big Mushroom",
+                text = {
+                    "{C:blue}+#1#{} hands",
+                }
+            },
+
+            c_pm_megamushroom = {
+                name = "Mega Mushroom",
+                text = {
+                    "{C:blue}+#1#{} hands",
+                }
+            },
+
+            c_pm_fireflower = {
+                name = "Fire Flower",
+                text = {
+                    "{C:red}+#1#{} discard",
+                }
+            },
+
+            c_pm_bigfireflower = {
+                name = "Big Fire Flower",
+                text = {
+                    "{C:red}+#1#{} discards",
+                }
+            },
+        },
     },
     misc = {
         achievement_descriptions={},
@@ -906,6 +1176,16 @@ return {
             pm_electrified = "Shocked!",
             pm_lost = "Streak Lost!",
             pm_lemony = "Squeezed!",
+            pm_cooked = "Seared!",
+            pm_burnt = "Burnt!",
+            pm_magnified = "Magnified!",
+            pm_colorized = "Colorized!",
+
+            -- Dry Bones
+            pm_chips = "Chips",
+            pm_mult = "Mult",
+            pm_dry = "1-UP Active!",
+            pm_dead = "Death Prevented!",
 
             -- Rarities
             k_pm_thing = "Thing",
@@ -919,6 +1199,13 @@ return {
         labels={
             -- Rarities
             k_pm_thing = "Thing",
+
+            -- Editions
+            pm_replica = "Replica",
+            
+            -- Stickers
+            pm_drained = "Drained",
+            pm_monochrome = "Drained",
         },
         poker_hand_descriptions={},
         poker_hands={},

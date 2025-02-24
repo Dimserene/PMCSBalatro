@@ -85,7 +85,7 @@ SMODS.Joker{
     soul_pos = { x = 3, y = 0 },
     config = { extra = {hand = "Flush", Xmult = 3, active = false} },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+        info_queue[#info_queue+1] = G.P_CENTERS.c_tower
         return { vars = { card.ability.extra.hand, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)

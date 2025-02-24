@@ -28,8 +28,8 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chip_mod = card.ability.extra.chips,
-                message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+                chips = card.ability.extra.chips,
+                card = card,
             }
         end
     end
@@ -200,7 +200,6 @@ SMODS.Joker{
 }
 
 -- Blue Slurp Guy
-
 SMODS.Joker{
     key = 'blueslurp',
     rarity = 1,
@@ -253,14 +252,71 @@ SMODS.Joker{
             if context.joker_main then
               return {
                 colour = G.C.BLACK,
-                chip_mod = card.ability.extra.chips
+                chips = card.ability.extra.chips
               }
             end
         end
     end
 }
 
--- Yellow Slurp Guy (gains $) (TBA)
+-- Yellow Slurp Guy
+SMODS.Joker{
+    key = 'yellowslurp',
+    rarity = 1,
+    atlas = 'PaperMario',
+    discovered = true,
+    cost = 2,
+    blueprint_compat = true,
+    pos = { x = 7, y = 0 },
+    config = { extra = {money = 1, extra_money = 3, slurp = 1} },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_low'}
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_high'}
+        return { vars = {card.ability.extra.money, card.ability.extra.extra_money} }
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.before and not context.blueprint then 
+            local l_count = 0 -- stone, bonus, mult, lucky
+            local h_count = 0 -- steel, glass, gold, and wild and other
+            local enhanced = {}
+            for k, v in ipairs(context.scoring_hand) do
+                if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
+                    enhanced[#enhanced+1] = v
+                    v.vampired = true
+                    if v.config.center == G.P_CENTERS.m_bonus or v.config.center == G.P_CENTERS.m_mult or v.config.center == G.P_CENTERS.m_stone or v.config.center == G.P_CENTERS.m_lucky then
+                        l_count = l_count + 1
+                    else -- to work with other modded enhancements
+                        h_count = h_count + 1 
+                    end
+                    card:juice_up(0.3, 0.4)
+                    v:set_ability(G.P_CENTERS.c_base, nil, true)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            v:juice_up()
+                            v.vampired = nil
+                            return true
+                        end
+                    })) 
+                end
+            end
+      
+            if #enhanced > 0 then 
+                if l_count > 0 then
+                    ease_dollars(card.ability.extra.money * l_count)
+                end
+                if h_count > 0 then
+                    ease_dollars(card.ability.extra.extra_money * h_count)                
+                end
+
+                return {
+                    message = localize("pm_drained_ex"),
+                    colour = G.C.MONEY,
+                    card = card
+                }
+            end
+          end
+    end
+}
 
 -- Red Spike Guy
 SMODS.Joker{
@@ -279,9 +335,8 @@ SMODS.Joker{
         if context.joker_main then
             if string.find(context.scoring_name, "Flush") then
                 return {
-                    chip_mod = card.ability.extra.chips,
+                    chips = card.ability.extra.chips,
                     colour = G.C.CHIPS,
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
                 }
             end
 		end
@@ -318,9 +373,8 @@ SMODS.Joker{
         if context.joker_main and card.ability.extra.active then
             if string.find(context.scoring_name, "Flush") then
                 return {
-                    chip_mod = card.ability.extra.chips,
+                    chips = card.ability.extra.chips,
                     colour = G.C.CHIPS,
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
                 }
             end
 		end     
@@ -357,9 +411,8 @@ SMODS.Joker{
         if context.joker_main and card.ability.extra.active then
             if string.find(context.scoring_name, "Flush") then
                 return {
-                    chip_mod = card.ability.extra.chips,
+                    chips = card.ability.extra.chips,
                     colour = G.C.CHIPS,
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
                 }
             end
 		end  
@@ -396,9 +449,8 @@ SMODS.Joker{
         if context.joker_main and card.ability.extra.active then
             if string.find(context.scoring_name, "Flush") then
                 return {
-                    chip_mod = card.ability.extra.chips,
+                    chips = card.ability.extra.chips,
                     colour = G.C.CHIPS,
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
                 }
             end
 		end  
@@ -435,9 +487,8 @@ SMODS.Joker{
         if context.joker_main and card.ability.extra.active then
             if string.find(context.scoring_name, "Flush") then
                 return {
-                    chip_mod = card.ability.extra.chips,
+                    chips = card.ability.extra.chips,
                     colour = G.C.CHIPS,
-                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
                 }
             end
 		end  
@@ -460,9 +511,8 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chip_mod = card.ability.extra.chips,
+                chips = card.ability.extra.chips,
                 colour = G.C.CHIPS,
-                message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
             }
 		end
 
@@ -936,7 +986,57 @@ SMODS.Joker{
     end
 }
 
--- Dry Bones (TBA)
+-- Dry Bones 
+SMODS.Joker{
+    key = 'drybones',
+    rarity = 2,
+    atlas = 'PaperMario',
+    discovered = true,
+    cost = 4,
+    blueprint_compat = true,
+    pos = { x = 4, y = 3 },
+    config = { extra = { chips = 15, mult = 7, death = false } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.death and card.ability.extra.mult or card.ability.extra.chips, card.ability.extra.death and localize('pm_mult') or localize('pm_chips'), card.ability.extra.death and localize('pm_dead') or localize('pm_dry'), colours = {card.ability.extra.death and G.C.MULT or G.C.CHIPS} } }
+    end,
+    calculate = function(self, card, context)
+
+        if context.individual and context.cardarea == G.play and context.other_card.config.center == G.P_CENTERS.m_stone then
+            if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
+                if death then
+                    return {
+                        mult = card.ability.extra.mult,
+                        card = context.other_card
+                    }
+                else
+                    return {
+                        chips = card.ability.extra.chips,
+                        card = context.other_card
+                    }
+                end
+            end
+        end
+
+        -- prevention of death
+        if context.end_of_round and not context.blueprint and context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not card.ability.extra.death then
+            card.ability.extra.death = true -- death prevented, can no longer use this
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand_text_area.blind_chips:juice_up()
+                    G.hand_text_area.game_chips:juice_up()
+                    play_sound('tarot1')
+                    return true
+                end
+            })) 
+            return {
+                message = localize('k_saved_ex'),
+                saved = true,
+                colour = G.C.RED
+            }
+        end
+       
+    end
+}
 
 -- Boo
 SMODS.Joker{
@@ -991,7 +1091,6 @@ SMODS.Joker{
     pos = { x = 7, y = 3 },
     config = { extra = {Xchips = 1.5} },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_wip'}
         return { vars = { card.ability.extra.Xchips } }
     end,
     calculate = function(self, card, context)
@@ -1000,7 +1099,8 @@ SMODS.Joker{
                 return {
                     message = localize { type = 'variable', key = 'a_xchips', vars = { card.ability.extra.Xchips } } ,
                     colour = G.C.CHIPS,
-                    hand_chips = hand_chips * card.ability.extra.Xchips
+                    chip_mod = hand_chips * (card.ability.extra.Xchips - 1),
+                    card = card
                 }
             end
         end
@@ -2048,7 +2148,7 @@ SMODS.Joker{
             card.ability.extra.active = false
 
             for k, v in pairs(G.GAME.probabilities) do 
-                G.GAME.probabilities[k] = (v/999) or 1 -- should hopefully revert it, if not, then just makes it a 1
+                G.GAME.probabilities[k] = math.max(1, (v/999)) -- should hopefully revert it, if not, then just makes it a 1
             end
         end
     end
@@ -2175,6 +2275,7 @@ SMODS.Joker{
                 else
                     if slurped_card.config.center == G.P_CENTERS.c_base then
                         slurped_card:rand_enhance()
+                        play_sound('tarot1')
                         card_eval_status_text(slurped_card, 'extra', nil, nil, nil, {message = localize("pm_upgraded")})
                     end
                 end
