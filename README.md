@@ -11,7 +11,7 @@
 - Ability to turn on/off Thing Jokers! (setting turned on by default)
 
 ### New Jokers
-A list containing all of the Jokers and their various effects will be coming soon!
+A list containing all of the Jokers and their various effects, as well as the other cards in this mod can be found [here](https://docs.google.com/spreadsheets/d/1ehufdjT9kCz5n27Fg7r3Jgo9ASitgImbhOztxyOh8qI/edit?usp=sharing)
 
 ### New Rarity: Thing!
 Based off of the "Things" from Color Splash, these often have powerful effects that synergize well with certain enhancements!
