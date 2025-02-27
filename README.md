@@ -5,7 +5,8 @@
 - A new rarity for Jokers, Thing! These Jokers provide powerful effects and are rarer than Rare cards!
 - New Edition, Replica!
 - New Sticker, Drained!
-- **6** New Consumables based off of PMCS Battle Cards!
+- **60** New Consumables based off of PMCS Battle Cards!
+  - Not all of them are implemented, mostly the ones that are multiple of the same item!
 - Ability to play with only the new Jokers! (setting turned on by default)
 - Ability to turn on/off Thing Jokers! (setting turned on by default)
 
@@ -33,7 +34,7 @@ At the moment, you are able to play with only the new Jokers, or play with them 
 You are also able to turn off Thing Jokers if they are too OP for you :3
 
 ## Planned Features
-- More Battle Cards and Consumables!
+- More Consumables!
 - New Sticker, Colorized!
   - Colorized is planned to be similar to Perishable, but applies Drained instead of debuffing altogether!
   - May trigger after certain number of rounds or discards! 
