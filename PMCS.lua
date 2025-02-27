@@ -1,7 +1,7 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: Paper Mario in Balatro
 --- MOD_ID: PMCS
---- MOD_AUTHOR: TheSocialZombie
+--- MOD_AUTHOR: [TheSocialZombie]
 --- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
 --- VERSION: 1.0.0
 --- PREFIX: PM
@@ -12,8 +12,12 @@
 
 ------------MOD CODE -------------------------
 
---Creates atlases for cards to use
+-- Talisman --
+to_big = to_big or function(num)
+    return num
+end
 
+--Creates atlases for cards to use
 SMODS.Atlas { -- The main atlas, used for all basic enemy types (yes, even sombrero)
 	-- Key for code to find it with
 	key = "PaperMario",
@@ -58,6 +62,28 @@ SMODS.Atlas { -- All Consumables
 	py = 307
 }
 
+SMODS.Atlas { -- All Enhancements
+	-- Key for code to find it with
+	key = "Enhancements",
+	-- The name of the file, for the code to pull the atlas from
+	path = "Enhancements.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95
+}
+
+SMODS.Atlas { -- All Boosters
+	-- Key for code to find it with
+	key = "PMBooster",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMBoosters.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95
+}
+
 -- save current paths
 mod_dir = ''..SMODS.current_mod.path
 pm_config = SMODS.current_mod.config
@@ -85,7 +111,7 @@ end
 -- load custom rarities
 SMODS.Rarity{
     key = "thing",
-    default_weight = 1,
+    default_weight = 0.1,
     badge_colour = HEX("EBD534"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
@@ -93,7 +119,7 @@ SMODS.Rarity{
     end,
 }
 
--- load custom editions and shaders
+-- load custom editions, stickers, and shaders
 --SMODS.Shader{
 --    key = 'replica',
 --    path = 'replica.fs',
@@ -235,13 +261,24 @@ SMODS.Sticker{
     end
 }
 
+SMODS.Enhancement({
+    key = "frozen",
+    atlas = "Enhancements",
+    pos = {x = 0, y = 0},
+    config = {h_mult = 10},
+    weight = 6,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.h_mult } }
+    end,
+})
+
 -- load consumable type
 SMODS.ConsumableType{
     key = "BattleCard",
     primary_colour = HEX("CC2E23"),
     secondary_colour = HEX("CC2E23"),
-    collection_row = {6, 6},
-    shop_rate = 4,
+    collection_row = {5, 2},
+    shop_rate = 12,
     default = "c_pm_one_up",
     prefix_config = { key = true },
     loc_txt = { 
@@ -256,19 +293,19 @@ pm_total_chips = function(card)
     return total_chips
   end
 
--- literally just a function check to see if a card is a slurp card.
+-- literally just a function check to see if a card is a slurp card. aka any card that removes enhancements or has slurp in the name
 function Card:is_slurp()
     local check = 0
-    if self.ability.extra.slurp then
+    if self.ability.extra and self.ability.extra.slurp then
         check = self.ability.extra.slurp
     end
     return check
 end
 
--- literally just a function check to see if a card is a bro card.
+-- literally just a function check to see if a card is a bro card. aka any Hammer Bro variant
 function Card:is_bro()
     local check = 0
-    if self.ability.extra.bro then
+    if self.ability.extra and self.ability.extra.bro then
         check = self.ability.extra.bro
     end
     return check
@@ -294,7 +331,7 @@ return true
 end
 
 function Card:rand_enhance()
-    local t = {G.P_CENTERS.m_bonus, G.P_CENTERS.m_mult, G.P_CENTERS.m_wild, G.P_CENTERS.m_glass, G.P_CENTERS.m_steel, G.P_CENTERS.m_stone, G.P_CENTERS.m_gold, G.P_CENTERS.m_lucky}
+    local t = {G.P_CENTERS.m_bonus, G.P_CENTERS.m_mult, G.P_CENTERS.m_wild, G.P_CENTERS.m_glass, G.P_CENTERS.m_steel, G.P_CENTERS.m_stone, G.P_CENTERS.m_gold, G.P_CENTERS.m_lucky, G.P_CENTERS.m_pm_frozen}
     local enhancement_type = pseudorandom_element(t, pseudoseed('rand'))
 
     self:set_ability(enhancement_type, nil, true)
@@ -469,13 +506,30 @@ function SMODS.calculate_destroying_cards(context, cards_destroyed, scoring_hand
     end
 end
 
-local set_debuff_ref = set_debuff
-function set_debuff(should_debuff)
-    local result = set_debuff_ref(should_debuff)
+local get_chip_mult_ref = Card.get_chip_mult
+function Card:get_chip_mult()
+    local result = get_chip_mult_ref(self)
+    if self.ability.effect == "Lucky Card" then
+        if next(SMODS.find_card('j_pm_catoluck')) then
+            self.lucky_trigger = true
+            return self.ability.mult
+        else
+            return result
+        end
+    end
+    return result
+end
+
+local set_debuff_ref = Card.set_debuff
+function Card:set_debuff(should_debuff)
+    local result = set_debuff_ref(self, should_debuff)
     if next(SMODS.find_card('j_pm_huey')) then
-        local _card = next(SMODS.find_card('j_pm_huey'))
-        if _card.ability.extra.suit then
-            return self:is_suit(_card.ability.extra.suit)
+        local _card = SMODS.find_card('j_pm_huey')[1]
+        if _card then 
+            if _card.ability.extra.suit and self:is_suit(_card.ability.extra.suit) then
+                self.debuff = false
+                should_debuff = false
+            end
         else return result
         end
     else return result

@@ -1,7 +1,7 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: Paper Mario in Balatro
 --- MOD_ID: PMCS
---- MOD_AUTHOR: TheSocialZombie
+--- MOD_AUTHOR: [TheSocialZombie]
 --- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
 --- VERSION: 1.0.0
 --- PREFIX: PM
@@ -184,10 +184,8 @@ SMODS.Joker{
                     card = card
                 }
             end
+        end
 
-            
-
-          end
           if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
               return {
@@ -843,32 +841,32 @@ SMODS.Joker{
         return { vars = {card.ability.extra.bonus_chips} }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if not context.end_of_round and context.before and not context.after and not context.other_card.debuff then
-                local conv_card = context.other_card
-                if conv_card.config.center ~= G.P_CENTERS.c_base and not conv_card.vampired then 
-                
-                    local current_bonus = conv_card.ability.perma_bonus or 0
-                    conv_card.ability.perma_bonus = current_bonus + card.ability.extra.bonus
-
-                    conv_card.vampired = true
-                    conv_card:set_ability(G.P_CENTERS.c_base, nil, true)
-
+        if context.cardarea == G.jokers and context.before and not context.blueprint then 
+            local enhanced = {}
+            for k, v in ipairs(context.scoring_hand) do
+                if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
+                    enhanced[#enhanced+1] = v
+                    local current_bonus = v.ability.perma_bonus or 0
+                    v.ability.perma_bonus = current_bonus + card.ability.extra.bonus_chips
+                    v.vampired = true
                     card:juice_up(0.3, 0.4)
-
+                    v:set_ability(G.P_CENTERS.c_base, nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            conv_card:juice_up()
-                            conv_card.vampired = nil
+                            v:juice_up()
+                            v.vampired = nil
                             return true
                         end
-                    }))
-
-                    return {
-                        colour = G.C.BONUS,
-                        localize { type = 'variable', key = 'a_bonus', vars = { card.ability.extra.bonus } }
-                    }
+                    })) 
                 end
+            end
+      
+            if #enhanced > 0 then 
+                return {
+                    message = localize("pm_drained_ex"),
+                    colour = G.C.MULT,
+                    card = card
+                }
             end
 		end
     end
@@ -895,15 +893,13 @@ SMODS.Joker{
                 local gain = card.ability.extra.chip_gain * math.abs(#context.scoring_hand - #context.full_hand)
                 card.ability.extra.chips = card.ability.extra.chips + gain
                 card:juice_up(0.3, 0.4)
-                if gain > 0 then
-                    return {
-                        message = localize{type = 'variable', key = 'a_chips', vars = {gain}}, 
-                        colour = G.C.CHIPS,
-                        chip_mod = card.ability.extra.chips
-                    }
-              end
+                return {
+                    chips = card.ability.extra.chips,
+                    card = card
+                }
             end
-          end
+        end
+
     end
 }
 
@@ -1018,7 +1014,7 @@ SMODS.Joker{
         end
 
         -- prevention of death
-        if context.end_of_round and not context.blueprint and context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.5 and not card.ability.extra.death then
+        if context.end_of_round and not context.blueprint and context.game_over and (to_big(G.GAME.chips) / to_big(G.GAME.blind.chips)) >= to_big(0.5) and not card.ability.extra.death then
             card.ability.extra.death = true -- death prevented, can no longer use this
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -1638,7 +1634,6 @@ SMODS.Joker{
         if context.cardarea == G.jokers and context.before and not context.blueprint then 
             local g_count = 0 
             local w_count = 0
-            local x_count = 0
             local enhanced = {}
             for k, v in ipairs(context.scoring_hand) do
                 if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
@@ -1651,10 +1646,6 @@ SMODS.Joker{
 
                     if v.config.center == G.P_CENTERS.m_wild then
                         w_count = w_count + 1
-                    end
-
-                    if v.config.center == G.P_CENTERS.m_lucky then
-                        x_count = x_count + 1
                     end
 
                     card:juice_up(0.3, 0.4)
@@ -1677,12 +1668,19 @@ SMODS.Joker{
                     card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_gain * w_count
                 end
 
-                if x_count > 0 then
-                    card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain * x_count
-                end
-
                 return {
                     message = localize("pm_drained_ex"),
+                    colour = G.C.ATTENTION,
+                    card = card
+                }
+            end
+        end
+
+        if context.individual and context.cardarea == G.play then
+            if context.other_card.lucky_trigger and not context.blueprint then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+                return {
+                    message = localize("pm_upgraded"),
                     colour = G.C.ATTENTION,
                     card = card
                 }
@@ -2100,7 +2098,7 @@ SMODS.Joker{
             end
         end
 
-        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Wild Card' then
+        if context.individual and context.cardarea == G.play and string.find(context.scoring_name, "Flush") then
             if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
                 return {
                     mult = card.ability.extra.mult
@@ -2515,16 +2513,17 @@ SMODS.Joker{
     cost = 7,
     blueprint_compat = false,
     pos = { x = 5, y = 7 },
-    config = { extra = {suit = 'Diamonds', odds = 3, bro = 1} },
+    config = { extra = {suit = 'Diamonds', mult = 0, mult_gain = 5, bro = 1} },
     loc_vars = function(self, info_queue, card)
-        return { vars = { localize(card.ability.extra.suit, 'suits_singular'), (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+        info_queue[#info_queue+1] = G.P_CENTERS.m_pm_frozen
+        return { vars = { localize(card.ability.extra.suit, 'suits_singular'), card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.jokers and not context.blueprint then
             for i = 1, #context.scoring_hand do
                 local c = context.scoring_hand[i]
                 if c:is_suit(card.ability.extra.suit) then 
-                    c:set_ability(G.P_CENTERS.m_glass, nil, true)
+                    c:set_ability(G.P_CENTERS.m_pm_frozen, nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             c:juice_up()
@@ -2535,15 +2534,22 @@ SMODS.Joker{
             end
         end
         
-        if context.final_scoring_step and context.cardarea == G.play and not context.blueprint then
-            for i = 1, #context.scoring_hand do
-                local c = context.scoring_hand[i]
-                if c:is_suit(card.ability.extra.suit) and c.ability.name == 'Glass Card' then
-                    if pseudorandom('ice') < (G.GAME.probabilities.normal / card.ability.extra.odds) then
-                        c:shatter()
-                    end
-                end
+        if context.joker_main then
+            return{
+                mult = card.ability.extra.mult,
+                card = card
+            }
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            local frozen = 0
+            for k, v in pairs(G.playing_cards) do
+                if v.config.center == G.P_CENTERS.m_pm_frozen then frozen = frozen + 1 end
             end
+            card.ability.extra.mult = frozen * card.ability.extra.mult_gain
+        else
+            card.ability.extra.mult = 0
         end
     end
 }

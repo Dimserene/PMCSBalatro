@@ -1,7 +1,7 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: Paper Mario in Balatro
 --- MOD_ID: PMCS
---- MOD_AUTHOR: TheSocialZombie
+--- MOD_AUTHOR: [TheSocialZombie]
 --- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
 --- VERSION: 1.0.0
 --- PREFIX: PM
@@ -101,9 +101,9 @@ SMODS.Joker{
         end
 
         -- If every card is a stone card, 
-        if context.cardarea == G.play and not context.before and not context.after and not context.end_of_round and not context.blueprint then
+        if context.cardarea == G.play and context.before and not context.blueprint then
             local stone_count = 0
-            local four_fingers = next(find_joker('Four Fingers')) and 4 or 5
+            local four_fingers = (next(find_joker('j_pm_plunger')) and 3) or next(find_joker('Four Fingers')) and 4 or 5
             for i=1, #context.scoring_hand do
                 if context.scoring_hand[i].ability.name == 'Stone Card' then stone_count = stone_count + 1 end
             end
@@ -282,7 +282,7 @@ SMODS.Joker{
 
         if context.before and not context.blueprint then
             if string.find(context.scoring_name, "Straight") then
-                card.ability.extra.Xmult = card.ability.extra.Xmult_gain + card.ability.extra.Xmult_gain
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
                 return {
                     colour = G.C.MULT,
                     message = localize("pm_upgraded"),
@@ -337,7 +337,7 @@ SMODS.Joker{
     end
 }
 
--- Lemmy (+ Bonus Mult still hasn't been done)
+-- Lemmy
 SMODS.Joker{
     key = 'lemmy',
     rarity = 4,
@@ -347,13 +347,12 @@ SMODS.Joker{
     blueprint_compat = true,
     pos = { x = 0, y = 3 },
     soul_pos = { x = 1, y = 3 },
-    config = { extra = {bonus_mult = 5} },
+    config = { extra = {mult = 10} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_wild
-        return { vars = {card.ability.extra.bonus_mult} }
+        return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        -- code borrowed and repurposed from the extra credit mod
         if context.before and not context.blueprint then
             local thunk = 0
             for k, v in ipairs(context.full_hand) do
@@ -375,6 +374,15 @@ SMODS.Joker{
                 }
             end
         end
+
+        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Wild Card' then
+            if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
+                return {
+                    mult = card.ability.extra.mult,
+                    card = card
+                }
+            end
+        end
     end
 }
 
@@ -388,7 +396,7 @@ SMODS.Joker{
     blueprint_compat = true,
     pos = { x = 2, y = 3 },
     soul_pos = { x = 3, y = 3 },
-    config = { extra = {Xmult = 5.0, cur_hands = 0, hands = 3, active = false} },
+    config = { extra = {Xmult = 5.0, cur_hands = 0, hands = 3, active = false, triggered = false} },
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.Xmult, card.ability.extra.cur_hands, card.ability.extra.hands} }
     end,
@@ -398,33 +406,60 @@ SMODS.Joker{
         if context.setting_blind or context.end_of_round then
             card.ability.extra.cur_hands = 0
             card.ability.extra.active = false
+            card.ability.extra.triggered = false
         end
 
+        if self.debuff then self.debuff = false end
+
         -- Stealing code from Matador and Luchador. Fitting.
-        if G.GAME.blind.triggered and card.ability.extra.cur_hands < card.ability.extra.hands then 
-            if card.ability.extra.cur_hands >= card.ability.extra.hands then
-                if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss')) then 
-                    card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
-                    G.GAME.blind:disable()
-                    card.ability.extra.active = true
+        if context.debuffed_hand and not card.ability.extra.triggered then 
+            if G.GAME.blind.triggered then
+                if card.ability.extra.cur_hands >= card.ability.extra.hands - 1 then
+                    if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss')) then 
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                        G.GAME.blind:disable()
+                        card.ability.extra.active = true
+                    end
+                else
+                    card.ability.extra.cur_hands = card.ability.extra.cur_hands + 1
+                    card.ability.extra.triggered = true
+                    return{
+                        message = localize("pm_upgraded"),
+                        card = card
+                    }
                 end
-            else
-                card.ability.extra.cur_hands = card.ability.extra.cur_hands + 1
-                return{
-                    message = localize("pm_upgraded"),
-                    card = card
-                }
+            end
+        elseif context.cardarea == G.jokers and not (context.blueprint or context.repetition or context.individual or context.after or context.before or context.final_scoring_step or context.hand_drawn) and not card.ability.extra.triggered then 
+            if G.GAME.blind.triggered then
+                if card.ability.extra.cur_hands >= card.ability.extra.hands - 1 then
+                    if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss')) then 
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                        G.GAME.blind:disable()
+                        card.ability.extra.active = true
+                    end
+                else
+                    card.ability.extra.cur_hands = card.ability.extra.cur_hands + 1
+                    card.ability.extra.triggered = true
+                    return{
+                        message = localize("pm_upgraded"),
+                        card = card
+                    }
+                end
             end
         end
 
         -- apply Xmult when ability active
         if context.joker_main then
-            if active then
+            if card.ability.extra.active then
                 return {
                     xmult = card.ability.extra.Xmult,
                     card = card
                 }
             end
+        end
+
+        if context.final_scoring_step then
+            card.ability.extra.triggered = false
         end
     end
 }

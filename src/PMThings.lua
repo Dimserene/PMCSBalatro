@@ -1,7 +1,7 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: Paper Mario in Balatro
 --- MOD_ID: PMCS
---- MOD_AUTHOR: TheSocialZombie
+--- MOD_AUTHOR: [TheSocialZombie]
 --- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
 --- VERSION: 1.0.0
 --- PREFIX: pm
@@ -29,7 +29,7 @@ SMODS.Joker{
         
         -- disables itself if it's the first joker
         if context.before and context.cardarea == G.jokers and not context.blueprint then
-            if card == G.jokers[1] then
+            if card == G.jokers.cards[1] then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         card.debuff = true
@@ -149,7 +149,7 @@ SMODS.Joker{
     cost = 9,
     blueprint_compat = true,
     pos = { x = 2, y = 0 },
-    config = { extra = {mult = 0, mult_gain = 15, suits = ""} },
+    config = { extra = {mult = 0, mult_gain = 15} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.j_splash
         return { vars = {card.ability.extra.mult_gain, card.ability.extra.mult} }
@@ -159,22 +159,13 @@ SMODS.Joker{
         if context.before and context.cardarea == G.jokers and next(context.poker_hands["Flush"]) and not context.blueprint then
             local _card = context.poker_hands["Flush"][1][1]
             if not SMODS.has_no_suit(_card) then
-                card.ability.extra.suits = _card.base.suit
-            else
-                card.ability.extra.suits = "none"
-            end
-        end
-
-        if context.individual and context.cardarea == G.play then
-            if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
-                if not string.find(card.ability.extra.suits, "none") and not context.other_card:is_suit(card.ability.extra.suits) then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-                    return{
-                        message = localize("pm_upgraded"),
-                        card = card
-                    }
+                for i=1, #context.full_hand do
+                    if not context.full_hand[i]:is_suit(_card.base.suit) then
+                        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize("pm_upgraded")})
+                    end
                 end
-            end
+            end            
         end
 
         if context.joker_main then
@@ -225,11 +216,11 @@ SMODS.Joker{
                         }))
                     end
                 end
+                return{
+                    message = localize("pm_lemony"),
+                    card = card
+                }
             end
-            return{
-                message = localize("pm_lemony"),
-                card = card
-            }
         end
 
         if context.joker_main and card.ability.extra.non_gold then        
@@ -300,7 +291,7 @@ SMODS.Joker{
     end,
     calculate = function(self, card, context)
         -- when buying, increase card value by $2
-        if context.buying_card then
+        if context.buying_card or context.open_booster or context.reroll_shop then
             card.ability.extra_value = card.ability.extra_value + card.ability.extra.sell_gain
             card:set_cost()
             return{
@@ -392,8 +383,9 @@ SMODS.Joker{
     cost = 9,
     blueprint_compat = true,
     pos = { x = 0, y = 1 },
-    config = { extra = {mult = 0, mult_gain = 10} },
+    config = { extra = {mult = 0, mult_gain = 7} },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_pm_frozen
         return { vars = {card.ability.extra.mult_gain, card.ability.extra.mult} }
     end,
     calculate = function(self, card, context)
@@ -406,22 +398,15 @@ SMODS.Joker{
             end
         end
 
-        -- The 'fire' part of the ability
+        -- The 'pick' part of the ability
         if context.destroying_card and not context.blueprint then
-            -- if first hand is 1 card, then...
-            if context.full_hand and #context.full_hand == 1 and G.GAME.current_round.hands_played == 0 then
-               -- 1 in 6 chance to destroy the card in hand
-                local slurped_card = context.full_hand[1]
+            if context.destroy_card.config.center == G.P_CENTERS.m_pm_frozen and G.GAME.current_round.hands_played == 0 then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-                if slurped_card.ability.name == 'Glass Card' then
-                    return {
-                        card = slurped_card
-                    }
-                else
-                    return nil
-                end
+                return {
+                    message = pm_ice_spear,
+                    remove = true
+                }
             end
-           return nil
         end
 
         if context.joker_main then
@@ -452,7 +437,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         
         -- getting abilities at the end of three rounds
-        if context.end_of_round and not card.debuff and not card.ability.extra.yellow then
+        if context.end_of_round and context.cardarea == G.jokers and not card.debuff and not card.ability.extra.yellow then
             if card.ability.extra.rounds_left > 1 then
                 card.ability.extra.rounds_left = card.ability.extra.rounds_left - 1
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = card.ability.extra.rounds_left.." Left!"})
@@ -468,11 +453,12 @@ SMODS.Joker{
 
         -- red ability (Retrigger Hearts)
         if card.ability.extra.red then
-            if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if context.repetition and context.cardarea == G.play and not context.other_card.debuff then
                 if context.other_card:is_suit("Hearts") then
                     return {
                         message = localize('k_again_ex'),
                         repetitions = card.ability.extra.retriggers,
+                        card = context.other_card
                     }
                 end
             end
@@ -480,7 +466,7 @@ SMODS.Joker{
 
         -- blue ability (Gain a random planet card at the end of the round)
         if card.ability.extra.blue then
-            if context.end_of_round and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            if context.end_of_round and context.cardarea == G.jokers and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 local t = {
                     set = 'Planet',
                     area = G.consumeables,
@@ -523,7 +509,6 @@ SMODS.Joker{
                 end
             end
         end
-
     end
 }
 
@@ -571,12 +556,13 @@ SMODS.Joker{
         return { vars = {card.ability.extra.min, card.ability.extra.max} }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round then
-            card.ability.extra_value = pseudorandom('turnip', min, max) 
-            card:shatter()
+        if context.end_of_round and context.cardarea == G.jokers then
+            card.ability.extra_value = math.floor(pseudorandom('turnip', card.ability.extra.min, card.ability.extra.max)) - 4
+            card:set_cost()
             return {
                 message = localize('k_val_up'),
-                colour = G.C.MONEY
+                colour = G.C.MONEY,
+                card = card,
             }
         end
     end
@@ -753,14 +739,22 @@ SMODS.Joker{
                 if context.scoring_hand[i].ability.name == 'Steel Card' then
                     active = true
                     _card = context.scoring_hand[i]
+                    break
                 end
             end
 
             -- if there is one, convert everything else to that card
             if active then
+                local rank_suffix = _card:get_id()
+                if rank_suffix < 11 then rank_suffix = tostring(rank_suffix)
+                elseif rank_suffix == 11 then rank_suffix = 'Jack'
+                elseif rank_suffix == 12 then rank_suffix = 'Queen'
+                elseif rank_suffix == 13 then rank_suffix = 'King'
+                elseif rank_suffix == 14 then rank_suffix = 'Ace'
+                end
                 for k, c in ipairs(context.scoring_hand) do
                     if c ~= _card then
-                        assert(SMODS.change_base(c, _card.base.suit, _card:get_id()))               
+                        assert(SMODS.change_base(c, _card.base.suit, rank_suffix))               
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 c:flip()
@@ -801,11 +795,11 @@ SMODS.Joker{
         if context.setting_blind and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
             G.GAME.blind:disable()
             play_sound('timpani')
-            card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
         end
 
         -- prevention of death
-        if context.end_of_round and not context.blueprint and context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.25 and not card.ability.extra.death then
+        if context.end_of_round and not context.blueprint and context.game_over and (to_big(G.GAME.chips) / to_big(G.GAME.blind.chips)) >= to_big(0.5)and not card.ability.extra.death then
             card.ability.extra.death = true -- death prevented, can no longer use this
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -918,7 +912,7 @@ SMODS.Joker{
                         delay = 0.5,
                         func = function()
                             c:juice_up()
-                            if c.config.center == G.P_CENTERS.m_steel then c.config.center.config.h_x_mult = c.config.center.config.h_x_mult + card.ability.extra.xmult_gain end
+                            if c.config.center == G.P_CENTERS.m_steel then c.ability.h_x_mult = c.ability.h_x_mult + card.ability.extra.xmult_gain end
                             return true
                         end
                     }))
@@ -1062,16 +1056,17 @@ SMODS.Joker{
         return { vars = {card.ability.extra.retriggers} }
     end,
     calculate = function(self, card, context)
-        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= self then
+        if context.retrigger_joker_check and not context.retrigger_joker then
             local copy_joker = nil
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == self then copy_joker = G.jokers.cards[i+1] end
+                if G.jokers.cards[i] == card then copy_joker = G.jokers.cards[i+1] end
+                break
             end
             if copy_joker then
                 return {
-                    message = localize("pm_again_ex"),
+                    message = localize("pm_again"),
                     repetitions = card.ability.extra.retriggers,
-                    card = card
+                    card = copy_joker
                 }
             end 
         end    
@@ -1146,34 +1141,28 @@ SMODS.Joker{
     cost = 9,
     blueprint_compat = false,
     pos = { x = 7, y = 2 },
-    config = { extra = { display_mult = 4.0, xmult = 2.0, odds = 2 , original_odds = 4 } },
+    config = { extra = { xmult = 4.0, odds = 2 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_glass
-        return { vars = { card.ability.extra.display_mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+        return { vars = { card.ability.extra.xmult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
-    calculate = function(self, card, context)
-        
-        if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Glass Card' then
-            if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
-                return {
-                    Xmult_mod = card.ability.extra.xmult,
-                    message = localize("pm_magnified"),
-                    card = card
-              }
-            end
+    calculate = function(self, card, context) 
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            for k, c in ipairs(context.scoring_hand) do
+                if c.ability.name == 'Glass Card' then
+                    c.ability.extra = card.ability.extra.odds
+                    c.ability.x_mult = card.ability.extra.xmult
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            c:juice_up()
+                            return true
+                        end
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('pm_magnified')})
+                end
+            end 
         end
-
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        card.ability.extra.original_odds = G.P_CENTERS.m_glass.config.extra
-		G.P_CENTERS.m_glass.config.extra = card.ability.extra.odds
-        G.P_CENTERS.m_glass.config.Xmult = card.ability.extra.display_mult
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		G.P_CENTERS.m_glass.config.extra = math.max(4, card.ability.extra.original_odds)
-        card.ability.extra.original_odds = 4
-        G.P_CENTERS.m_glass.config.Xmult = 2
-	end
+    end
 }
 
 -- Claw Hammer

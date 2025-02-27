@@ -12,7 +12,15 @@ return {
                 },
             },
         },
-        Enhanced={},
+        Enhanced={
+            m_pm_frozen = {
+                name = "Frozen",
+                text = {
+                    "{C:mult}+#1#{} Mult when held in hand",
+                    "cannot be {C:red}debuffed{}",
+                }
+            },
+        },
         Joker={
 
             j_pm_shyguy = {
@@ -600,8 +608,10 @@ return {
               
                 name = "Ice Bro",
                 text = { 
-                    "Played {C:diamonds}#1#{} cards become {C:attention}Glass{}",
-                    "{C:green}#2# in #3#{} chance to shatter them",
+                    "Played {C:diamonds}#1#{} cards become {C:attention}Frozen{}",
+                    "Gain {C:mult}+#2#{} for each {C:attention}Frozen Card{} in full deck",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
+                    
                 },
             },
 
@@ -710,7 +720,7 @@ return {
                 name = "Larry",
                 text = { 
                     "At the {C:attention}start of round{}, create a random {C:attention}Joker{}",
-                    "If current number of Jokers is > {C:attention}#1#{}, this",
+                    "If current number of Jokers is >= {C:attention}#1#{}, this",
                     "becomes {C:dark_edition}Negative{}",
                 },
             },
@@ -719,10 +729,10 @@ return {
               
                 name = "Lemmy",
                 text = { 
-                    "{C:attention}Wild Cards{} cannot be {C:attention}debuffed{}", 
-                    "When you {C:attention}enhance{} a card, make it a {C:attention}Wild Card{}", 
-                    "instead and grant it {C:mult}+#1#{} Bonus Mult",
-                },
+                    "{C:attention}Wild Cards{} cannot be {C:attention}debuffed{}",
+                    "When you play an enhanced card, make it a {C:attention}Wild Card{}",
+                    "All {C:attention}Wild Cards{} give {C:mult}+#1#{} Mult when played",
+                }
             },
             
             j_pm_roy = {
@@ -732,7 +742,7 @@ return {
                     "Triggering the {C:attention}Boss Blind{} #3# times",
                     "will {C:mult}disable{} it and give {X:mult,C:white}X#1#{} Mult",
                     "for the rest of the round",
-                    "{C:inactive}(Triggered {C:attention}#2#{C:inactive{} times){}",
+                    "{C:inactive}(Triggered {C:attention}#2#{C:inactive} times){}",
                 },
             },
 
@@ -752,7 +762,7 @@ return {
                 name = "Fan",
                 text = { 
                     "Randomize the {C:attention}enhancements{} of {C:attention}played cards{}",
-                    "Gains {C:chips}+#1#{} and {C:mult}+#2#{} for each {C:attention}enhanced{}",
+                    "Gains {C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult for each {C:attention}enhanced{}",
                     "card in your full deck",
                     "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive{} Mult){}",
                 },
@@ -762,10 +772,9 @@ return {
               
                 name = "Plunger",
                 text = {
-                    "(Applies {C:attention}Splash{})", 
                     "{C:attention}Flushes{} can be played with 3 cards",
-                    "This gains {C:mult}+#1#{} per card not of the same suit in a {C:attention}Flush{}",
-                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive}){}",
+                    "This gains {C:mult}+#1#{} Mult per card not of the same suit in a {C:attention}Flush{}",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}",
                 },
             },
 
@@ -820,9 +829,9 @@ return {
               
                 name = "Ice Pick",
                 text = { 
-                    "If {C:attention}first played hand{} is {C:attention}one{}",
-                    "{C:attention}Glass Card{}, this gains {C:mult}+#1#{} Mult",
-                    "and {C:red}shatter{} the played card",
+                    "If {C:attention}first played hand{} contains {C:attention}Frozen Cards{},",
+                    "this gains {C:mult}+#1#{} per {C:attention}Frozen Card{}",
+                    "and {C:red}shatter{} each {C:attention}Frozen Card{}",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive{} Mult){}",
                 },
             },
@@ -1102,6 +1111,57 @@ return {
                     "to get {C:money}Gold Seals{}",
                 }
             },
+
+            --Booster Packs
+            p_pm_bc_basic_1 = {
+                name = "Basic Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            p_pm_bc_basic_2 = {
+                name = "Basic Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            p_pm_bc_big_1 = {
+                name = "Big Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            p_pm_bc_big_2 = {
+                name = "Big Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            p_pm_bc_huge_1 = {
+                name = "Huge Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            p_pm_bc_huge_2 = {
+                name = "Huge Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+					"{C:attention}#2#{C:purple} Battle{} Cards",
+                }
+            },
+            
+            --extra descriptions
+            pm_extra_mult = {
+                text = {
+                    "{C:mult}+#1#{} bonus Mult",
+                }
+            },
         },
         Planet={},
         Spectral={},
@@ -1152,6 +1212,214 @@ return {
                     "{C:red}+#1#{} discards",
                 }
             },
+
+            c_pm_iceflower = {
+                name = "Ice Flower",
+                text = {
+                    "Enhances {C:attention}#1#{} selected cards",
+                    "to {C:attention}Frozen{}",
+                }
+            },
+
+            c_pm_bigiceflower = {
+                name = "Big Ice Flower",
+                text = {
+                    "Enhances {C:attention}#1#{} selected cards",
+                    "to {C:attention}Frozen{}",
+                }
+            },
+
+            c_pm_powblock = {
+                name = "POW Block",
+                text = {
+                    "Select up to {C:attention}#1#{} cards.",
+                    "Removes {C:attention}card enhancements{}",
+                    "and gives {C:money}$#2#{} per enhancement removed",
+                    "{C:red}Destroys{} non-enhanced cards",
+                }
+            },
+
+            c_pm_tail = {
+                name = "Tail",
+                text = {
+                    "Switches the {C:attention}rank{} of",
+                    "two selected cards",
+                }
+            },
+
+            c_pm_spikehat = {
+                name = "Spike Helmet",
+                text = {
+                    "{C:red}Disables{} the current Boss Blind",
+                }
+            },
+
+            c_pm_frogsuit = {
+                name = "Frog Suit",
+                text = {
+                    "Switches the {C:attention}suit{} of",
+                    "two selected cards",
+                }
+            },
+
+            c_pm_wojump = {
+                name = "Worn-Out Jump",
+                text = {
+                    "{C:green}#2# in #3#{} chance to {C:attention}increase",
+                    "{C:attention}#1#{} selected card's rank by {C:attention}#4#{}",
+                }
+            },
+
+            c_pm_jump = {
+                name = "Jump",
+                text = {
+                    "{C:attention}Increases #1#{} selected card's rank by {C:attention}#4#{}",
+                    "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_bigjump = {
+                name = "Big Jump",
+                text = {
+                    "{C:attention}Increases #1#{} selected card's rank by {C:attention}#4#{}",
+                    "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_hugejump = {
+                name = "Huge Jump",
+                text = {
+                    "{C:attention}Increases #1#{} selected card's rank by {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_linejump = {
+                name = "Line Jump",
+                text = {
+                    "Creates a mini-{C:attention}Straight{} out of {C:attention}#1#{}",
+                    "selected cards",
+                    "{C:inactive}(Prioritizes descending Straights){}",
+                }
+            },
+
+            c_pm_biglinejump = {
+                name = "Big Line Jump",
+                text = {
+                    "Creates a mini-{C:attention}Straight{} out of {C:attention}#1#{}",
+                    "selected cards",
+                    "{C:inactive}(Prioritizes descending Straights){}",
+                }
+            },
+
+            c_pm_hugelinejump = {
+                name = "Huge Line Jump",
+                text = {
+                    "Creates a {C:attention}Straight{} out of {C:attention}#1#{}",
+                    "selected cards",
+                    "{C:inactive}(Prioritizes descending Straights){}",
+                }
+            },
+
+            c_pm_ironjump = {
+                name = "Iron Jump",
+                text = {
+                    "Changes the {C:attention}suit{} of the {C:attention}#1#{}",
+                    "selected cards to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_bigironjump = {
+                name = "Big Iron Jump",
+                text = {
+                    "Changes the {C:attention}suit{} of the {C:attention}#1#{}",
+                    "selected cards to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_hugeironjump = {
+                name = "Huge Iron Jump",
+                text = {
+                    "Changes the {C:attention}suit{} of all cards held in",
+                    "hand to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_spinjump = {
+                name = "Spin Jump",
+                text = {
+                    "Changes the {C:attention}rank{} of the {C:attention}#1#{}",
+                    "selected cards to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_bigspinjump = {
+                name = "Big Spin Jump",
+                text = {
+                    "Changes the {C:attention}rank{} of all cards held in",
+                    "hand to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_wohammer = {
+                name = "Worn-Out Hammer",
+                text = {
+                    "{C:green}#2# in #3#{} chance to {C:attention}decrease{}",
+                    "{C:attention}#1#{} selected card's rank by {C:attention}#4#{}",
+                }
+            },
+
+            c_pm_hammer = {
+                name = "Hammer",
+                text = {
+                    "{C:attention}Decreases #1#{} selected card's rank by {C:attention}#4#{}",
+                    "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_bighammer = {
+                name = "Big Hammer",
+                text = {
+                    "{C:attention}Decreases #1#{} selected card's rank by {C:attention}#4#{}",
+                    "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_hugehammer = {
+                name = "Huge Hammer",
+                text = {
+                    "{C:attention}Decreases #1#{} selected card's rank by {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_hurlhammer = {
+                name = "Hurlammer",
+                text = {
+                    "{C:green}#2# in #3#{} chance to make up to {C:attention}#1#{}",
+                    "selected cards {C:attention}Aces{}",
+                }
+            },
+
+            c_pm_bighurlhammer = {
+                name = "Big Hurlhammer",
+                text = {
+                    "{C:green}#2# in #3#{} chance to make up to {C:attention}#1#{}",
+                    "selected cards {C:attention}Aces{}",
+                }
+            },
+
+            c_pm_hugehurlhammer = {
+                name = "Huge Hurlammer",
+                text = {
+                    "Makes up to {C:attention}#1#{} selected cards {C:attention}Aces{}",
+                }
+            },
+            c_pm_blazehammer = {
+                name = "Blazehammer",
+                text = {
+                    "{C:red}Destroys{} up to {C:attention}#1#{} selected cards",
+                    "If you select {C:attention}#1#{} cards, gain {C:money}$#2#{}",
+                }
+            },
         },
     },
     misc = {
@@ -1173,13 +1441,14 @@ return {
             pm_burned = "Burned!",
             pm_magic = "Abracadabra!",
             pm_wild = "Wild!",
-            pm_electrified = "Shocked!",
+            pm_zapped = "Shocked!",
             pm_lost = "Streak Lost!",
             pm_lemony = "Squeezed!",
             pm_cooked = "Seared!",
             pm_burnt = "Burnt!",
             pm_magnified = "Magnified!",
             pm_colorized = "Colorized!",
+            pm_ice_spear = "Shattered!",
 
             -- Dry Bones
             pm_chips = "Chips",
@@ -1189,6 +1458,9 @@ return {
 
             -- Rarities
             k_pm_thing = "Thing",
+
+            -- Booster Pack Label
+            pm_battle_card_booster = "Battle Card Pack",
 
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",
