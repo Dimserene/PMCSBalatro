@@ -26,7 +26,7 @@ Currently cannot be found in regular runs, but Drained disables Jokers for 3 rou
 
 ### New Consumable Type: Battle Card!
 Based off of the Battle Cards from the original game, these consumables provide unique effects! However, sometimes
-you may need to fill it up with color before you can play them! Only **6** are currently implemented, with more on
+you may need to fill it up with color before you can play them! Only **32** are currently implemented, with more on
 the way!
 
 ### Config Settings
