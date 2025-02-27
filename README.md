@@ -34,7 +34,7 @@ At the moment, you are able to play with only the new Jokers, or play with them 
 You are also able to turn off Thing Jokers if they are too OP for you :3
 
 ## Planned Features
-- More Consumables!
+- More Consumables, and rarities for the Battle Cards!
 - New Sticker, Colorized!
   - Colorized is planned to be similar to Perishable, but applies Drained instead of debuffing altogether!
   - May trigger after certain number of rounds or discards! 
