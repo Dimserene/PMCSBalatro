@@ -44,5 +44,5 @@ You are also able to turn off Thing Jokers if they are too OP for you :3
 - More config options such as:
   - Changing how rare certain things are, like Thing Jokers or Battle Cards
   - Toggle for Battle Cards, similar to the Thing Joker toggle
-- New Decks and Challenges!
+- New Decks, Vouchers, Boosters, and Challenges!
 - Screenshots for this README.
