@@ -6,7 +6,6 @@
 - New Edition, Replica!
 - New Sticker, Drained!
 - **60** New Consumables based off of PMCS Battle Cards!
-  - Not all of them are implemented, mostly the ones that are multiple of the same item!
 - Ability to play with only the new Jokers! (setting turned on by default)
 - Ability to turn on/off Thing Jokers! (setting turned on by default)
 
@@ -26,18 +25,20 @@ Currently cannot be found in regular runs, but Drained disables Jokers for 3 rou
 
 ### New Consumable Type: Battle Card!
 Based off of the Battle Cards from the original game, these consumables provide unique effects! However, sometimes
-you may need to fill it up with color before you can play them! Only **32** are currently implemented, with more on
-the way!
+you may need to fill it up with color before you can play them!
 
 ### Config Settings
 At the moment, you are able to play with only the new Jokers, or play with them alongside the vanilla Jokers!
 You are also able to turn off Thing Jokers if they are too OP for you :3
 
 ## Planned Features
-- More Consumables, and rarities for the Battle Cards!
+- More Consumables!
 - New Sticker, Colorized!
   - Colorized is planned to be similar to Perishable, but applies Drained instead of debuffing altogether!
-  - May trigger after certain number of rounds or discards! 
+  - May trigger after certain number of rounds or discards!
+- Updates for Drained
+  - Making it so Drained requires you to play certain suits in order to remove the debuff.
+  - Paint consumables?
 - Even more **custom** Jokers that can be turned on and off!
   - Custom Jokers are based off of other Mario enemies and may have abilities based off of contributions from the community!
 - Translations to other languages!
