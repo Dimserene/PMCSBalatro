@@ -1,1 +1,1 @@
-return {["papermario_only"]=true,["things_added"]=true}
+return {["papermario_only"]=true,["things_added"]=true,}

@@ -151,7 +151,6 @@ SMODS.Joker{
     pos = { x = 2, y = 0 },
     config = { extra = {mult = 0, mult_gain = 15} },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.j_splash
         return { vars = {card.ability.extra.mult_gain, card.ability.extra.mult} }
     end,
     calculate = function(self, card, context)

@@ -175,6 +175,7 @@ SMODS.Consumable{
     key = 'one_up',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 8, y = 0 },
     config = {extra = {hands = 5}},
     cost = 5,
@@ -207,6 +208,7 @@ SMODS.Consumable{
     key = 'mushroom',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 5, y = 0 },
     config = {extra = {hands = 1}},
     cost = 2,
@@ -236,6 +238,7 @@ SMODS.Consumable{
     key = 'bigmushroom',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 6, y = 0 },
     config = {extra = {hands = 2}},
     cost = 4,
@@ -265,6 +268,7 @@ SMODS.Consumable{
     key = 'megamushroom',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 7, y = 0 },
     config = {extra = {hands = 3}},
     cost = 6,
@@ -294,6 +298,7 @@ SMODS.Consumable{
     key = 'fireflower',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 0, y = 0 },
     config = {extra = {discards = 1}},
     cost = 3,
@@ -322,6 +327,7 @@ SMODS.Consumable{
     key = 'bigfireflower',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 1, y = 0 },
     config = {extra = {discards = 2}},
     cost = 5,
@@ -350,6 +356,7 @@ SMODS.Consumable{
     key = 'iceflower',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 2, y = 0 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
@@ -388,6 +395,7 @@ SMODS.Consumable{
     key = 'bigiceflower',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 3, y = 0 },
     config = {extra = {selection_limit = 4}},
     cost = 5,
@@ -425,6 +433,7 @@ SMODS.Consumable{
     key = 'powblock',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 4, y = 0 },
     config = {extra = {selection_limit = 5, money = 2}},
     cost = 5,
@@ -477,6 +486,7 @@ SMODS.Consumable{
     key = 'tail',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 9, y = 0 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
@@ -534,6 +544,7 @@ SMODS.Consumable{
     key = 'spikehat',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 0, y = 1 },
     config = {extra = {}},
     cost = 7,
@@ -561,6 +572,7 @@ SMODS.Consumable{
     key = 'frogsuit',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 1, y = 1 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
@@ -605,6 +617,7 @@ SMODS.Consumable{
     key = 'wojump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 2, y = 1 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1}},
     cost = 1,
@@ -659,11 +672,68 @@ SMODS.Consumable{
     end
 }
 
+-- Worn-Out Jump x3
+SMODS.Consumable{
+    key = 'wojump3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_common',
+    pos = { x = 3, y = 1 },
+    config = {extra = {count = 3, copy = 'c_pm_wojump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wojump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Worn-Out Jump x5
+SMODS.Consumable{
+    key = 'wojump5',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 4, y = 1 },
+    config = {extra = {count = 5, copy = 'c_pm_wojump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wojump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy}} }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Jump
 SMODS.Consumable{
     key = 'jump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 5, y = 1 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1, extra_use = false, uses = 0}},
     cost = 3,
@@ -727,11 +797,68 @@ SMODS.Consumable{
     end
 }
 
+-- Jump x2
+SMODS.Consumable{
+    key = 'jump2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 6, y = 1 },
+    config = {extra = {count = 2, copy = 'c_pm_jump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_jump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Jump x3
+SMODS.Consumable{
+    key = 'jump3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 7, y = 1 },
+    config = {extra = {count = 3, copy = 'c_pm_jump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_jump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Big Jump
 SMODS.Consumable{
     key = 'bigjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 8, y = 1 },
     config = {extra = {odds = 2, selection_limit = 1, increase = 2, extra_use = false, uses = 0}},
     cost = 5,
@@ -794,11 +921,40 @@ SMODS.Consumable{
     end
 }
 
+-- Big Jump x2
+SMODS.Consumable{
+    key = 'bigjump2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 9, y = 1 },
+    config = {extra = {count = 2, copy = 'c_pm_bigjump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bigjump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Huge Jump
 SMODS.Consumable{
     key = 'hugejump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 0, y = 2 },
     config = {extra = {selection_limit = 1, increase = 3}},
     cost = 7,
@@ -838,6 +994,7 @@ SMODS.Consumable{
     key = 'linejump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 1, y = 2 },
     config = {extra = {selection_limit = 3}},
     cost = 3,
@@ -920,6 +1077,7 @@ SMODS.Consumable{
     key = 'biglinejump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 2, y = 2 },
     config = {extra = {selection_limit = 4}},
     cost = 5,
@@ -1002,6 +1160,7 @@ SMODS.Consumable{
     key = 'hugelinejump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 3, y = 2 },
     config = {extra = {selection_limit = 5}},
     cost = 8,
@@ -1079,13 +1238,200 @@ SMODS.Consumable{
     end
 }
 
--- Hopslippers (TBA)
+-- Hopslipper
+SMODS.Consumable{
+    key = 'hopslipper',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_common',
+    pos = { x = 4, y = 2 },
+    config = {extra = {selection_limit = 1, chip_gain = 10, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.perma_bonus or 0
+            c.ability.perma_bonus = current_bonus + card.ability.extra.chip_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
+
+-- Hopslipper x2
+SMODS.Consumable{
+    key = 'hopslipper2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 5, y = 2 },
+    config = {extra = {count = 2, copy = 'c_pm_hopslipper'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hopslipper
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Hopslipper x3
+SMODS.Consumable{
+    key = 'hopslipper3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 6, y = 2 },
+    config = {extra = {count = 3, copy = 'c_pm_hopslipper'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hopslipper
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Big Hopslipper
+SMODS.Consumable{
+    key = 'bighopslipper',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 7, y = 2 },
+    config = {extra = {selection_limit = 1, chip_gain = 30, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.perma_bonus or 0
+            c.ability.perma_bonus = current_bonus + card.ability.extra.chip_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
+
+-- Huge Hopslipper
+SMODS.Consumable{
+    key = 'hugehopslipper',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 8, y = 2 },
+    config = {extra = {selection_limit = 1, chip_gain = 75, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.perma_bonus or 0
+            c.ability.perma_bonus = current_bonus + card.ability.extra.chip_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
 
 -- Iron Jump
 SMODS.Consumable{
     key = 'ironjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 9, y = 2 },
     config = {extra = {selection_limit = 3}},
     cost = 3,
@@ -1127,11 +1473,68 @@ SMODS.Consumable{
     end,
 }
 
+-- Iron Jump x2
+SMODS.Consumable{
+    key = 'ironjump2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 0, y = 3 },
+    config = {extra = {count = 2, copy = 'c_pm_ironjump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_ironjump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Iron Jump x3
+SMODS.Consumable{
+    key = 'ironjump3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 1, y = 3 },
+    config = {extra = {count = 3, copy = 'c_pm_ironjump'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_ironjump
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Big Iron Jump
 SMODS.Consumable{
     key = 'bigironjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 2, y = 3 },
     config = {extra = {selection_limit = 5}},
     cost = 5,
@@ -1178,6 +1581,7 @@ SMODS.Consumable{
     key = 'hugeironjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 3, y = 3 },
     config = {extra = {}},
     cost = 7,
@@ -1224,6 +1628,7 @@ SMODS.Consumable{
     key = 'spinjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 4, y = 3 },
     config = {extra = {selection_limit = 5}},
     cost = 6,
@@ -1276,6 +1681,7 @@ SMODS.Consumable{
     key = 'bigspinjump',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 5, y = 3 },
     config = {extra = {}},
     cost = 8,
@@ -1328,6 +1734,7 @@ SMODS.Consumable{
     key = 'wohammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 6, y = 3 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1}},
     cost = 1,
@@ -1382,11 +1789,68 @@ SMODS.Consumable{
     end
 }
 
+-- Worn-Out Hammer x3
+SMODS.Consumable{
+    key = 'wohammer3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_common',
+    pos = { x = 7, y = 3 },
+    config = {extra = {count = 3, copy = 'c_pm_wohammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wohammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Worn-Out Hammer x5
+SMODS.Consumable{
+    key = 'wohammer5',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 8, y = 3 },
+    config = {extra = {count = 5, copy = 'c_pm_wohammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wohammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Hammer
 SMODS.Consumable{
     key = 'hammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 9, y = 3 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1, extra_use = false, uses = 0}},
     cost = 3,
@@ -1450,11 +1914,68 @@ SMODS.Consumable{
     end
 }
 
+-- Hammer x2
+SMODS.Consumable{
+    key = 'hammer2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 0, y = 4 },
+    config = {extra = {count = 2, copy = 'c_pm_hammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Hammer x3
+SMODS.Consumable{
+    key = 'hammer3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 1, y = 4 },
+    config = {extra = {count = 5, copy = 'c_pm_hammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Big Hammer
 SMODS.Consumable{
     key = 'bighammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 2, y = 4 },
     config = {extra = {odds = 2, selection_limit = 1, increase = 2, extra_use = false, uses = 0}},
     cost = 5,
@@ -1517,11 +2038,40 @@ SMODS.Consumable{
     end
 }
 
+-- Big Hammer x2
+SMODS.Consumable{
+    key = 'bighammer2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 3, y = 4 },
+    config = {extra = {count = 2, copy = 'c_pm_bighammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bighammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Huge Hammer
 SMODS.Consumable{
     key = 'hugehammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 4, y = 4 },
     config = {extra = {selection_limit = 1, increase = 3}},
     cost = 7,
@@ -1556,14 +2106,412 @@ SMODS.Consumable{
     end
 }
 
--- KO Hammer (TBA)
--- Eekhammer (TBA)
+-- KO Hammer
+SMODS.Consumable{
+    key = 'kohammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 5, y = 4 },
+    config = {extra = {odds = 1000}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind.in_blind
+    end,
+    use = function(self, card, area, copier)
+        if G.GAME.blind.in_blind then
+            if G.STATE ~= G.STATES.PLAY_TAROT then return end
+            if pseudorandom('KO') < (G.GAME.probabilities.normal / card.ability.extra.odds) then
+                G.GAME.chips = G.GAME.blind.chips
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('pm_KO'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.ATTENTION,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+            else
+                -- yes this is just WOF code lmao
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('k_nope_ex'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+                delay(0.6)
+            end
+        end
+    end
+}
+-- Big KO Hammer
+SMODS.Consumable{
+    key = 'bigkohammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 6, y = 4 },
+    config = {extra = {odds = 500}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind.in_blind
+    end,
+    use = function(self, card, area, copier)
+        if G.GAME.blind.in_blind then
+            if G.STATE ~= G.STATES.PLAY_TAROT then return end
+            if pseudorandom('KO') < (G.GAME.probabilities.normal / card.ability.extra.odds) then
+                G.GAME.chips = G.GAME.blind.chips
+
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('pm_KO'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.ATTENTION,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+            else
+                -- yes this is just WOF code lmao
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('k_nope_ex'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+                delay(0.6)
+            end
+        end
+    end
+}
+
+-- Huge KO Hammer
+SMODS.Consumable{
+    key = 'hugekohammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 7, y = 4 },
+    config = {extra = {odds = 100}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
+    can_use = function(self, card)
+        return G.GAME.blind.in_blind
+    end,
+    use = function(self, card, area, copier)
+        if G.GAME.blind.in_blind then
+            if G.STATE ~= G.STATES.PLAY_TAROT then return
+            elseif pseudorandom('KO') < (G.GAME.probabilities.normal / card.ability.extra.odds) then
+                G.GAME.chips = G.GAME.blind.chips
+
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('pm_KO'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.ATTENTION,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+            else
+                -- yes this is just WOF code lmao
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    attention_text({
+                        text = localize('k_nope_ex'),
+                        scale = 1.3, 
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                        offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                        silent = true
+                        })
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                            play_sound('tarot2', 0.76, 0.4);return true end}))
+                        play_sound('tarot2', 1, 0.4)
+                        card:juice_up(0.3, 0.5)
+                return true end }))
+                delay(0.6)
+            end
+        end
+    end
+}
+
+-- Eekhammer
+SMODS.Consumable{
+    key = 'eekhammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_common',
+    pos = { x = 8, y = 4 },
+    config = {extra = {selection_limit = 1, mult_gain = 3, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.mult or 0
+            c.ability.mult = current_bonus + card.ability.extra.mult_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
+
+-- Eekhammer x2
+SMODS.Consumable{
+    key = 'eekhammer2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 9, y = 4 },
+    config = {extra = {count = 2, copy = 'c_pm_eekhammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_eekhammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Eekhammer x3
+SMODS.Consumable{
+    key = 'eekhammer3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 0, y = 5 },
+    config = {extra = {count = 3, copy = 'c_pm_eekhammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_eekhammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Big Eekhammer
+SMODS.Consumable{
+    key = 'bigeekhammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 1, y = 5 },
+    config = {extra = {selection_limit = 1, mult_gain = 6, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.mult or 0
+            c.ability.mult = current_bonus + card.ability.extra.mult_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
+
+-- Big Eekhammer x2
+SMODS.Consumable{
+    key = 'bigeekhammer2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 2, y = 5 },
+    config = {extra = {count = 2, copy = 'c_pm_bigeekhammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bigeekhammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Huge Eekhammer
+SMODS.Consumable{
+    key = 'hugeeekhammer',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_rare',
+    pos = { x = 3, y = 5 },
+    config = {extra = {selection_limit = 1, xmult_gain = 0.1, uses = 0}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.xmult_gain, 5-card.ability.extra.uses} }
+    end,
+    can_use = function(self, card)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            return true
+        end
+        return false
+    end,
+    keep_on_use = function(self, card)
+        return card.ability.extra.uses < 4
+    end,
+    use = function(self, card, area, copier)
+        if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
+            local c = G.hand.highlighted[1]
+
+            local current_bonus = c.ability.xmult or 0
+            c.ability.xmult = current_bonus + card.ability.extra.xmult_gain
+            c:juice_up()
+
+            card.ability.extra.uses = card.ability.extra.uses + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    card:juice_up()
+                    if card.ability.extra.uses < 5 then card_eval_status_text(card, 'extra', nil, nil, nil, {message = (5-card.ability.extra.uses).." Uses Left"}) end
+                    return true
+                end
+            }))
+        end
+    end
+}
 
 -- Hurlhammer
 SMODS.Consumable{
     key = 'hurlhammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_common',
     pos = { x = 4, y = 5 },
     config = {extra = {odds = 5, selection_limit = 5}},
     cost = 4,
@@ -1612,11 +2560,68 @@ SMODS.Consumable{
     end
 }
 
+-- Hurlhammer x2
+SMODS.Consumable{
+    key = 'hurlhammer2',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 5, y = 5 },
+    config = {extra = {count = 3, copy = 'c_pm_hurlhammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hurlhammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
+-- Hurlhammer x3
+SMODS.Consumable{
+    key = 'hurlhammer3',
+    set = 'pm_BattleCard',
+    atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
+    pos = { x = 6, y = 5 },
+    config = {extra = {count = 3, copy = 'c_pm_hurlhammer'}},
+    cost = 1,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hurlhammer
+		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local t = {
+            key = card.ability.extra.copy,
+            edition = G.P_CENTERS.e_negative_consumable
+        }
+        for i=1,card.ability.extra.count,1 do
+            SMODS.add_card(t)
+        end
+    end
+}
+
 -- Big Hurlhammer
 SMODS.Consumable{
     key = 'bighurlhammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 7, y = 5 },
     config = {extra = {odds = 2, selection_limit = 5}},
     cost = 6,
@@ -1670,6 +2675,7 @@ SMODS.Consumable{
     key = 'hugehurlhammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_rare',
     pos = { x = 8, y = 5 },
     config = {extra = {selection_limit = 5}},
     cost = 8,
@@ -1704,6 +2710,7 @@ SMODS.Consumable{
     key = 'blazehammer',
     set = 'pm_BattleCard',
     atlas = 'BattleCards',
+    rarity = 'pm_uncommon',
     pos = { x = 9, y = 5 },
     config = {extra = {selection_limit = 5, money = 7}},
     cost = 5,

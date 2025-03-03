@@ -8,7 +8,7 @@
 	"main_file": "PMCS.lua",
 	"priority": 0,
 	"badge_colour": "EB4034",
-	"badge_text_colour": "C2C2C2",
+	"badge_text_colour": "C9C9C9",
 	"version": "1.0.0",
 	"dependencies": [
         "Steamodded (>=1.*)",
