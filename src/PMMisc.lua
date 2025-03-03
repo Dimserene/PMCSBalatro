@@ -695,7 +695,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -723,7 +724,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -820,7 +822,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -848,7 +851,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -944,7 +948,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1305,7 +1310,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1333,7 +1339,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1496,7 +1503,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1524,7 +1532,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1812,7 +1821,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1840,7 +1850,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1937,7 +1948,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -1965,7 +1977,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -2061,7 +2074,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -2357,7 +2371,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -2385,7 +2400,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2457,7 +2473,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2567,7 +2584,7 @@ SMODS.Consumable{
     atlas = 'BattleCards',
     rarity = 'pm_uncommon',
     pos = { x = 5, y = 5 },
-    config = {extra = {count = 3, copy = 'c_pm_hurlhammer'}},
+    config = {extra = {count = 2, copy = 'c_pm_hurlhammer'}},
     cost = 1,
     discovered = true,
     loc_vars = function(self, info_queue, card)
@@ -2583,7 +2600,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }
@@ -2611,7 +2629,8 @@ SMODS.Consumable{
             edition = G.P_CENTERS.e_negative_consumable
         }
         for i=1,card.ability.extra.count,1 do
-            SMODS.add_card(t)
+            local _card = SMODS.add_card(t)
+_card:set_edition('e_negative')
         end
     end
 }

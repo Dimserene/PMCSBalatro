@@ -1614,7 +1614,7 @@ return {
             },
 
             c_pm_hurlhammer2 = {
-                name = "Hurlhammer x3",
+                name = "Hurlhammer x2",
                 text = {
                     "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
                     "of {C:attention}#2#{}",
