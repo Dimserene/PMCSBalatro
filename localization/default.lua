@@ -7,8 +7,8 @@ return {
                 name = "Replica",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult",
-                    "{C:inactive}A less effective",
-                    "{C:inactive}duplicate of the original.{}",
+                    "{s:0.9,C:inactive}A less effective{}",
+                    "{s:0.9,C:inactive}duplicate of the original.{}",
                 },
             },
         },
@@ -709,7 +709,8 @@ return {
               
                 name = "Wendy",
                 text = { 
-                    "Create a {C:dark_edition}Negative {C:purple}Jupiter{} at the start of round",
+                    "Create a {C:dark_edition}Negative {C:purple}Jupiter{}", 
+                    "at the start of round",
                     "Straights give {X:mult,C:white}+X#2#{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
                 },
@@ -773,7 +774,8 @@ return {
                 name = "Plunger",
                 text = {
                     "{C:attention}Flushes{} can be played with 3 cards",
-                    "This gains {C:mult}+#1#{} Mult per card not of the same suit in a {C:attention}Flush{}",
+                    "This gains {C:mult}+#1#{} Mult per card",
+                    "not of the same suit in a {C:attention}Flush{}",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}",
                 },
             },
@@ -793,7 +795,8 @@ return {
                 name = "Cat-O-Luck",
                 text = { 
                     "{C:attention}Lucky Cards{} will always give {C:mult}+20{} Mult",
-                    "{C:green}#1# in #2#{} chance to make each played card {C:attention}Lucky{}",
+                    "{C:green}#1# in #2#{} chance to make each",
+                    "played card {C:attention}Lucky{}",
                 },
             },
 
@@ -953,8 +956,8 @@ return {
               
                 name = "Charcoal Grill",
                 text = { 
-                    "If first hand has a max of {C:attention}#1#{} cards, increase the",
-                    "{C:attention}ranks{} of each played card.", 
+                    "If first hand has a max of {C:attention}#1#{} cards,",
+                    "increase the {C:attention}ranks{} of each played card.", 
                     "If a card is an {C:attention}Ace{},",
                     "make it a {C:attention}Stone Card{} instead",
                 },
@@ -1270,6 +1273,22 @@ return {
                 }
             },
 
+            c_pm_wojump3 = {
+                name = "Worn-Out Jump x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_wojump5 = {
+                name = "Worn-Out Jump x5",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
             c_pm_jump = {
                 name = "Jump",
                 text = {
@@ -1278,11 +1297,35 @@ return {
                 }
             },
 
+            c_pm_jump2 = {
+                name = "Jump x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_jump3 = {
+                name = "Jump x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
             c_pm_bigjump = {
                 name = "Big Jump",
                 text = {
                     "{C:attention}Increases #1#{} selected card's rank by {C:attention}#4#{}",
                     "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_bigjump2 = {
+                name = "Big Jump x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
                 }
             },
 
@@ -1320,11 +1363,70 @@ return {
                 }
             },
 
+            c_pm_hopslipper = {
+                name = "Hopslipper",
+                text = {
+                    "{C:chips}+#2#{} Bonus Chips on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
+            c_pm_hopslipper2 = {
+                name = "Hopslipper x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_hopslipper3 = {
+                name = "Hopslipper x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_bighopslipper = {
+                name = "Big Hopslipper",
+                text = {
+                    "{C:chips}+#2#{} Bonus Chips on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
+            c_pm_hugehopslipper = {
+                name = "Huge Hopslipper",
+                text = {
+                    "{C:chips}+#2#{} Bonus Chips on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
             c_pm_ironjump = {
                 name = "Iron Jump",
                 text = {
                     "Changes the {C:attention}suit{} of the {C:attention}#1#{}",
                     "selected cards to that of the {C:attention}leftmost{} card",
+                }
+            },
+
+            c_pm_ironjump2 = {
+                name = "Iron Jump x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_ironjump3 = {
+                name = "Iron Jump x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
                 }
             },
 
@@ -1368,11 +1470,43 @@ return {
                 }
             },
 
+            c_pm_wohammer3 = {
+                name = "Worn-Out Hammer x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_wohammer5 = {
+                name = "Worn-Out Hammer x5",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
             c_pm_hammer = {
                 name = "Hammer",
                 text = {
                     "{C:attention}Decreases #1#{} selected card's rank by {C:attention}#4#{}",
                     "{C:green}#2# in #3#{} chance to be able to {C:attention}use again{}",
+                }
+            },
+
+            c_pm_hammer2 = {
+                name = "Hammer x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_hammer3 = {
+                name = "Hammer x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
                 }
             },
 
@@ -1384,6 +1518,14 @@ return {
                 }
             },
 
+            c_pm_bighammer2 = {
+                name = "Big Hammer x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
             c_pm_hugehammer = {
                 name = "Huge Hammer",
                 text = {
@@ -1391,11 +1533,99 @@ return {
                 }
             },
 
+            c_pm_kohammer = {
+                name = "KO Hammer",
+                text = {
+                    "{C:green}#1# in #2#{} chance to win the Blind.",
+                }
+            },
+
+            c_pm_bigkohammer = {
+                name = "Big KO Hammer",
+                text = {
+                    "{C:green}#1# in #2#{} chance to win the Blind.",
+                }
+            },
+
+            c_pm_hugekohammer = {
+                name = "Huge KO Hammer",
+                text = {
+                    "{C:green}#1# in #2#{} chance to win the Blind.",
+                }
+            },
+
+            c_pm_eekhammer = {
+                name = "Eekhammer",
+                text = {
+                    "{C:mult}+#2#{} Bonus Mult on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
+            c_pm_eekhammer2 = {
+                name = "Eekhammer x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_eekhammer3 = {
+                name = "Eekhammer x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_bigeekhammer = {
+                name = "Big Eekhammer",
+                text = {
+                    "{C:mult}+#2#{} Bonus Mult on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
+            c_pm_bigeekhammer2 = {
+                name = "Big Eekhammer x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_hugeeekhammer = {
+                name = "Huge Eekhammer",
+                text = {
+                    "{X:mult,C:white}+X#2#{} Bonus {X:mult,C:white}XMult{} on", 
+                    "{C:attention}#1#{} selected card",
+                    "{C:inactive}(Has {C:attention}#3#{C:inactive} uses left){}",
+                }
+            },
+
             c_pm_hurlhammer = {
-                name = "Hurlammer",
+                name = "Hurlhammer",
                 text = {
                     "{C:green}#2# in #3#{} chance to make up to {C:attention}#1#{}",
                     "selected cards {C:attention}Aces{}",
+                }
+            },
+
+            c_pm_hurlhammer2 = {
+                name = "Hurlhammer x2",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
+                }
+            },
+
+            c_pm_hurlhammer3 = {
+                name = "Hurlhammer x3",
+                text = {
+                    "Gain {C:attention}#1#{C:dark_edition} Negative{} copies",
+                    "of {C:attention}#2#{}",
                 }
             },
 
@@ -1408,7 +1638,7 @@ return {
             },
 
             c_pm_hugehurlhammer = {
-                name = "Huge Hurlammer",
+                name = "Huge Hurlhammer",
                 text = {
                     "Makes up to {C:attention}#1#{} selected cards {C:attention}Aces{}",
                 }
@@ -1449,6 +1679,7 @@ return {
             pm_magnified = "Magnified!",
             pm_colorized = "Colorized!",
             pm_ice_spear = "Shattered!",
+            pm_KO = "OHKO!",
 
             -- Dry Bones
             pm_chips = "Chips",
@@ -1461,6 +1692,7 @@ return {
 
             -- Booster Pack Label
             pm_battle_card_booster = "Battle Card Pack",
+            pm_battle_card = "Battle Card",
 
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",

@@ -15,7 +15,7 @@ if v.set == 'Joker' and v.stage and v.atlas == "pm_Things" and pm_config and not
 '''
 match_indent = true
 
-# Anti Debuff (Lemmy and Huey) functionality
+# Anti Debuff (Lemmy, Frozen, and Huey) functionality
 [[patches]]
 [patches.pattern]
 target = "card.lua"

@@ -2124,7 +2124,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         
         -- Check if hand is a flush
-        if context.before and context.cardarea == G.jokers and not context.blueprint then
+        if context.before and context.cardarea == G.jokers and not context.blueprint and not (context.retrigger_joker_check or context.retrigger_joker) then
             if next(context.poker_hands['Flush']) then
                 card.ability.extra.active = true
                 local eval = function() return card.ability.extra.active and not G.RESET_JIGGLES end
@@ -2142,7 +2142,7 @@ SMODS.Joker{
             end
         end
 
-        if context.final_scoring_step then
+        if context.final_scoring_step and not (context.retrigger_joker_check or context.retrigger_joker) then
             card.ability.extra.active = false
 
             for k, v in pairs(G.GAME.probabilities) do 

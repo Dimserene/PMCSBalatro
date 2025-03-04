@@ -119,6 +119,36 @@ SMODS.Rarity{
     end,
 }
 
+-- replacement rarities for consumables lmao
+SMODS.Rarity{
+    key = "common",
+    default_weight = 65,
+    badge_colour = HEX("3479B5"),
+    pools = {["pm_BattleCard"] = true},
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+SMODS.Rarity{
+    key = "uncommon",
+    default_weight = 25,
+    badge_colour = HEX("2FBB82"),
+    pools = {["pm_BattleCard"] = true},
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+SMODS.Rarity{
+    key = "rare",
+    default_weight = 1,
+    badge_colour = HEX("E62F2C"),
+    pools = {["pm_BattleCard"] = true},
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
+
+
 -- load custom editions, stickers, and shaders
 --SMODS.Shader{
 --    key = 'replica',
@@ -278,13 +308,31 @@ SMODS.ConsumableType{
     primary_colour = HEX("CC2E23"),
     secondary_colour = HEX("CC2E23"),
     collection_row = {5, 2},
-    shop_rate = 12,
+    shop_rate = 5,
     default = "c_pm_one_up",
+    rarities = {
+        {key = 'pm_common', rate = 65},
+        {key = 'pm_uncommon', rate = 25},
+        {key = 'pm_rare', rate = 1},
+    },
     prefix_config = { key = true },
     loc_txt = { 
         name = 'Battle Card', -- used on card type badges
         collection = 'Battle Cards', -- label for the button to access the collection
     },
+    set_card_type_badge = function(self,_c,card,badges)
+		table.insert(badges, create_badge(localize('pm_battle_card'), HEX("CC2E23"), nil, 1.2))
+		if _c.discovered then
+			local rarity_names = {
+                ['pm_common'] = localize('k_common'), 
+                ['pm_uncommon'] = localize('k_uncommon'), 
+                ['pm_rare'] = localize('k_rare'),
+            }
+			local rarity_name = rarity_names[_c.rarity]
+			local rarity_color = G.C.RARITY[_c.rarity]
+			table.insert(badges, create_badge(rarity_name, rarity_color, nil, 1.0))
+		end
+	end,
 }
 
 pm_total_chips = function(card)
