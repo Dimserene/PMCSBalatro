@@ -51,7 +51,7 @@ SMODS.Atlas { -- All Thing Jokers
 	py = 307
 }
 
-SMODS.Atlas { -- All Consumables
+SMODS.Atlas { -- All Battle Cards
 	-- Key for code to find it with
 	key = "BattleCards",
 	-- The name of the file, for the code to pull the atlas from
@@ -60,6 +60,17 @@ SMODS.Atlas { -- All Consumables
 	px = 220,
 	-- Height of each sprite in 1x size
 	py = 307
+}
+
+SMODS.Atlas { -- All Other Consumables
+	-- Key for code to find it with
+	key = "PMConsumable",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMConsumables.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95
 }
 
 SMODS.Atlas { -- All Enhancements
@@ -150,10 +161,7 @@ SMODS.Rarity{
 
 
 -- load custom editions, stickers, and shaders
---SMODS.Shader{
---    key = 'replica',
---    path = 'replica.fs',
---}
+
 SMODS.Edition{
     key = "replica",
     shader = false,
@@ -176,19 +184,28 @@ SMODS.Edition{
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.x_mult } }
 	end,
-    draw = function (self, card, layer)
-        if (layer == 'card' or layer == 'both') then
-            if card.sprite_facing == 'front' then 
-                card.children.front = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['pm_Things'], { x = 4, y = 3 })
+}
+-- drawing the front sprite for replica
+SMODS.DrawStep {
+    key = 'replica_step',
+    order = 65,
+    conditions = {
+        facing = 'front',
+    },
+    func = function (card, layer)
+        if layer == 'card' or layer == 'both' then
+            if card.edition and card.edition.pm_replica and (card.config.center.discovered or card.bypass_discovery_center) then
+                card.children.replica_step = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['pm_Things'], { x = 4, y = 3 })
             end
         end
-    end
+    end,
 }
 
 SMODS.Shader{
     key = 'drained',
     path = 'drained.fs',
 }
+--[[ Old drained
 SMODS.Sticker{
     key = "drained",
     no_sticker_sheet = true,
@@ -237,6 +254,7 @@ SMODS.Sticker{
         end
     end
 }
+]]
 
 SMODS.Sticker{
     key = "monochrome",
@@ -246,29 +264,37 @@ SMODS.Sticker{
     sets = {
         Joker = true
     },
-    rate = 0,
+    rate = 5,
     config = {
         extra = {
-            drained_turns = 3,
-            suit = "Spades"
+            drained_turns = 5,
+            drained_suit = "Spades"
         }
     },
     needs_enable_flag = false,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability[self.key].extra.drained_turns, card.ability[self.key].extra.suit, colours = {G.C.SUITS[card.ability[self.key].extra.suit]} } }
+        return { vars = { card.ability[self.key].extra.drained_turns, card.ability[self.key].extra.drained_suit, colours = {G.C.SUITS[card.ability[self.key].extra.drained_suit]} } }
     end,
     apply = function(self, card, val)
-        card.ability[self.key] = val and copy_table(self.config)
-        card.cost = 1
-        --card.ability[self.key].extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('mono'))
+        if val then
+            local suits = {
+                "Spades",
+                "Diamonds",
+                "Clubs",
+                "Hearts",
+            }
+            card.ability[self.key] = val and copy_table(self.config)
+            card.cost = 1
+            card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono'))
+        else
+            card.ability[self.key] = val
+        end
     end,
     calculate = function (self, card, context)
         if context.individual and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
-            if context.other_card:is_suit(card.ability.extra.suit) then
+            if context.other_card:is_suit(card.ability[self.key].extra.drained_suit) then
                 if card.ability[self.key].extra.drained_turns == 1 then
                     card.ability[self.key].extra.drained_turns = 0
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
-                    SMODS.Stickers.pm_drained:apply(card, false)
                 else
                     card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
                 end
@@ -277,6 +303,12 @@ SMODS.Sticker{
         if context.first_hand_drawn and card.ability[self.key].extra.drained_turns then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
             card:set_debuff(true)
+        end
+
+        if context.final_scoring_step and card.ability[self.key] and card.ability[self.key].extra.drained_turns <= 0 then
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+            card:set_debuff(false)
+            SMODS.Stickers.pm_monochrome:apply(card, nil)
         end
     end,
     draw = function (self, card, layer)

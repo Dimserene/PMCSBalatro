@@ -25,8 +25,7 @@ SMODS.Booster {
     config = { extra = 3, choose = 1 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 3,
-    weight = 10,
-    --weight = 1.5,
+    weight = 1.25,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -49,8 +48,7 @@ SMODS.Booster {
     config = { extra = 3, choose = 1 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 3,
-    weight = 20,
-    --weight = 1.5,
+    weight = 1.25,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -74,8 +72,7 @@ SMODS.Booster {
     config = { extra = 5, choose = 1 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 4,
-    weight = 10,
-    --weight = 0.75,
+    weight = 0.65,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -99,8 +96,7 @@ SMODS.Booster {
     config = { extra = 5, choose = 1 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 4,
-    weight = 10,
-    --weight = 0.75,
+    weight = 0.65,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -124,8 +120,7 @@ SMODS.Booster {
     config = { extra = 5, choose = 2 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 6,
-    weight = 10,
-    --weight = 0.5,
+    weight = 0.25,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -149,8 +144,7 @@ SMODS.Booster {
     config = { extra = 5, choose = 2 }, -- have 3 cards, choose 1
     group_key = 'pm_battle_card_booster',
     cost = 6,
-    weight = 10,
-    --weight = 0.5,
+    weight = 0.25,
     draw_hand = false,
     kind = 'pm_BattleCard',
     select_card = 'consumeables', -- save the cards instead of using them
@@ -696,7 +690,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -725,7 +719,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -823,7 +817,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -852,7 +846,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -949,7 +943,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1311,7 +1305,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1340,7 +1334,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1504,7 +1498,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1533,7 +1527,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1822,7 +1816,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1851,7 +1845,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1949,7 +1943,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -1961,7 +1955,7 @@ SMODS.Consumable{
     atlas = 'BattleCards',
     rarity = 'pm_uncommon',
     pos = { x = 1, y = 4 },
-    config = {extra = {count = 5, copy = 'c_pm_hammer'}},
+    config = {extra = {count = 3, copy = 'c_pm_hammer'}},
     cost = 1,
     discovered = true,
     loc_vars = function(self, info_queue, card)
@@ -1978,7 +1972,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2075,7 +2069,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2372,7 +2366,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2601,7 +2595,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2630,7 +2624,7 @@ SMODS.Consumable{
         }
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
-_card:set_edition('e_negative')
+            _card:set_edition('e_negative')
         end
     end
 }
@@ -2766,6 +2760,448 @@ SMODS.Consumable{
                 ease_dollars(card.ability.extra.money) 
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = '$5', colour = G.C.MONEY})
             end
+        end
+    end,
+}
+
+--------  SPECTRALS and TAROTS ---------------
+
+-- Colorizer
+SMODS.Consumable{
+    key = 'colorizer',
+    set = 'Spectral',
+    atlas = 'PMConsumable',
+    pos = { x = 4, y = 1 },
+    config = {extra = {}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome_sticker'}
+		return { vars = { } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] then
+                card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                c:set_debuff(false)
+                SMODS.Stickers.pm_monochrome:apply(c, nil)
+            end
+        end
+    end,
+}
+
+-- Replicator
+SMODS.Consumable{
+    key = 'replicator',
+    set = 'Spectral',
+    atlas = 'PMConsumable',
+    pos = { x = 5, y = 1 },
+    config = {extra = {}},
+    cost = 7,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        if not card.edition or (card.edition and not card.edition == 'e_pm_replica') then
+			info_queue[#info_queue+1] = G.P_CENTERS.e_pm_replica
+		end
+		return { vars = { } }
+    end,
+    can_use = function(self, card)
+        return #G.jokers.cards > 0 and #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit
+    end,
+    use = function(self, card, area, copier)
+        if #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit then 
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+            local chosen_joker = pseudorandom_element(G.jokers.cards, "replica")
+            local t = {
+                key = chosen_joker.config.center.key
+            }
+            local _card = SMODS.add_card(t)
+            _card:set_edition('e_pm_replica', nil, nil)
+            if _card.ability.invis_rounds then _card.ability.invis_rounds = 0 end
+        else
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
+        end
+    end,
+}
+
+------------ PAINTS --------------------------
+
+-- Black Paint
+SMODS.Consumable{
+    key = 'blackpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 0, y = 0 },
+    config = {extra = {dsuit = "Spades"}},
+    cost = 3,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Blue Paint
+SMODS.Consumable{
+    key = 'bluepaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 1, y = 0 },
+    config = {extra = {dsuit = "Clubs"}},
+    cost = 3,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Red Paint
+SMODS.Consumable{
+    key = 'redpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 2, y = 0 },
+    config = {extra = {dsuit = "Hearts"}},
+    cost = 3,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Yellow Paint
+SMODS.Consumable{
+    key = 'yellowpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 3, y = 0 },
+    config = {extra = {dsuit = "Diamonds"}},
+    cost = 3,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Orange Paint
+SMODS.Consumable{
+    key = 'orangepaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 4, y = 0 },
+    config = {extra = {dsuit = "Diamonds", bsuit = "Hearts"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Green Paint
+SMODS.Consumable{
+    key = 'greenpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 5, y = 0 },
+    config = {extra = {dsuit = "Diamonds", bsuit = "Clubs"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Purple Paint
+SMODS.Consumable{
+    key = 'purplepaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 0, y = 1 },
+    config = {extra = {dsuit = "Clubs", bsuit = "Hearts"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Pink Paint
+SMODS.Consumable{
+    key = 'pinkpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 1, y = 1 },
+    config = {extra = {dsuit = "Spades", bsuit = "Hearts"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Navy Paint
+SMODS.Consumable{
+    key = 'navypaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 2, y = 1 },
+    config = {extra = {dsuit = "Spades", bsuit = "Clubs"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+    end,
+}
+
+-- Lemon Paint
+SMODS.Consumable{
+    key = 'lemonpaint',
+    set = 'Tarot',
+    atlas = 'PMConsumable',
+    pos = { x = 3, y = 1 },
+    config = {extra = {dsuit = "Spades", bsuit = "Diamonds"}},
+    cost = 5,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
+		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
+    end,
+    can_use = function(self, card)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
+        return false
+    end,
+    use = function(self, card, area, copier)
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        if pseudorandom('lemon') < 0.02 then
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_easter_egg"),colour = G.C.MONEY, delay = 0.45})
+            card:juice_up()
+            local t = {
+                key = 'j_pm_lemon'
+            }
+            local _card = SMODS.add_card(t)
+            _card:set_edition('e_negative')
         end
     end,
 }
