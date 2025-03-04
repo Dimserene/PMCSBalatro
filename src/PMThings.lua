@@ -1248,15 +1248,12 @@ SMODS.Joker{
                 if #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit then 
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
                     local chosen_joker = jokers[1] -- get leftmost joker that isn't this card lmao
-                    local _card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
                     local t = {
-                        
+                        key = chosen_joker.config.center.key
                     }
-                    _card:set_eternal(false)
+                    local _card = SMODS.add_card(t)
                     _card:set_edition('e_pm_replica', nil, nil)
                     if _card.ability.invis_rounds then _card.ability.invis_rounds = 0 end
-                    _card:add_to_deck()
-                    G.jokers:emplace(_card)
                 else
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
                 end

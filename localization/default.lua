@@ -1115,6 +1115,14 @@ return {
                 }
             },
 
+            pm_monochrome_sticker = {
+                name = "Drained",
+                text = {
+                    "{C:mult}Disabled{}. Playing {C:attention}a specific suit{}",
+                    "will remove this sticker", 
+                },
+            },
+
             --Booster Packs
             p_pm_bc_basic_1 = {
                 name = "Basic Pack",
@@ -1167,10 +1175,108 @@ return {
             },
         },
         Planet={},
-        Spectral={},
+        Spectral={
+            c_pm_colorizer = {
+                name = "Colorizer",
+                text = {
+                    "Instantly {C:attention}Colorizes{} all Jokers,",
+                    "removing the {C:attention}Drained{} status",
+                }
+            },
+
+            c_pm_replicator = {
+                name = "Replicator",
+                text = {
+                    "Create a copy of a {C:attention}random{}",
+                    "Joker with {C:dark_edition}Replica{}",
+                }
+            },
+        },
         Stake={},
         Tag={},
-        Tarot={},
+        Tarot={
+            c_pm_blackpaint = {
+                name = "Black Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:spades}#1#{}",
+                }
+            },
+
+            c_pm_bluepaint = {
+                name = "Blue Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:clubs}#1#{}",
+                }
+            },
+
+            c_pm_yellowpaint = {
+                name = "Yellow Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:diamonds}#1#{}",
+                }
+            },
+
+            c_pm_redpaint = {
+                name = "Red Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:hearts}#1#{}",
+                }
+            },
+
+            c_pm_orangepaint = {
+                name = "Orange Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:diamonds}#1#{} or {C:hearts}#2#{}",
+                }
+            },
+
+            c_pm_greenpaint = {
+                name = "Green Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:diamonds}#1#{} or {C:clubs}#2#{}",
+                }
+            },
+
+            c_pm_purplepaint = {
+                name = "Purple Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:clubs}#1#{} or {C:hearts}#2#{}",
+                }
+            },
+
+            c_pm_pinkpaint = {
+                name = "Pink Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:spades}#1#{} or {C:hearts}#2#{}",
+                }
+            },
+
+            c_pm_navypaint = {
+                name = "Navy Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:spades}#1#{} or {C:clubs}#2#{}",
+                }
+            },
+
+            c_pm_lemonpaint = {
+                name = "Lemon Paint",
+                text = {
+                    "{C:attention}Colorizes{} all {C:attention}Drained{} Jokers",
+                    "that require {C:spades}#1#{} or {C:diamonds}#2#{}",
+                    "{s:0.9,C:inactive}(A faint lemony scent wafts...){}",
+                }
+            },
+
+        },
         Voucher={},
         pm_BattleCard={
             c_pm_one_up = {
@@ -1680,6 +1786,7 @@ return {
             pm_colorized = "Colorized!",
             pm_ice_spear = "Shattered!",
             pm_KO = "OHKO!",
+            pm_easter_egg = "Lucky!",
 
             -- Dry Bones
             pm_chips = "Chips",
