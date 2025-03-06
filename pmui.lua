@@ -1,5 +1,10 @@
 -- Config UI
-local no_restart_toggles = {{ref_value = "papermario_only", label = "pm_settings_papermario_only"}, {ref_value = "things_added", label = "pm_settings_things_added"}}
+local no_restart_toggles = {{ref_value = "papermario_only", label = "pm_settings_papermario_only"}, {ref_value = "things_added", label = "pm_settings_things_added"}, {ref_value = "bc_added", label = "pm_settings_bc_added"},}
+local no_restart_option_cycles = {
+  {ref_value = "bc_rarity", label = "pm_settings_bc_rarity", options = {1, 2, 3, 4, 5}}, -- don't yell at me for doing it this way
+  {ref_value = "things_rarity", label = "pm_settings_things_rarity", options = {1, 2, 3, 4, 5}},
+  {ref_value = "drained_rarity", label = "pm_settings_drained_rarity", options = {0, 1, 2, 3, 4, 5}},
+}
 
 local create_menu_toggles = function (parent, toggles)
     for k, v in ipairs(toggles) do
@@ -12,11 +17,26 @@ local create_menu_toggles = function (parent, toggles)
             end,
       })
     end
-  end
+end
+
+local create_option_cycles = function (parent, cycles)
+    for k, v in ipairs(cycles) do
+      parent.nodes[#parent.nodes + 1] = create_option_cycle({
+            label = localize(v.label),
+            options = v.options,
+            ref_table = pm_config,
+            ref_value = v.ref_value,
+            opt_callback = 'cycle_update',
+            current_option = pm_config[v.ref_value],
+      })
+    end
+end
+
 
 pmconfig = function()
     local no_restart_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
     create_menu_toggles(no_restart_settings, no_restart_toggles)
+    create_option_cycles(no_restart_settings, no_restart_option_cycles)
     
     local config_nodes =   
   {

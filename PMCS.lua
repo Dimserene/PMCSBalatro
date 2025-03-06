@@ -98,6 +98,29 @@ SMODS.Atlas { -- All Boosters
 -- save current paths
 mod_dir = ''..SMODS.current_mod.path
 pm_config = SMODS.current_mod.config
+if NFS.read(mod_dir.."/config.lua") then
+    pm_config = STR_UNPACK(NFS.read(mod_dir.."/config.lua"))
+end
+if pm_config.bc_rarity and type(pm_config.bc_rarity) ~= 'number' then
+    pm_config.bc_rarity = 1
+end
+if pm_config.things_rarity and type(pm_config.things_rarity) ~= 'number' then
+    pm_config.things_rarity = 1
+end
+if pm_config.drained_rarity and type(pm_config.drained_rarity) ~= 'number' then
+    pm_config.drained_rarity = 0
+end
+
+G.FUNCS.cycle_update = function(args)
+    args = args or {}
+    if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
+        args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
+        if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.5 end
+       NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
+    end
+end
+
 -- loads all joker files for use later
 local path = SMODS.current_mod.path..'src/'
 for _,v in pairs(NFS.getDirectoryItems(path)) do
@@ -126,7 +149,12 @@ SMODS.Rarity{
     badge_colour = HEX("EBD534"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
-        return weight
+        if pm_config.things_added then
+            if pm_config.things_rarity ~= 0.1 then return pm_config.things_rarity * self.default_weight
+            else return weight end
+        else
+            return 0
+        end
     end,
 }
 
@@ -262,9 +290,9 @@ SMODS.Sticker{
     badge_colour = HEX("C7C7C7"),
     discovered = true,
     sets = {
-        Joker = true
+        Joker = true,
     },
-    rate = 5,
+    rate = (pm_config.drained_rarity - 1) * 0.5,
     config = {
         extra = {
             drained_turns = 5,
@@ -340,7 +368,7 @@ SMODS.ConsumableType{
     primary_colour = HEX("CC2E23"),
     secondary_colour = HEX("CC2E23"),
     collection_row = {5, 2},
-    shop_rate = 5,
+    shop_rate = (pm_config.bc_added and pm_config.bc_rarity) or 0.0,
     default = "c_pm_one_up",
     rarities = {
         {key = 'pm_common', rate = 65},
@@ -365,6 +393,14 @@ SMODS.ConsumableType{
 			table.insert(badges, create_badge(rarity_name, rarity_color, nil, 1.0))
 		end
 	end,
+    in_pool = function(self)
+        if pm_config.bc_added then
+            return{
+                allow_duplicates = true
+            }
+        else return false
+        end
+    end,
 }
 
 pm_total_chips = function(card)
