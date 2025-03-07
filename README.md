@@ -7,8 +7,7 @@
 - New Sticker, Drained!
 - **60** New Consumables based off of PMCS Battle Cards!
 - **12** total new Tarots and Spectrals!
-- Ability to play with only the new Jokers! (setting turned on by default)
-- Ability to turn on/off Thing Jokers! (setting turned on by default)
+- Various config options to allow you to play how you want!
 
 ### New Jokers
 A list containing all of the Jokers and their various effects, as well as the other cards in this mod can be found [here](https://docs.google.com/spreadsheets/d/1ehufdjT9kCz5n27Fg7r3Jgo9ASitgImbhOztxyOh8qI/edit?usp=sharing)
@@ -34,8 +33,10 @@ There are 10 colors of Paint that can be found in this mod, each corresponding t
 used to instantly remove the Drained sticker from Jokers that require the suit that matches the paint!
 
 ### Config Settings
-At the moment, you are able to play with only the new Jokers, or play with them alongside the vanilla Jokers!
-You are also able to turn off Thing Jokers if they are too OP for you :3
+- Ability to turn off vanilla Jokers (and other modded Jokers, so be careful if using this with other mods!)
+- Ability to turn off Thing Jokers and Battle Cards
+- You can change the rate at which Battle Cards and Thing Jokers appear in the shop!
+- You can change the rarity of Drained Jokers appearing in the shop!
 
 ## Planned Features
 - More Consumables!
@@ -43,14 +44,10 @@ You are also able to turn off Thing Jokers if they are too OP for you :3
   - Colorized is planned to be similar to Perishable, but applies Drained instead of debuffing altogether!
   - May trigger after certain number of rounds or discards!
   - This will most likely only apply to higher stakes, though this can change in the future!
-- Battle Cards may require paint/suits to be played in order to be used in the future!
+- Battle Cards may become Drained in the future!
 - Even more **custom** Jokers that can be turned on and off!
   - Custom Jokers are based off of other Mario enemies and may have abilities based off of contributions from the community!
 - Boss Blinds that unlock Boss Jokers based off of the various Bosses in Mario!
 - Translations to other languages!
-- More config options such as:
-  - Changing how rare certain things are, like Thing Jokers, Battle Cards, and Paint Cards
-  - Toggle for Battle Cards, similar to the Thing Joker toggle
-  - Change how common Drained Jokers are
 - New Decks, Vouchers, Boosters, and Challenges!
 - Screenshots for this README.

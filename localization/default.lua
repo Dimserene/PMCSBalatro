@@ -1804,7 +1804,13 @@ return {
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",
             pm_settings_things_added = "Things Allowed?",
+            pm_settings_bc_added = "Battle Cards Allowed?",
+            pm_settings_things_rarity = "Thing Weight?",
+            pm_settings_bc_rarity = "Battle Card Weight?",
+            pm_settings_drained_rarity = "Drained Status Weight?",
             pm_settings_header_norequired = "Config Options:",
+            pm_settings_header_required = "Config Options (Requires Restart):",
+            pm_settings_reset = "Reset Config",
         },
         high_scores={},
         labels={

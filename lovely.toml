@@ -11,7 +11,6 @@ pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then ad
 position = "after"
 payload = '''
 if v.set == 'Joker' and not v.stage and not (v.atlas == "pm_PaperMario" or v.atlas == "pm_Koopalings"or v.atlas == "pm_Things") and pm_config and pm_config.papermario_only then add = nil end
-if v.set == 'Joker' and v.stage and v.atlas == "pm_Things" and pm_config and not pm_config.things_added then add = nil end
 '''
 match_indent = true
 

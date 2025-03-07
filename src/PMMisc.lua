@@ -39,6 +39,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 SMODS.Booster {
@@ -62,6 +65,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 -- Big
@@ -86,6 +92,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 -- Big 2
@@ -110,6 +119,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 -- Huge
@@ -134,6 +146,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 -- Huge 2
@@ -158,6 +173,9 @@ SMODS.Booster {
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
+    in_pool = function(self)
+        return pm_config.bc_added
+    end,
 }
 
 ----------------------------------------------
@@ -2324,8 +2342,8 @@ SMODS.Consumable{
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             local c = G.hand.highlighted[1]
 
-            local current_bonus = c.ability.mult or 0
-            c.ability.mult = current_bonus + card.ability.extra.mult_gain
+            local current_bonus = c.ability.perma_mult or 0
+            c.ability.perma_mult = current_bonus + card.ability.extra.mult_gain
             c:juice_up()
 
             card.ability.extra.uses = card.ability.extra.uses + 1
@@ -2426,8 +2444,8 @@ SMODS.Consumable{
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             local c = G.hand.highlighted[1]
 
-            local current_bonus = c.ability.mult or 0
-            c.ability.mult = current_bonus + card.ability.extra.mult_gain
+            local current_bonus = c.ability.perma_mult or 0
+            c.ability.perma_mult = current_bonus + card.ability.extra.mult_gain
             c:juice_up()
 
             card.ability.extra.uses = card.ability.extra.uses + 1
@@ -2499,8 +2517,8 @@ SMODS.Consumable{
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             local c = G.hand.highlighted[1]
 
-            local current_bonus = c.ability.xmult or 0
-            c.ability.xmult = current_bonus + card.ability.extra.xmult_gain
+            local current_bonus = c.ability.perma_x_mult or 0
+            c.ability.perma_x_mult = current_bonus + card.ability.extra.xmult_gain
             c:juice_up()
 
             card.ability.extra.uses = card.ability.extra.uses + 1
@@ -2798,6 +2816,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Replicator
@@ -2870,6 +2891,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Blue Paint
@@ -2905,6 +2929,9 @@ SMODS.Consumable{
                 end
             end
         end
+    end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
     end,
 }
 
@@ -2942,6 +2969,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Yellow Paint
@@ -2977,6 +3007,9 @@ SMODS.Consumable{
                 end
             end
         end
+    end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
     end,
 }
 
@@ -3014,6 +3047,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Green Paint
@@ -3049,6 +3085,9 @@ SMODS.Consumable{
                 end
             end
         end
+    end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
     end,
 }
 
@@ -3086,6 +3125,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Pink Paint
@@ -3122,6 +3164,9 @@ SMODS.Consumable{
             end
         end
     end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
 }
 
 -- Navy Paint
@@ -3157,6 +3202,9 @@ SMODS.Consumable{
                 end
             end
         end
+    end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
     end,
 }
 
@@ -3203,6 +3251,9 @@ SMODS.Consumable{
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
         end
+    end,
+    in_pool = function(self)
+        return SMODS.Stickers['pm_monochrome'].rate > 0
     end,
 }
 
