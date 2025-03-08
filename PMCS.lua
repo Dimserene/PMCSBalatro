@@ -95,6 +95,51 @@ SMODS.Atlas { -- All Boosters
 	py = 95
 }
 
+SMODS.Atlas { -- All Blinds
+	-- Key for code to find it with
+	key = "PMBlinds",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMBlinds.png",
+	-- Width of each sprite in 1x size
+	px = 34,
+	-- Height of each sprite in 1x size
+	py = 34,
+    -- set it so that this becomes an animation type
+    atlas_table = 'ANIMATION_ATLAS',
+    frames = 21,
+}
+
+SMODS.Atlas { -- All Blinds
+	-- Key for code to find it with
+	key = "PMVouchers",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMVouchers.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95,
+}
+
+-- load in the RGB Light color yippee
+SMODS.Gradient{
+    key = 'rgbled',
+    colours = {
+        HEX("eb0000"),
+        HEX("ffbb00"),
+        HEX("ffff00"),
+        HEX("00ff00"),
+        HEX("00d9ff"),
+        HEX("1100ff"),
+        HEX("d400ff"),
+        HEX("ff00dd"),
+    },
+    cycle = 2,
+    interpolation = 'linear',
+}
+-- also make it a loc_colour
+loc_colour('')
+G.ARGS.LOC_COLOURS.pm_rgbled = SMODS.Gradients.pm_rgbled
+
 -- save current paths
 mod_dir = ''..SMODS.current_mod.path
 pm_config = SMODS.current_mod.config
@@ -116,7 +161,7 @@ G.FUNCS.cycle_update = function(args)
     if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
         args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
         if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
-        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.5 end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * (0.5 * (1.0 and not G.GAME.used_vouchers["v_pm_autopaint"])) end
        NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
     end
 end
@@ -213,77 +258,11 @@ SMODS.Edition{
 		return { vars = { self.config.x_mult } }
 	end,
 }
--- drawing the front sprite for replica
-SMODS.DrawStep {
-    key = 'replica_step',
-    order = 65,
-    conditions = {
-        facing = 'front',
-    },
-    func = function (card, layer)
-        if layer == 'card' or layer == 'both' then
-            if card.edition and card.edition.pm_replica and (card.config.center.discovered or card.bypass_discovery_center) then
-                card.children.replica_step = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['pm_Things'], { x = 4, y = 3 })
-            end
-        end
-    end,
-}
 
 SMODS.Shader{
     key = 'drained',
     path = 'drained.fs',
 }
---[[ Old drained
-SMODS.Sticker{
-    key = "drained",
-    no_sticker_sheet = true,
-    badge_colour = HEX("C7C7C7"),
-    discovered = true,
-    sets = {
-        Joker = true
-    },
-    rate = 0,
-    config = {
-        extra = {
-            drained_turns = 3
-        }
-    },
-    needs_enable_flag = false,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability[self.key].extra.drained_turns } }
-    end,
-    apply = function(self, card, val)
-        card.ability[self.key] = val and copy_table(self.config)
-        card.cost = 1
-    end,
-    calculate = function (self, card, context)
-        if context.first_hand_drawn then
-            if card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
-                if card.ability[self.key].extra.drained_turns == 1 then
-                    card.ability[self.key].extra.drained_turns = 0
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
-                    SMODS.Stickers.pm_drained:apply(card, false)
-                else
-                    card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
-                    card:set_debuff(true)
-                end
-            end
-        end
-    end,
-    draw = function (self, card, layer)
-        if (layer == 'card' or layer == 'both') then
-            if card.sprite_facing == 'front' then
-                card.children.center:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
-                    if card.children.front and card.ability.effect ~= 'Stone Card' then
-                        card.children.front:draw_shader('pm_drained', nil, self.ARGS.send_to_shader)
-                    end
-            end
-        end
-    end
-}
-]]
-
 SMODS.Sticker{
     key = "monochrome",
     no_sticker_sheet = true,
@@ -316,6 +295,7 @@ SMODS.Sticker{
             card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono'))
         else
             card.ability[self.key] = val
+            if not val and G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers.pm_coloredin:apply(card, true) end
         end
     end,
     calculate = function (self, card, context)
@@ -342,13 +322,57 @@ SMODS.Sticker{
     draw = function (self, card, layer)
         if (layer == 'card' or layer == 'both') then
             if card.sprite_facing == 'front' then
-                card.children.center:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
-                if card.children.front and card.ability.effect ~= 'Stone Card' then
-                    card.children.front:draw_shader('pm_drained', nil, self.ARGS.send_to_shader)
-                end
+                -- LEGIT JUST HERE SO WE DON'T DRAW A STICKER SPRITE
             end
         end
-    end
+    end,
+}
+
+SMODS.Sticker{
+    key = "coloredin",
+    no_sticker_sheet = true,
+    badge_colour = SMODS.Gradients.pm_rgbled,
+    discovered = true,
+    sets = {
+        Joker = true,
+    },
+    rate = 0.0,
+    config = {
+        extra = {
+            drained_turns = 5,
+        }
+    },
+    needs_enable_flag = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability[self.key].extra.drained_turns, } }
+    end,
+    apply = function(self, card, val)
+        if val then
+            card.ability[self.key] = val and copy_table(self.config)
+            card.ability[self.key].extra.drained_turns = math.floor(pseudorandom('color', 1, 9))
+        else
+            card.ability[self.key] = val
+        end
+    end,
+    calculate = function (self, card, context)
+        if context.end_of_round and context.cardarea == G.jokers and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+            if card.ability[self.key].extra.drained_turns == 1 then
+                card.ability[self.key].extra.drained_turns = 0
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_drained"),colour = G.C.FILTER, delay = 0.45})
+                SMODS.Stickers.pm_monochrome:apply(card, true)
+                SMODS.Stickers.pm_coloredin:apply(card, nil)
+            else
+                card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+            end
+        end
+    end,
+    draw = function (self, card, layer)
+        if (layer == 'card' or layer == 'both') then
+            if card.sprite_facing == 'front' then
+                card.children.center:draw_shader('dissolve', nil)
+            end
+        end
+    end,
 }
 
 SMODS.Enhancement({
@@ -396,9 +420,59 @@ SMODS.ConsumableType{
     in_pool = function(self)
         if pm_config.bc_added then
             return{
-                allow_duplicates = true
+                allow_duplicates = G.GAME.used_vouchers.v_pm_copycat
             }
         else return false
+        end
+    end,
+}
+
+-- Stakes
+SMODS.Stake{
+    key = 'rainbow',
+    applied_stakes = {"gold"},
+    unlocked = true,
+    colour = SMODS.Gradients.pm_rgbled,
+    prefix_config = { applied_stakes = { mod = false } },
+    modifiers = function()
+		G.GAME.modifiers['enable_pm_coloredin'] = true
+	end,
+}
+
+-- DRAWSTEPS
+-- drawing drained
+SMODS.DrawStep {
+    key = 'drained_step',
+    order = -1,
+    conditions = {
+        facing = 'front',
+    },
+    func = function (card, layer)
+        if layer == 'card' or layer == 'both' then
+            if card.ability and card.ability['pm_monochrome'] and (card.config.center.discovered or card.bypass_discovery_center) then
+                card.children.center:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
+                if card.children.front and (card.ability.delayed or (card.ability.effect ~= 'Stone Card' and not card.config.center.replace_base_card)) then
+                    card.children.front:draw_shader('pm_drained', nil, card.ARGS.send_to_shader)
+                end
+            end
+        end
+    end,
+}
+
+-- drawing the front sprite for replica
+SMODS.DrawStep {
+    key = 'replica_step',
+    order = 65,
+    conditions = {
+        facing = 'front',
+    },
+    func = function (card, layer)
+        if layer == 'card' or layer == 'both' then
+            if card.edition and card.edition.pm_replica and (card.config.center.discovered or card.bypass_discovery_center) then
+                card.children.replica_step = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS['pm_Things'], { x = 4, y = 3 })
+            else
+                card.children.replica_step = nil
+            end
         end
     end,
 }
@@ -471,6 +545,17 @@ pm_nt_array = function(table, value)
         end
     end
     return true
+end
+
+-- get the function from the blind to cap the score, credits to cryptid for making this work
+function Blind:cap_score(score)
+	if not self.disabled then
+		local obj = self.config.blind
+		if obj.cap_score and type(obj.cap_score) == "function" then
+			return obj:cap_score(score)
+		end
+	end
+	return score
 end
 
 -- we're injecting not using lovely babyyyyyyyyy

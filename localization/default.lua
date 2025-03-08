@@ -1,7 +1,117 @@
 return {
     descriptions = {
         Back={},
-        Blind={},
+        Blind={
+            bl_pm_booking = {
+                name = "The Boo",
+                text = {
+                    "Negative cards",
+                    "get debuffed",
+                }
+            },
+
+            bl_pm_bombking = {
+                name = "The Bomb",
+                text = {
+                    "The first hand cannot score",
+                    "more than 50% of required score",
+                }
+            },
+
+            bl_pm_pirahnaking = {
+                name = "The Pirahna Plant",
+                text = {
+                    "Debuffs random cards",
+                    "each hand",
+                }
+            },
+
+            bl_pm_pokeyking = {
+                name = "The Cactus",
+                text = {
+                    "Caps score at 25% of required",
+                    "score when playing #1#",
+                }
+            },
+
+            bl_pm_wigglerking = {
+                name = "The Wiggler",
+                text = {
+                    "When playing #1#,",
+                    "doubles score required once",
+                }
+            },
+
+            bl_pm_junior = {
+                name = "The Junior",
+                text = {
+                    "Debuffs cards with editions,",
+                    "enhancements, and seals",
+                }
+            },
+
+            bl_pm_bowser = {
+                name = "The Koopa King",
+                text = {
+                    "Discards cards with editions,",
+                    "enhancements, and seals",
+                }
+            },
+
+            bl_pm_goombaking = {
+                name = "The Goomba",
+                text = {
+                    "Debuffs consumables",
+                }
+            },
+
+            bl_pm_lakituking = {
+                name = "The Lakitu",
+                text = {
+                    "Cannot play #1#",
+                }
+            },
+
+            bl_pm_cheepking = {
+                name = "The Cheep-Cheep",
+                text = {
+                    "Cannot play hands with",
+                    "unscored cards",
+                }
+            },
+
+            bl_pm_thwompking = {
+                name = "The Thwomp",
+                text = {
+                    "Can only play",
+                    "Stone Cards",
+                }
+            },
+
+            bl_pm_billking = {
+                name = "The Bullet",
+                text = {
+                    "Debuffs 15 random Jokers",
+                    "and/or playing cards",
+                }
+            },
+
+            bl_pm_bloopking = {
+                name = "The Blooper",
+                text = {
+                    "All cards are face-down",
+                }
+            },
+
+            bl_pm_drybowser = {
+                name = "The Skeleton King",
+                text = {
+                    "Destroys cards with editions,",
+                    "enhancements, and seals",
+                }
+            },
+
+        },
         Edition={
             e_pm_replica = {
                 name = "Replica",
@@ -1050,6 +1160,15 @@ return {
                 },
             },
 
+            pm_coloredin = {
+                name = "Painted",
+                text = {
+                    "Becomes {C:attention}Drained{} after", 
+                    "{C:attention}#1#{} rounds",
+                    "{s:0.8,C:inactive}(number of rounds is random upon application){}",
+                },
+            },
+
             -- INFO CENTERS
             pm_wip = {
                 name = "WIP",
@@ -1192,7 +1311,17 @@ return {
                 }
             },
         },
-        Stake={},
+        Stake={
+            stake_pm_rainbow = {
+                name = "Rainbow Stake",
+                colour = "Rainbow",
+                text = {
+                    "{C:attention}Drained{} Jokers become",
+                    "{C:attention}Painted{} when {C:attention}Drained{} is removed.",
+                    "{s:0.8}Applies all previous Stakes{}",
+                } 
+            }
+        },
         Tag={},
         Tarot={
             c_pm_blackpaint = {
@@ -1277,7 +1406,41 @@ return {
             },
 
         },
-        Voucher={},
+        Voucher={
+            v_pm_copycat = {
+                name = "Copycat",
+                text = {
+                    "{C:attention}Battle Cards{} may appear",
+                    "multiple times",
+                }
+            },
+            
+            v_pm_autopaint = {
+                name = "Auto-Paint Coupon",
+                text = {
+                    "Jokers do not spawn with",
+                    "{C:attention}Drained{} anymore",
+                    "{s:0.8,C:inactive}(Applies Painted when at {s:0.8,C:pm_rgbled}Rainbow Stake{s:0.8,C:inactive} or higher){}",
+                }
+            },
+
+            v_pm_saturation = {
+                name = "Over-Saturated",
+                text = {
+                    "No longer applies {C:attention}Painted{}",
+                    "when at {C:pm_rgbled}Rainbow Stake{} or higher",
+                }
+            },
+
+            v_pm_ghostblessing = {
+                name = "Boo's Blessing",
+                text = {
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in any of",
+                    "the {C:attention}Battle Card Packs{}",
+                }
+            },
+        },
         pm_BattleCard={
             c_pm_one_up = {
                 name = "1-UP Mushroom",
@@ -1765,6 +1928,7 @@ return {
         challenge_names={},
         collabs={},
         dictionary={
+            pm_drained = "Drained!",
             pm_drained_ex = "Slurped!",
             pm_upgraded = "Upgraded!",
             pm_again_ex = "Sombrero!",
@@ -1801,6 +1965,9 @@ return {
             pm_battle_card_booster = "Battle Card Pack",
             pm_battle_card = "Battle Card",
 
+            -- Placeholders
+            pm_placeholderhand = "most played hand",
+
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",
             pm_settings_things_added = "Things Allowed?",
@@ -1823,6 +1990,7 @@ return {
             -- Stickers
             pm_drained = "Drained",
             pm_monochrome = "Drained",
+            pm_coloredin = "Painted",
         },
         poker_hand_descriptions={},
         poker_hands={},

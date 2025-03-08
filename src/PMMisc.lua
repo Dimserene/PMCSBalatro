@@ -1,15 +1,4 @@
---- STEAMODDED HEADER
---- MOD_NAME: Paper Mario in Balatro
---- MOD_ID: PMCS
---- MOD_AUTHOR: [TheSocialZombie]
---- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
---- VERSION: 1.0.0
---- PREFIX: pm
-----------------------------------------------
 ----TABLE OF CONTENTS-------------------------
-
-
-
 ------------MOD CODE -------------------------
 
 
@@ -33,7 +22,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -59,7 +52,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -86,7 +83,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -113,7 +114,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -140,7 +145,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -167,7 +176,11 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+            return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
+        else
+            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+        end
     end,
     ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, G.C.RED)
@@ -3254,6 +3267,48 @@ SMODS.Consumable{
     end,
     in_pool = function(self)
         return SMODS.Stickers['pm_monochrome'].rate > 0
+    end,
+}
+
+-- Vouchers
+SMODS.Voucher{
+    key = 'copycat',
+    discovered = true,
+    cost = 10,
+    atlas = 'PMVouchers', 
+    pos = { x = 0, y = 0 },
+}
+
+SMODS.Voucher{
+    key = 'ghostblessing',
+    discovered = true,
+    cost = 10,
+    requires = {'v_crystal_ball', 'v_pm_copycat'},
+    atlas = 'PMVouchers', 
+    pos = { x = 1, y = 0 },
+}
+
+SMODS.Voucher{
+    key = 'autopaint',
+    discovered = true,
+    cost = 10,
+    atlas = 'PMVouchers', 
+    pos = { x = 2, y = 0 },
+    redeem = function(self, card)
+        SMODS.Stickers['pm_monochrome'].rate = SMODS.Stickers['pm_monochrome'].rate * 0.0
+        if G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers['pm_coloredin'].rate = 10.0 end
+    end,
+}
+
+SMODS.Voucher{
+    key = 'saturation',
+    discovered = true,
+    cost = 10,
+    requires = {'v_pm_autopaint'},
+    atlas = 'PMVouchers', 
+    pos = { x = 3, y = 0 },
+    redeem = function(self, card)
+        if G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers['pm_coloredin'].rate = 0.0 end
     end,
 }
 
