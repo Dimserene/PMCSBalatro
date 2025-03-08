@@ -1,10 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Paper Mario in Balatro
---- MOD_ID: PMCS
---- MOD_AUTHOR: [TheSocialZombie]
---- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
---- VERSION: 1.0.0
---- PREFIX: PM
 ----------------------------------------------
 --- #ADD TABLE OF CONTENTS#-------------------
 
