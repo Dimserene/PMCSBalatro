@@ -23,7 +23,7 @@ Replica currently reduces mult by a factor of 0.9x! (Might change in later updat
 Replica Jokers cannot be found in the shop and can only be found by copying Jokers using effects from this mod!
 
 ### New Status: Drained!
-This is the main gameplay gimmick of this mod, disabling Jokers until you play a certain number of suits! The suit required
+This is the main gameplay gimmick of this mod, disabling Jokers and Consumables until you play a certain number of suits! The suit required
 is determined randomly, so either keep a stock of different suits in your deck, or stock up on the new Paint Tarots!
 
 ### New Status: Painted!
