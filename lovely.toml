@@ -91,3 +91,51 @@ pattern = "ease_to = G.GAME.chips + math.floor(hand_chips*mult),"
 position = "at"
 payload = "ease_to = G.GAME.chips + (G.GAME.blind.cap_score and G.GAME.blind:cap_score(math.floor(hand_chips*mult)) or math.floor(hand_chips*mult)),"
 match_indent = true
+
+# Replica Vouchers functionality
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not next(find_joker("Showman"))) and
+    (v.unlocked ~= false or v.rarity == 4) then
+'''
+position = "at"
+payload = '''
+elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not (next(find_joker("Showman")) or G.GAME.used_vouchers.v_pm_replicahaver or (G.GAME.used_vouchers.v_pm_thingshopper and v.rarity == 'pm_thing'))) and (v.unlocked ~= false or v.rarity == 4) then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local card = create_card(v.type, area, nil, nil, nil, nil, nil, 'sho')
+'''
+position = "after"
+payload = '''
+if next(SMODS.find_card(card.config.center.key)) and (G.GAME.used_vouchers.v_pm_replicahaver or (G.GAME.used_vouchers.v_pm_thingshopper and card.config.center.rarity == 'pm_thing')) and not next(find_joker("Showman")) then 
+    card:set_edition('e_pm_replica', nil, nil) 
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+if edition_poll > 1 - 0.15 then edition.polychrome = true
+elseif edition_poll > 0.5 then edition.holo = true
+else edition.foil = true
+end
+'''
+position = "at"
+payload = '''
+if next(SMODS.find_card(card.config.center.key)) and (G.GAME.used_vouchers.v_pm_replicahaver or (G.GAME.used_vouchers.v_pm_thingshopper and card.config.center.rarity == 'pm_thing')) and not next(find_joker("Showman")) then edition.pm_replica = true
+elseif edition_poll > 1 - 0.15 then edition.polychrome = true
+elseif edition_poll > 0.5 then edition.holo = true
+else edition.foil = true
+end
+'''
+match_indent = true
+

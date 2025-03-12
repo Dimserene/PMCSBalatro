@@ -5,6 +5,9 @@ local no_restart_option_cycles = {
   {ref_value = "things_rarity", label = "pm_settings_things_rarity", options = {1, 2, 3, 4, 5}},
   {ref_value = "drained_rarity", label = "pm_settings_drained_rarity", options = {0, 1, 2, 3, 4, 5}},
 }
+local music_option_cycles = {
+  {ref_value = "battle_track", label = "pm_settings_battle_track", options = {"64", "TTYD", "Super", "Sticker Star", "Color Splash", "Origami King", "TTYD Remake", "None"}},
+}
 
 local create_menu_toggles = function (parent, toggles)
     for k, v in ipairs(toggles) do
@@ -35,8 +38,11 @@ end
 
 pmconfig = function()
     local no_restart_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
+    local music_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR,}, nodes = {}}
+
     create_menu_toggles(no_restart_settings, no_restart_toggles)
     create_option_cycles(no_restart_settings, no_restart_option_cycles)
+    create_option_cycles(music_settings, music_option_cycles)
     
     local config_nodes =   
   {
@@ -59,6 +65,7 @@ pmconfig = function()
       },
     },
     no_restart_settings,
+    music_settings,
   }
   return config_nodes
 end

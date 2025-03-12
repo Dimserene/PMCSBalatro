@@ -992,15 +992,15 @@ SMODS.Joker{
 
         if context.individual and context.cardarea == G.play and context.other_card.config.center == G.P_CENTERS.m_stone then
             if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
-                if death then
+                if card.ability.extra.death then
                     return {
                         mult = card.ability.extra.mult,
-                        card = context.other_card
+                        card = card
                     }
                 else
                     return {
                         chips = card.ability.extra.chips,
-                        card = context.other_card
+                        card = card
                     }
                 end
             end
@@ -1324,7 +1324,7 @@ SMODS.Joker{
     cost = 6,
     blueprint_compat = true,
     pos = { x = 7, y = 4 },
-    config = { extra = {mult = 0, Xmult = 1.0, mult_gain = 5, Xmult_gain = 0.5, slurp = 2} },
+    config = { extra = {mult = 0, Xmult = 1.0, mult_gain = 5, Xmult_gain = 0.1, slurp = 2} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurpforone'}
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurp'}
@@ -1443,11 +1443,11 @@ SMODS.Joker{
     cost = 6,
     blueprint_compat = true,
     pos = { x = 0, y = 5 },
-    config = { extra = {chips = 0, bonus_gain = 10, stone_gain = 25, chip_mult = 1.25, slurp = 2} },
+    config = { extra = {chips = 0, bonus_gain = 35, chip_mult = 1, cmult_gain = 0.25, slurp = 2} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurpforone'}
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurp'}
-        return { vars = { card.ability.extra.bonus_gain, card.ability.extra.stone_gain, card.ability.extra.chip_mult, card.ability.extra.chips } }
+        return { vars = { card.ability.extra.bonus_gain, card.ability.extra.cmult_gain, card.ability.extra.chips, card.ability.extra.chip_mult } }
     end,
     calculate = function(self, card, context)
         
@@ -1502,7 +1502,7 @@ SMODS.Joker{
             local x_count = 0
             local enhanced = {}
             for k, v in ipairs(context.scoring_hand) do
-                if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
+                if (v.config.center ~= G.P_CENTERS.c_base or v.edition) and not v.debuff and not v.vampired then 
                     enhanced[#enhanced+1] = v
                     
                     if v.config.center == G.P_CENTERS.m_bonus then
@@ -1514,7 +1514,7 @@ SMODS.Joker{
                     end
 
                     if v.edition and v.edition.key then
-                        if v.edition.key == G.P_CENTERS.e_foil then
+                        if v.edition.key == 'e_foil' then
                             x_count = x_count + 1
                         end
                     end
@@ -1535,11 +1535,11 @@ SMODS.Joker{
                 end
 
                 if s_count > 0 then
-                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.stone_gain * s_count
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.bonus_gain * s_count
                 end
 
                 if x_count > 0 then
-                    card.ability.extra.chips = card.ability.extra.chips * (card.ability.extra.chip_mult * x_count)
+                    card.ability.extra.chip_mult = card.ability.extra.chip_mult + card.ability.extra.cmult_gain * x_count
                 end
 
                 return {
@@ -1556,13 +1556,14 @@ SMODS.Joker{
               return {
                 colour = G.C.BLACK,
                 chips = card.ability.extra.chips,
+                xchips = card.ability.extra.chip_mult,
               }
             end
         end
     end
 }
 
--- Yellow Slurp Snifit (doesn't work yet when a Lucky Card triggers)
+-- Yellow Slurp Snifit
 SMODS.Joker{
     key = 'yellowslurfit',
     rarity = 2,
@@ -1571,7 +1572,7 @@ SMODS.Joker{
     cost = 7,
     blueprint_compat = true,
     pos = { x = 1, y = 5 },
-    config = { extra = {mult = 0, chips = 0, Xmult = 1.0, money = 3, mult_gain = 5, chip_gain = 10, Xmult_gain = 0.5, slurp = 2} },
+    config = { extra = {mult = 0, chips = 0, Xmult = 1.0, money = 3, mult_gain = 5, chip_gain = 10, Xmult_gain = 0.3, slurp = 2} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurpforone'}
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_slurp'}

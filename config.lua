@@ -1,1 +1,1 @@
-return {["things_added"]=true,["bc_rarity"]=3,["papermario_only"]=true,["things_rarity"]=1,["bc_added"]=true,["drained_rarity"]=6,}
+return {["battle_track"]=2,["papermario_only"]=true,["things_added"]=true,["bc_rarity"]=3,["things_rarity"]=1,["bc_added"]=true,["drained_rarity"]=6,}

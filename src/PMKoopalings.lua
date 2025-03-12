@@ -92,22 +92,13 @@ SMODS.Joker{
             end
         end
 
-        -- If every card is a stone card, 
-        if context.cardarea == G.play and context.before and not context.blueprint then
+        if context.joker_main and not context.blueprint then
             local stone_count = 0
-            local four_fingers = (next(find_joker('j_pm_plunger')) and 3) or next(find_joker('Four Fingers')) and 4 or 5
+            local four_fingers = (next(find_joker('j_pm_plunger')) and 3) or (next(find_joker('Four Fingers')) and 4) or 5
             for i=1, #context.scoring_hand do
-                if context.scoring_hand[i].ability.name == 'Stone Card' then stone_count = stone_count + 1 end
+                if context.scoring_hand[i].config.center == G.P_CENTERS.m_stone then stone_count = stone_count + 1 end
             end
-
             if stone_count >= (four_fingers) then
-                card.ability.extra.active = true
-            end
-        end
-
-
-        if context.joker_main then
-            if card.ability.extra.active then
                 return {
                     xmult = card.ability.extra.Xmult,
                     card = card
