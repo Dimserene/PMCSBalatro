@@ -8,7 +8,7 @@
 - **60** New Consumables based off of PMCS Battle Cards!
 - **12** total new Tarots and Spectrals!
 - **14** new Boss Blinds based off the King Enemies from Mario!
-- **4** new Vouchers!
+- **6** new Vouchers!
 - Various config options to allow you to play how you want!
 
 ### New Jokers
@@ -46,12 +46,10 @@ used to instantly remove the Drained status from Jokers that require the suit th
 
 ## Planned Features
 - More Consumables!
-- Battle Cards may become Drained in the future!
 - Even more **custom** Jokers that can be turned on and off!
   - Custom Jokers may be based off of other Mario enemies and may have abilities based off of contributions from the community!
   - You may also find Jokers based off of the Boss Blinds you can find in game!
 - Translations to other languages!
 - New Decks, Vouchers, and Challenges!
   - Deck that translates the classic Paper Mario battle system into Balatro
-  - Vouchers that allow you to find replica versions of Jokers you already have in shop!
 - Screenshots for this README.
