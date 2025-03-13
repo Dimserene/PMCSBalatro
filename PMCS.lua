@@ -120,6 +120,17 @@ SMODS.Atlas { -- All Blinds
 	py = 95,
 }
 
+SMODS.Atlas { -- All Blinds
+	-- Key for code to find it with
+	key = "PMTags",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMTags.png",
+	-- Width of each sprite in 1x size
+	px = 34,
+	-- Height of each sprite in 1x size
+	py = 34,
+}
+
 -- load in the RGB Light color yippee
 SMODS.Gradient{
     key = 'rgbled',
@@ -152,8 +163,8 @@ end
 if pm_config.things_rarity and type(pm_config.things_rarity) ~= 'number' then
     pm_config.things_rarity = 1
 end
-if pm_config.drained_rarity and type(pm_config.drained_rarity) ~= 'number' then
-    pm_config.drained_rarity = 0
+if pm_config.drained_rarity and (type(pm_config.drained_rarity) ~= 'number' or pm_config.drained_rarity < 1) then
+    pm_config.drained_rarity = 1
 end
 
 G.FUNCS.cycle_update = function(args)
@@ -161,7 +172,7 @@ G.FUNCS.cycle_update = function(args)
     if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
         args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
         if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
-        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * (0.5 * (1.0 and not G.GAME.used_vouchers["v_pm_autopaint"])) end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.5 end
        NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
     end
 end
@@ -257,6 +268,13 @@ SMODS.Edition{
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.x_mult } }
 	end,
+    calculate = function(self, card, context)
+        if G.GAME.used_vouchers.v_pm_replicaenjoyer and context.joker_main then
+            return{
+                xmult = G.P_CENTERS.v_pm_replicaenjoyer.config.xmult,
+            }
+        end
+    end,
 }
 
 SMODS.Shader{
@@ -270,6 +288,7 @@ SMODS.Sticker{
     discovered = true,
     sets = {
         Joker = true,
+        pm_BattleCard = true,
     },
     rate = (pm_config.drained_rarity - 1) * 0.5,
     config = {
@@ -281,6 +300,13 @@ SMODS.Sticker{
     needs_enable_flag = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability[self.key].extra.drained_turns, card.ability[self.key].extra.drained_suit, colours = {G.C.SUITS[card.ability[self.key].extra.drained_suit]} } }
+    end,
+    should_apply = function(self, card, center, area)
+        if G.GAME.used_vouchers.v_pm_autopaint or (pm_config.drained_rarity < 1) then return false
+        elseif card.ability.set == 'Joker' or card.ability.set == 'pm_BattleCard' then 
+            if pseudorandom('mono') < SMODS.Stickers['pm_monochrome'].rate then return true end
+        end
+        return false
     end,
     apply = function(self, card, val)
         if val then
@@ -308,16 +334,18 @@ SMODS.Sticker{
                 end
             end
         end
-        if context.first_hand_drawn and card.ability[self.key].extra.drained_turns then
+
+        if context.first_hand_drawn and card.ability[self.key].extra.drained_turns and card.ability.set == 'Joker' then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
             card:set_debuff(true)
         end
 
         if context.final_scoring_step and card.ability[self.key] and card.ability[self.key].extra.drained_turns <= 0 then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
-            card:set_debuff(false)
+            if card.ability.set == 'Joker' then card:set_debuff(false) end
             SMODS.Stickers.pm_monochrome:apply(card, nil)
         end
+
     end,
     draw = function (self, card, layer)
         if (layer == 'card' or layer == 'both') then
@@ -369,7 +397,7 @@ SMODS.Sticker{
     draw = function (self, card, layer)
         if (layer == 'card' or layer == 'both') then
             if card.sprite_facing == 'front' then
-                card.children.center:draw_shader('dissolve', nil)
+                -- just here so we don't draw a sticker
             end
         end
     end,
@@ -425,6 +453,7 @@ SMODS.ConsumableType{
         else return false
         end
     end,
+
 }
 
 -- Stakes
@@ -592,6 +621,7 @@ function get_flush(hand)
             if flush_count >= target then
               table.insert(results, t)
               return results
+            else return base
             end
         end
         return {}
@@ -606,6 +636,7 @@ function get_flush(hand)
             if stone_count >= target then
                 table.insert(results, m)
                 return results 
+            else return base
             end
         end
         if spiketop then -- spiketop check
@@ -636,13 +667,14 @@ function get_flush(hand)
                 if flush_count >= (5 - (target and 1 or 0)) then
                     table.insert(results, t)
                     return results
+                    else return base
                 end
             end
             if suits["Spades"] > 0 and suits["Hearts"] > 0 and suits["Diamonds"] > 0 and suits["Clubs"] > 0 then
                 table.insert(results, t)
                 return results
             else
-                return {}
+                return base
             end
         end
     end

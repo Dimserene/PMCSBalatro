@@ -242,7 +242,7 @@ SMODS.Consumable{
         return { vars = { card.ability.extra.hands } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event(
@@ -272,7 +272,7 @@ SMODS.Consumable{
         return { vars = { card.ability.extra.hands } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event(
@@ -302,7 +302,7 @@ SMODS.Consumable{
         return { vars = { card.ability.extra.hands } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event(
@@ -332,7 +332,7 @@ SMODS.Consumable{
         return { vars = { card.ability.extra.discards } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) 
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event(
@@ -361,7 +361,7 @@ SMODS.Consumable{
         return { vars = { card.ability.extra.discards } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event(
@@ -391,6 +391,7 @@ SMODS.Consumable{
 		return { vars = { card and card.ability.extra.selection_limit or self.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -430,6 +431,7 @@ SMODS.Consumable{
 		return { vars = { card and card.ability.extra.selection_limit or self.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -467,6 +469,7 @@ SMODS.Consumable{
 		return { vars = { card.ability.extra.selection_limit, card.ability.extra.money } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -520,6 +523,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -578,6 +582,7 @@ SMODS.Consumable{
 		return { vars = { } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
             return true
         end
@@ -606,6 +611,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -651,6 +657,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -712,7 +719,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -722,6 +729,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -741,7 +749,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy}} }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -751,6 +759,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -772,6 +781,7 @@ SMODS.Consumable{
         if initial then card.ability.extra.extra_use = pseudorandom('jump') < (G.GAME.probabilities.normal / card.ability.extra.odds) end
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -839,7 +849,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -849,6 +859,8 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
+            
         end
     end
 }
@@ -868,7 +880,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -878,6 +890,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -899,6 +912,7 @@ SMODS.Consumable{
         if initial then card.ability.extra.extra_use = pseudorandom('jump') < (G.GAME.probabilities.normal / card.ability.extra.odds) end
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -965,7 +979,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -975,6 +989,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -993,6 +1008,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.increase} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1033,6 +1049,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1116,6 +1133,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1199,6 +1217,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1275,13 +1294,14 @@ SMODS.Consumable{
     atlas = 'BattleCards',
     rarity = 'pm_common',
     pos = { x = 4, y = 2 },
-    config = {extra = {selection_limit = 1, chip_gain = 10, uses = 0}},
+    config = {extra = {selection_limit = 1, chip_gain = 15, uses = 0}},
     cost = 7,
     discovered = true,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1327,7 +1347,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1337,6 +1357,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1356,7 +1377,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1366,6 +1387,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1377,13 +1399,14 @@ SMODS.Consumable{
     atlas = 'BattleCards',
     rarity = 'pm_uncommon',
     pos = { x = 7, y = 2 },
-    config = {extra = {selection_limit = 1, chip_gain = 30, uses = 0}},
+    config = {extra = {selection_limit = 1, chip_gain = 50, uses = 0}},
     cost = 7,
     discovered = true,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1421,13 +1444,14 @@ SMODS.Consumable{
     atlas = 'BattleCards',
     rarity = 'pm_rare',
     pos = { x = 8, y = 2 },
-    config = {extra = {selection_limit = 1, chip_gain = 75, uses = 0}},
+    config = {extra = {selection_limit = 1, xchip_gain = 0.5, uses = 0}},
     cost = 7,
     discovered = true,
     loc_vars = function(self, info_queue, card)
-		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
+		return { vars = {card.ability.extra.selection_limit, card.ability.extra.xchip_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1440,8 +1464,8 @@ SMODS.Consumable{
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             local c = G.hand.highlighted[1]
 
-            local current_bonus = c.ability.perma_bonus or 0
-            c.ability.perma_bonus = current_bonus + card.ability.extra.chip_gain
+            local current_bonus = c.ability.perma_x_chips or 1
+            c.ability.perma_x_chips = current_bonus + card.ability.extra.xchip_gain
             c:juice_up()
 
             card.ability.extra.uses = card.ability.extra.uses + 1
@@ -1472,6 +1496,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and  #G.hand.highlighted >= 2 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -1520,7 +1545,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1530,6 +1555,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1549,7 +1575,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1559,6 +1585,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1577,6 +1604,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and  #G.hand.highlighted >= 2 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -1624,6 +1652,7 @@ SMODS.Consumable{
 		return { vars = {} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.cards and G.hand.cards[1] then
             return true
         end
@@ -1671,6 +1700,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and  #G.hand.highlighted >= 2 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -1724,6 +1754,7 @@ SMODS.Consumable{
 		return { vars = {} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.cards and G.hand.cards[1] then
             return true
         end
@@ -1777,6 +1808,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1838,7 +1870,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1848,6 +1880,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1867,7 +1900,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1877,6 +1910,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1898,6 +1932,7 @@ SMODS.Consumable{
         if initial then card.ability.extra.extra_use = pseudorandom('hammer') < (G.GAME.probabilities.normal / card.ability.extra.odds) end
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -1965,7 +2000,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -1975,6 +2010,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -1994,7 +2030,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2004,6 +2040,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2025,6 +2062,7 @@ SMODS.Consumable{
         if initial then card.ability.extra.extra_use = pseudorandom('hammer') < (G.GAME.probabilities.normal / card.ability.extra.odds) end
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -2091,7 +2129,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2101,6 +2139,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2119,6 +2158,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.increase} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -2159,7 +2199,7 @@ SMODS.Consumable{
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         if G.GAME.blind.in_blind then
@@ -2219,7 +2259,7 @@ SMODS.Consumable{
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         if G.GAME.blind.in_blind then
@@ -2281,7 +2321,7 @@ SMODS.Consumable{
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
     can_use = function(self, card)
-        return G.GAME.blind.in_blind
+        return G.GAME.blind.in_blind and not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         if G.GAME.blind.in_blind then
@@ -2343,6 +2383,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -2388,7 +2429,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2398,6 +2439,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2417,7 +2459,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2427,6 +2469,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2445,6 +2488,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -2490,7 +2534,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2500,6 +2544,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2518,6 +2563,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.xmult_gain, 5-card.ability.extra.uses} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted == card.ability.extra.selection_limit then
             return true
         end
@@ -2562,6 +2608,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -2617,7 +2664,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2627,6 +2674,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2646,7 +2694,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
     end,
     can_use = function(self, card)
-        return true
+        return not (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns))
     end,
     use = function(self, card, area, copier)
         local t = {
@@ -2656,6 +2704,7 @@ SMODS.Consumable{
         for i=1,card.ability.extra.count,1 do
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end
 }
@@ -2674,6 +2723,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1  and #G.hand.highlighted <= card.ability.extra.selection_limit  then
             return true
         end
@@ -2728,6 +2778,7 @@ SMODS.Consumable{
 		return { vars = {card.ability.extra.selection_limit} }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -2763,6 +2814,7 @@ SMODS.Consumable{
 		return { vars = { card.ability.extra.selection_limit, card.ability.extra.money } }
     end,
     can_use = function(self, card)
+        if (card.debuff or (card.ability and card.ability['pm_monochrome'] and card.ability['pm_monochrome'].extra.drained_turns)) then return false end
         if G.hand.highlighted and #G.hand.highlighted >= 1 and #G.hand.highlighted <= card.ability.extra.selection_limit then
             return true
         end
@@ -2817,11 +2869,27 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] then
+                card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                c:set_debuff(false)
+                SMODS.Stickers.pm_monochrome:apply(c, nil)
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] then
                 card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
                 c:set_debuff(false)
@@ -2850,20 +2918,21 @@ SMODS.Consumable{
 		return { vars = { } }
     end,
     can_use = function(self, card)
-        return #G.jokers.cards > 0 and #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit
+        return #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
     end,
     use = function(self, card, area, copier)
-        if #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit then 
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
-            local chosen_joker = pseudorandom_element(G.jokers.cards, "replica")
+        if #G.jokers.cards < G.jokers.config.card_limit then 
+            local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed("replica"))
+            card_eval_status_text(chosen_joker, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
             local t = {
                 key = chosen_joker.config.center.key
             }
             local _card = SMODS.add_card(t)
             _card:set_edition('e_pm_replica', nil, nil)
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
             if _card.ability.invis_rounds then _card.ability.invis_rounds = 0 end
         else
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
         end
     end,
 }
@@ -2890,11 +2959,30 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
+
         return false
     end,
     use = function(self, card, area, copier)
-        for i=1, #G.jokers.cards do
+                for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -2929,11 +3017,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -2968,11 +3074,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
-        for i=1, #G.jokers.cards do
+                for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3007,11 +3131,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3046,11 +3188,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3085,11 +3245,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3124,11 +3302,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3163,11 +3359,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3202,11 +3416,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3241,11 +3473,29 @@ SMODS.Consumable{
                 return true
             end
         end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                return true
+            end
+        end
         return false
     end,
     use = function(self, card, area, copier)
         for i=1, #G.jokers.cards do
             local c = G.jokers.cards[i]
+            if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
+                if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
+                    card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
+                    c:set_debuff(false)
+                    SMODS.Stickers.pm_monochrome:apply(c, nil)
+                end
+            end
+        end
+
+        for i=1, #G.consumeables.cards do
+            local c = G.consumeables.cards[i]
             if c.ability and c.ability['pm_monochrome'] and c.ability['pm_monochrome'].extra.drained_suit then
                 if (c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.dsuit or c.ability['pm_monochrome'].extra.drained_suit == card.ability.extra.bsuit) then
                     card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"),colour = G.C.FILTER, delay = 0.45})
@@ -3263,52 +3513,11 @@ SMODS.Consumable{
             }
             local _card = SMODS.add_card(t)
             _card:set_edition('e_negative')
+            SMODS.Stickers.pm_monochrome:apply(_card, nil)
         end
     end,
     in_pool = function(self)
         return SMODS.Stickers['pm_monochrome'].rate > 0
-    end,
-}
-
--- Vouchers
-SMODS.Voucher{
-    key = 'copycat',
-    discovered = true,
-    cost = 10,
-    atlas = 'PMVouchers', 
-    pos = { x = 0, y = 0 },
-}
-
-SMODS.Voucher{
-    key = 'ghostblessing',
-    discovered = true,
-    cost = 10,
-    requires = {'v_crystal_ball', 'v_pm_copycat'},
-    atlas = 'PMVouchers', 
-    pos = { x = 1, y = 0 },
-}
-
-SMODS.Voucher{
-    key = 'autopaint',
-    discovered = true,
-    cost = 10,
-    atlas = 'PMVouchers', 
-    pos = { x = 2, y = 0 },
-    redeem = function(self, card)
-        SMODS.Stickers['pm_monochrome'].rate = SMODS.Stickers['pm_monochrome'].rate * 0.0
-        if G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers['pm_coloredin'].rate = 10.0 end
-    end,
-}
-
-SMODS.Voucher{
-    key = 'saturation',
-    discovered = true,
-    cost = 10,
-    requires = {'v_pm_autopaint'},
-    atlas = 'PMVouchers', 
-    pos = { x = 3, y = 0 },
-    redeem = function(self, card)
-        if G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers['pm_coloredin'].rate = 0.0 end
     end,
 }
 

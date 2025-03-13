@@ -510,10 +510,9 @@ return {
                 text = {
                     "{X:attention,C:white}All for One{}",
                     "Playing {C:chips}Chip {C:attention}enhancements{} and {C:attention}editions{} boosts this card:",
-                    "{X:attention,C:white}Bonus:{} {C:chips}+#1#{} Chips",
-                    "{X:attention,C:white}Stone:{} {C:chips}+#2#{} Chips",
-                    "{X:attention,C:white}Foil:{} Multiplies current chip gain by {X:chips,C:white}X#3#{}",
-                    "{C:inactive}(Currently {C:chips}+#4#{C:inactive} Chips){}",
+                    "{X:attention,C:white}Bonus{} and {X:attention,C:white}Stone:{} {C:chips}+#1#{} Chips",
+                    "{X:attention,C:white}Foil:{} {X:chips,C:white}+X#2#{} Chips",
+                    "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {X:chips,C:white}X#4#{C:inactive} Chips){}",
                 },
             },
 
@@ -624,7 +623,7 @@ return {
                 name = "Pokey",
                 text = {
                     "{C:green}#1# in #2#{} chance to make each card {C:attention}#3#{}",
-                    "{C:mult}+#4#{} Mult if hand is {C:attention}#5#{}",
+                    "{C:mult}+#4#{} Mult per Wild Card if played hand is {C:attention}#5#{}",
                 },
             },
 
@@ -943,7 +942,7 @@ return {
                 name = "Ice Pick",
                 text = { 
                     "If {C:attention}first played hand{} contains {C:attention}Frozen Cards{},",
-                    "this gains {C:mult}+#1#{} per {C:attention}Frozen Card{}",
+                    "this gains {C:mult}+#1#{} Mult per {C:attention}Frozen Card{}",
                     "and {C:red}shatter{} each {C:attention}Frozen Card{}",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive{} Mult){}",
                 },
@@ -1066,7 +1065,7 @@ return {
               
                 name = "Charcoal Grill",
                 text = { 
-                    "If first hand has a max of {C:attention}#1#{} cards,",
+                    "If played hand has a max of {C:attention}#1#{} cards,",
                     "increase the {C:attention}ranks{} of each played card.", 
                     "If a card is an {C:attention}Ace{},",
                     "make it a {C:attention}Stone Card{} instead",
@@ -1322,7 +1321,23 @@ return {
                 } 
             }
         },
-        Tag={},
+        Tag={
+            tag_pm_battlepass = {
+                name = "Battle Card Tag",
+                text = {
+                    "Immediately open a",
+                    "{C:attention}Huge Pack{}",
+                }
+            },
+
+            tag_pm_thingtag = {
+                name = "Thing Tag",
+                text = {
+                    "Shop has a free",
+                    "{C:attention}Thing Joker{}",
+                }
+            },
+        },
         Tarot={
             c_pm_blackpaint = {
                 name = "Black Paint",
@@ -1438,6 +1453,30 @@ return {
                     "{C:spectral}Spectral{} cards may",
                     "appear in any of",
                     "the {C:attention}Battle Card Packs{}",
+                }
+            },
+
+            v_pm_thingshopper = {
+                name = "Thing Shopper",
+                text = {
+                    "Copies of {C:attention}Thing Jokers{} can be",
+                    "found in shop with {C:dark_edition}Replica{}",
+                }
+            },
+
+            v_pm_replicahaver = {
+                name = "Joker Fan",
+                text = {
+                    "Copies of any {C:attention}Joker{} can be",
+                    "found in shop with {C:dark_edition}Replica{}",
+                }
+            },
+
+            v_pm_replicaenjoyer = {
+                name = "Replica Enjoyer",
+                text = {
+                    "Replica Jokers give",
+                    "{X:mult,C:white}X#1#{} Mult",
                 }
             },
         },
@@ -1925,7 +1964,12 @@ return {
         achievement_descriptions={},
         achievement_names={},
         blind_states={},
-        challenge_names={},
+        challenge_names={
+            c_pm_burntsteak = 'Burnt Steak',
+            c_pm_solucky = 'SO LUCKY',
+            c_pm_goldshower = 'Pining for Gold',
+            c_pm_burningdeck = 'Burning Deck',
+        },
         collabs={},
         dictionary={
             pm_drained = "Drained!",
@@ -1975,8 +2019,10 @@ return {
             pm_settings_things_rarity = "Thing Weight?",
             pm_settings_bc_rarity = "Battle Card Weight?",
             pm_settings_drained_rarity = "Drained Status Weight?",
+            pm_settings_battle_track = "Music While in Blind:",
             pm_settings_header_norequired = "Config Options:",
             pm_settings_header_required = "Config Options (Requires Restart):",
+            pm_settings_header_music = "Music Options:",
             pm_settings_reset = "Reset Config",
         },
         high_scores={},

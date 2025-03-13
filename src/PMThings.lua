@@ -596,7 +596,7 @@ SMODS.Joker{
     cost = 9,
     blueprint_compat = true,
     pos = { x = 5, y = 1 },
-    config = { extra = {odds = 5, Xmult = 1.0, Xmult_gain = 0.1} },
+    config = { extra = {odds = 5, Xmult = 1.0, Xmult_gain = 0.2} },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.m_gold
         return { vars = {(G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
@@ -978,18 +978,10 @@ SMODS.Joker{
         return { vars = {card.ability.extra.target} }
     end,
     calculate = function(self, card, context)
-        
-        -- Shake while first card is active
-        if context.first_hand_drawn then
-            if not context.blueprint and G.GAME.current_round.hands_played <= 0 then
-                local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
-                juice_card_until(card, eval, true)
-            end
-        end
 
         -- check if hand is <= 3, then increase their rank
         if context.before and context.cardarea == G.jokers and not context.blueprint then
-            if context.full_hand and #context.full_hand <= card.ability.extra.target and G.GAME.current_round.hands_played == 0 then
+            if context.full_hand and #context.full_hand <= card.ability.extra.target then
                 for k, c in ipairs(context.full_hand) do
                     if not SMODS.has_no_rank(c) then
                         if c:get_id() < 14 then
@@ -1237,7 +1229,7 @@ SMODS.Joker{
                 end
             end
             if #jokers > 0 then 
-                if #G.jokers.cards + G.GAME.joker_buffer <= G.jokers.config.card_limit then 
+                if #G.jokers.cards < G.jokers.config.card_limit then 
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
                     local chosen_joker = jokers[1] -- get leftmost joker that isn't this card lmao
                     local t = {
@@ -1245,6 +1237,7 @@ SMODS.Joker{
                     }
                     local _card = SMODS.add_card(t)
                     _card:set_edition('e_pm_replica', nil, nil)
+                    SMODS.Stickers.pm_monochrome:apply(_card, nil)
                     if _card.ability.invis_rounds then _card.ability.invis_rounds = 0 end
                 else
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})
