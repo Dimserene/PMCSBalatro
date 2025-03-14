@@ -45,11 +45,10 @@ used to instantly remove the Drained status from Jokers that require the suit th
 - You can change the rarity of Drained Jokers appearing in the shop!
 
 ## Planned Features
-- More Consumables!
 - Even more **custom** Jokers that can be turned on and off!
   - Custom Jokers may be based off of other Mario enemies and may have abilities based off of contributions from the community!
   - You may also find Jokers based off of the Boss Blinds you can find in game!
 - Translations to other languages!
 - New Decks, Vouchers, and Challenges!
-  - Deck that translates the classic Paper Mario battle system into Balatro
+  - Deck that translates the classic Paper Mario battle system into Balatro?
 - Screenshots for this README.
