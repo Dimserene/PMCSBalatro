@@ -373,7 +373,8 @@ SMODS.Sticker{
             }
             card.ability[self.key] = val and copy_table(self.config)
             card.cost = 1
-            card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono'))
+            if type(card.ability.extra) == 'table' and card.ability.extra.suit then card.ability[self.key].extra.drained_suit = card.ability.extra.suit    
+            else card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono')) end
             card.ability[self.key].extra.drained_turns = math.floor(pseudorandom('turns', 1, 10))
         else
             card.ability[self.key] = val
