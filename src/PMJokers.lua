@@ -1341,46 +1341,36 @@ SMODS.Joker{
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
         if context.cardarea == G.jokers and context.before and not context.blueprint then
-                 local slurp_exists = false
-                 local ex_slurp_exists = false
-                 for i = 1, #G.jokers.cards do
-                     local conv_card = G.jokers.cards[i]
-                     if conv_card == card then
-                        ex_slurp_exists = ex_slurp_exists
-                     elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
-                        slurp_exists = true
-                     elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
-                        ex_slurp_exists = true
-                     end
-                 end
-                 
-                 if slurp_exists then
-                     G.E_MANAGER:add_event(Event({
-                         func = function()
-                             card.debuff = true
-                             return true
-                         end
-                     }))
-                     return {
-                         message = localize('k_debuffed'),
-                         colour = G.C.RED,
-                         card = card,
-                     } 
- 
-                 elseif ex_slurp_exists and card ~= G.jokers.cards[1] then
-                     G.E_MANAGER:add_event(Event({
-                         func = function()
-                             card.debuff = true
-                             return true
-                         end
-                     })) 
-                     return {
-                         message = localize('k_debuffed'),
-                         colour = G.C.RED,
-                         card = card,
-                     }
-                 end
-         end
+            for k, v in ipairs(G.jokers.cards) do
+                if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card.debuff = true
+                            return true
+                        end
+                    }))
+                    return {
+                        message = localize('k_debuffed'),
+                        colour = G.C.RED,
+                        card = card,
+                    } 
+                elseif v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 2 then
+                    if card ~= G.jokers.cards[1] then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.debuff = true
+                                return true
+                            end
+                        })) 
+                        return {
+                            message = localize('k_debuffed'),
+                            colour = G.C.RED,
+                            card = card,
+                        }
+                    end
+                end
+            end
+        end
 
         -- Editions boosting
         if context.cardarea == G.jokers and context.before and not context.blueprint then 
@@ -1460,20 +1450,8 @@ SMODS.Joker{
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
         if context.cardarea == G.jokers and context.before and not context.blueprint then
-                local slurp_exists = false
-                local ex_slurp_exists = false
-                for i = 1, #G.jokers.cards do
-                    local conv_card = G.jokers.cards[i]
-                    if conv_card == card then
-                        ex_slurp_exists = ex_slurp_exists
-                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
-                        slurp_exists = true
-                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
-                        ex_slurp_exists = true
-                    end
-                end
-                
-                if slurp_exists then
+            for k, v in ipairs(G.jokers.cards) do
+                if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             card.debuff = true
@@ -1485,20 +1463,22 @@ SMODS.Joker{
                         colour = G.C.RED,
                         card = card,
                     } 
-
-                elseif ex_slurp_exists and card ~= G.jokers.cards[1] then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            card.debuff = true
-                            return true
-                        end
-                    })) 
-                    return {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED,
-                        card = card,
-                    }
+                elseif v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 2 then
+                    if card ~= G.jokers.cards[1] then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.debuff = true
+                                return true
+                            end
+                        })) 
+                        return {
+                            message = localize('k_debuffed'),
+                            colour = G.C.RED,
+                            card = card,
+                        }
+                    end
                 end
+            end
         end
 
         -- Editions boosting
@@ -1589,46 +1569,36 @@ SMODS.Joker{
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
         if context.cardarea == G.jokers and context.before and not context.blueprint then
-                 local slurp_exists = false
-                 local ex_slurp_exists = false
-                 for i = 1, #G.jokers.cards do
-                    local conv_card = G.jokers.cards[i]
-                    if conv_card == card then
-                        ex_slurp_exists = ex_slurp_exists
-                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
-                        slurp_exists = true
-                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
-                        ex_slurp_exists = true
+            for k, v in ipairs(G.jokers.cards) do
+                if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card.debuff = true
+                            return true
+                        end
+                    }))
+                    return {
+                        message = localize('k_debuffed'),
+                        colour = G.C.RED,
+                        card = card,
+                    } 
+                elseif v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 2 then
+                    if card ~= G.jokers.cards[1] then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                card.debuff = true
+                                return true
+                            end
+                        })) 
+                        return {
+                            message = localize('k_debuffed'),
+                            colour = G.C.RED,
+                            card = card,
+                        }
                     end
-                 end
-                 
-                 if slurp_exists then
-                     G.E_MANAGER:add_event(Event({
-                         func = function()
-                             card.debuff = true
-                             return true
-                         end
-                     }))
-                     return {
-                         message = localize('k_debuffed'),
-                         colour = G.C.RED,
-                         card = card,
-                     } 
- 
-                 elseif ex_slurp_exists and card ~= G.jokers.cards[1] then
-                     G.E_MANAGER:add_event(Event({
-                         func = function()
-                             card.debuff = true
-                             return true
-                         end
-                     })) 
-                     return {
-                         message = localize('k_debuffed'),
-                         colour = G.C.RED,
-                         card = card,
-                     }
-                 end
-         end
+                end
+            end
+        end
 
         -- Editions boosting
         if context.cardarea == G.jokers and context.before and not context.blueprint then 
