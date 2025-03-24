@@ -47,6 +47,5 @@ used to instantly remove the Drained status from Jokers that require the suit th
   - You may also find Jokers based off of the Boss Blinds you can find in game!
 - Translations to other languages!
 - New Decks, Vouchers, and Challenges!
-  - Deck that translates the classic Paper Mario battle system into Balatro
-  - Vouchers that allow you to find replica versions of Jokers you already have in shop!
+  - Deck that translates the classic Paper Mario battle system into Balatro?
 - Screenshots for this README.
