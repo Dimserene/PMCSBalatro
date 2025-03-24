@@ -1340,12 +1340,12 @@ SMODS.Joker{
         
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
-        if context.cardarea == G.jokers and context.before and not context.blueprint then
+        if context.cardarea == G.jokers and (context.before or context.first_hand_drawn) and not context.blueprint then
             for k, v in ipairs(G.jokers.cards) do
                 if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            card.debuff = true
+                            card:set_debuff(true)
                             return true
                         end
                     }))
@@ -1358,7 +1358,7 @@ SMODS.Joker{
                     if card ~= G.jokers.cards[1] then
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                card.debuff = true
+                                card:set_debuff(true)
                                 return true
                             end
                         })) 
@@ -1449,12 +1449,12 @@ SMODS.Joker{
         
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
-        if context.cardarea == G.jokers and context.before and not context.blueprint then
+        if context.cardarea == G.jokers and (context.before or context.first_hand_drawn) and not context.blueprint then
             for k, v in ipairs(G.jokers.cards) do
                 if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            card.debuff = true
+                            card:set_debuff(true)
                             return true
                         end
                     }))
@@ -1467,7 +1467,7 @@ SMODS.Joker{
                     if card ~= G.jokers.cards[1] then
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                card.debuff = true
+                                card:set_debuff(true)
                                 return true
                             end
                         })) 
@@ -1568,12 +1568,12 @@ SMODS.Joker{
         
         -- detects if other slurp cards exist
         -- also detects if the only other slurp cards have all for one. if this is the leftmost one, this doesn't get debuffed.
-        if context.cardarea == G.jokers and context.before and not context.blueprint then
+        if context.cardarea == G.jokers and (context.before or context.first_hand_drawn) and not context.blueprint then
             for k, v in ipairs(G.jokers.cards) do
                 if v ~= card and v.ability and type(v.ability.extra) == 'table' and v.ability.extra.slurp and v.ability.extra.slurp == 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            card.debuff = true
+                            card:set_debuff(true)
                             return true
                         end
                     }))
@@ -1586,7 +1586,7 @@ SMODS.Joker{
                     if card ~= G.jokers.cards[1] then
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                card.debuff = true
+                                card:set_debuff(true)
                                 return true
                             end
                         })) 
@@ -2139,7 +2139,7 @@ SMODS.Joker{
         if context.joker_main then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    card.debuff = true
+                    card:set_debuff(true)
                     return true
                 end
               })) 
@@ -2616,7 +2616,7 @@ SMODS.Joker{
         if G.STAGE == G.STAGES.RUN then
             for i = 1, #G.jokers.cards do
                 local j = G.jokers.cards[i]
-                if j.ability and j.ability.extra.bro and card ~= j then
+                if j.ability and type(j.ability.extra) == 'table' and j.ability.extra.bro and card ~= j then
                     bro_count = bro_count + 1
                 end
             end
