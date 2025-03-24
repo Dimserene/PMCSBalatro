@@ -1466,9 +1466,9 @@ SMODS.Joker{
                     local conv_card = G.jokers.cards[i]
                     if conv_card == card then
                         ex_slurp_exists = ex_slurp_exists
-                    elseif conv_card:is_slurp() == 1 then
+                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
                         slurp_exists = true
-                    elseif conv_card:is_slurp() == 2 then
+                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
                         ex_slurp_exists = true
                     end
                 end
@@ -1592,14 +1592,14 @@ SMODS.Joker{
                  local slurp_exists = false
                  local ex_slurp_exists = false
                  for i = 1, #G.jokers.cards do
-                     local conv_card = G.jokers.cards[i]
-                     if conv_card == card then
+                    local conv_card = G.jokers.cards[i]
+                    if conv_card == card then
                         ex_slurp_exists = ex_slurp_exists
-                     elseif conv_card:is_slurp() == 1 then
-                         slurp_exists = true
-                     elseif conv_card:is_slurp() == 2 then
-                         ex_slurp_exists = true
-                     end
+                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
+                        slurp_exists = true
+                    elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
+                        ex_slurp_exists = true
+                    end
                  end
                  
                  if slurp_exists then
