@@ -2272,7 +2272,7 @@ SMODS.Joker{
                     card_eval_status_text(slurped_card, 'extra', nil, nil, nil, {message = localize("pm_burned")})
                 else
                     if slurped_card.config.center == G.P_CENTERS.c_base then
-                        slurped_card:rand_enhance()
+                        slurped_card:set_ability(SMODS.poll_enhancement({guaranteed = true}), nil, true)   
                         play_sound('tarot1')
                         card_eval_status_text(slurped_card, 'extra', nil, nil, nil, {message = localize("pm_upgraded")})
                     end
