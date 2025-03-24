@@ -381,7 +381,8 @@ SMODS.Sticker{
         end
     end,
     calculate = function (self, card, context)
-        if context.individual and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+
+        if context.individual and context.cardarea == G.play and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
             if context.other_card:is_suit(card.ability[self.key].extra.drained_suit) then
                 if card.ability[self.key].extra.drained_turns == 1 then
                     card.ability[self.key].extra.drained_turns = 0
@@ -393,7 +394,6 @@ SMODS.Sticker{
 
         if context.first_hand_drawn and card.ability[self.key].extra.drained_turns and card.ability.set == 'Joker' then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
-            card:set_debuff(true)
         end
 
         if context.final_scoring_step and card.ability[self.key] and card.ability[self.key].extra.drained_turns <= 0 then

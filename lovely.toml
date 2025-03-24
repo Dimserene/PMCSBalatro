@@ -37,6 +37,20 @@ if next(SMODS.find_card('j_pm_huey')) and self.base.suit == SMODS.find_card('j_p
 '''
 match_indent = true
 
+# Drained Debuff functionality
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+function Card:calculate_joker(context)
+'''
+position = "after"
+payload = '''
+    if self.ability and self.ability['pm_monochrome'] and self.ability['pm_monochrome'].extra.drained_turns > 0 then return nil end
+'''
+match_indent = true
+
+
 # Extra card choices functionality
 [[patches]]
 [patches.pattern]
