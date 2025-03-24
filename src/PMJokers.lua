@@ -34,7 +34,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 1,
+    cost = 2,
     blueprint_compat = true,
     pos = { x = 1, y = 0 },
     config = { extra = {chips = 25, suit = 'Spades'} },
@@ -138,7 +138,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 2,
+    cost = 3,
     blueprint_compat = true,
     pos = { x = 5, y = 0 },
     config = { extra = {mult = 0, mult_gain = 5, slurp = 1} },
@@ -196,7 +196,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 2,
+    cost = 3,
     blueprint_compat = true,
     pos = { x = 6, y = 0 },
     config = { extra = {chips = 0, chip_gain = 20, slurp = 1} },
@@ -256,7 +256,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 2,
+    cost = 3,
     blueprint_compat = true,
     pos = { x = 7, y = 0 },
     config = { extra = {money = 1, extra_money = 3, slurp = 1} },
@@ -588,7 +588,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'PaperMario',
     discovered = false,
-    cost = 10,
+    cost = 20,
     blueprint_compat = false,
     pos = { x = 0, y = 2 },
     soul_pos = { x = 1, y = 2 },
@@ -597,7 +597,7 @@ SMODS.Joker{
         return { vars = {card.ability.extra.retriggers} }
     end,
     calculate = function(self, card, context)
-        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= self then
+        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= card then
             for i = 1, #G.jokers.cards do
                 return {
                     message = localize("pm_again_ex"),
@@ -763,7 +763,7 @@ SMODS.Joker{
     key = 'koopa',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = false,
+    discovered = true,
     cost = 6,
     blueprint_compat = true,
     pos = { x = 6, y = 2 },
@@ -795,7 +795,7 @@ SMODS.Joker{
     key = 'paratroop',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = false,
+    discovered = true,
     cost = 8,
     blueprint_compat = true,
     pos = { x = 7, y = 2 },
@@ -826,7 +826,7 @@ SMODS.Joker{
     rarity = 2,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 5,
+    cost = 4,
     blueprint_compat = true,
     pos = { x = 0, y = 3 },
     config = { extra = {bonus_chips = 10} },
@@ -901,7 +901,7 @@ SMODS.Joker{
     key = 'bloop',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 6,
     blueprint_compat = true,
     pos = { x = 2, y = 3 },
@@ -938,7 +938,7 @@ SMODS.Joker{
     key = 'fishyboop',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 4,
     blueprint_compat = true,
     pos = { x = 3, y = 3 },
@@ -980,8 +980,8 @@ SMODS.Joker{
     key = 'drybones',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
-    cost = 4,
+    discovered = false,
+    cost = 5,
     blueprint_compat = true,
     pos = { x = 4, y = 3 },
     config = { extra = { chips = 15, mult = 7, death = false } },
@@ -1057,13 +1057,19 @@ SMODS.Joker{
                       local edition = {negative = true}
                       eligible_card:set_edition(edition, true)
                     end
-                  end
+                end
                   
-                  remove(self, card, context)
+                remove(self, card, context)
                   
-                  return {
+                return {
                     message = localize("pm_haunt")
-                  }
+                }
+            else
+                return {
+                    message = localize("k_nope_ex"),
+                    colour = G.C.SECONDARY_SET.Tarot,
+                    card = card
+                }
             end
         end
     end
@@ -1075,7 +1081,7 @@ SMODS.Joker{
     rarity = 2,
     atlas = 'PaperMario',
     discovered = false,
-    cost = 1,
+    cost = 3,
     blueprint_compat = true,
     pos = { x = 7, y = 3 },
     config = { extra = {Xchips = 1.5} },
@@ -1341,9 +1347,9 @@ SMODS.Joker{
                      local conv_card = G.jokers.cards[i]
                      if conv_card == card then
                         ex_slurp_exists = ex_slurp_exists
-                     elseif conv_card:is_slurp() == 1 then
+                     elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 1 then
                         slurp_exists = true
-                     elseif conv_card:is_slurp() == 2 then
+                     elseif conv_card.ability and conv_card.ability.extra.slurp and conv_card.ability.extra.slurp == 2 then
                         ex_slurp_exists = true
                      end
                  end
@@ -1727,7 +1733,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 4,
+    cost = 6,
     blueprint_compat = true,
     pos = { x = 3, y = 5 },
     config = { extra = {mult = 20, suit = 'Spades', active = false} },
@@ -1765,7 +1771,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 4,
+    cost = 6,
     blueprint_compat = true,
     pos = { x = 4, y = 5 },
     config = { extra = {mult = 20, suit = 'Clubs', active = false} },
@@ -1803,7 +1809,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 4,
+    cost = 6,
     blueprint_compat = true,
     pos = { x = 5, y = 5 },
     config = { extra = {mult = 20, suit = 'Diamonds', active = false} },
@@ -1841,7 +1847,7 @@ SMODS.Joker{
     rarity = 1,
     atlas = 'PaperMario',
     discovered = true,
-    cost = 4,
+    cost = 6,
     blueprint_compat = true,
     pos = { x = 6, y = 5 },
     config = { extra = {mult = 20, suit = 'Hearts', active = false} },
@@ -1878,7 +1884,7 @@ SMODS.Joker{
     key = 'spiny',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 6,
     blueprint_compat = true,
     pos = { x = 7, y = 5 },
@@ -1933,7 +1939,7 @@ SMODS.Joker{
     key = 'buzzy',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 6,
     blueprint_compat = true,
     pos = { x = 0, y = 6 },
@@ -1959,7 +1965,7 @@ SMODS.Joker{
     key = 'spiketop',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = true,
     pos = { x = 1, y = 6 },
@@ -2018,7 +2024,7 @@ SMODS.Joker{
     key = 'wrench',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 8,
     blueprint_compat = true,
     pos = { x = 2, y = 6 },
@@ -2059,7 +2065,7 @@ SMODS.Joker{
     key = 'pokey',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = true,
     pos = { x = 3, y = 6 },
@@ -2107,7 +2113,7 @@ SMODS.Joker{
     key = 'greenpokey',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = false,
     pos = { x = 4, y = 6 },
@@ -2180,7 +2186,7 @@ SMODS.Joker{
     key = 'podoboo',
     rarity = 1,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 3,
     blueprint_compat = true,
     pos = { x = 6, y = 6 },
@@ -2235,7 +2241,7 @@ SMODS.Joker{
     key = 'fpirplant',
     rarity = 1,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 4,
     blueprint_compat = false,
     pos = { x = 7, y = 6 },
@@ -2283,7 +2289,7 @@ SMODS.Joker{
     key = 'ptooie',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 6,
     blueprint_compat = false,
     pos = { x = 0, y = 7 },
@@ -2338,7 +2344,7 @@ SMODS.Joker{
     key = 'dino',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = false,
     pos = { x = 1, y = 7 },
@@ -2388,7 +2394,7 @@ SMODS.Joker{
     key = 'hammerbro',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 5,
     blueprint_compat = true,
     pos = { x = 2, y = 7 },
@@ -2438,7 +2444,7 @@ SMODS.Joker{
     key = 'boomerbro',
     rarity = 2,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 5,
     blueprint_compat = true,
     pos = { x = 3, y = 7 },
@@ -2464,7 +2470,7 @@ SMODS.Joker{
     key = 'firebro',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = true,
     pos = { x = 4, y = 7 },
@@ -2503,7 +2509,7 @@ SMODS.Joker{
     key = 'icebro',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = false,
     pos = { x = 5, y = 7 },
@@ -2553,7 +2559,7 @@ SMODS.Joker{
     key = 'jugglerbro',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = true,
     pos = { x = 6, y = 7 },
@@ -2586,7 +2592,7 @@ SMODS.Joker{
     key = 'circusbro',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 7,
     blueprint_compat = true,
     pos = { x = 7, y = 7 },
@@ -2616,7 +2622,7 @@ SMODS.Joker{
     key = 'sledgebro',
     rarity = 3,
     atlas = 'PaperMario',
-    discovered = true,
+    discovered = false,
     cost = 8,
     blueprint_compat = true,
     pos = { x = 0, y = 8 },
@@ -2640,13 +2646,13 @@ SMODS.Joker{
         if G.STAGE == G.STAGES.RUN then
             for i = 1, #G.jokers.cards do
                 local j = G.jokers.cards[i]
-                if j:is_bro() and card ~= j then
+                if j.ability and j.ability.extra.bro and card ~= j then
                     bro_count = bro_count + 1
                 end
             end
 
             if bro_count > 0 then
-                card.ability.extra.Xmult = card.ability.extra.Xmult_gain * bro_count
+                card.ability.extra.Xmult = 1 + (card.ability.extra.Xmult_gain * bro_count)
             end
         else
             card.ability.extra.Xmult = 1
