@@ -286,17 +286,24 @@ SMODS.Edition{
 	end,
 	config = {
         x_mult = 0.9,
+        x_mult2 = 1.5,
     },
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.x_mult } }
 	end,
     calculate = function(self, card, context)
-        if G.GAME.used_vouchers.v_pm_replicaenjoyer and context.joker_main then
-            return{
-                xmult = G.P_CENTERS.v_pm_replicaenjoyer.config.xmult,
-            }
+        if context.pre_joker then
+            if G.GAME.used_vouchers.v_pm_replicaenjoyer then
+                return {
+                    xmult = card.edition.x_mult2,
+                }
+            else
+                return {
+                    xmult = card.edition.x_mult,
+                }
+            end
         end
-    end,
+    end
 }
 
 SMODS.Edition{
@@ -330,6 +337,21 @@ SMODS.Edition{
         card.edition.old_shader = nil
         card.edition.old_edition = nil
     end,
+    calculate = function(self, card, context)
+        if context.pre_joker then
+            return {
+                chips = card.edition.chips,
+                mult = card.edition.mult,
+                xmult = card.edition.x_mult,
+            }
+        elseif context.main_scoring and context.cardarea == G.play then
+            return {
+                chips = card.edition.chips,
+                mult = card.edition.mult,
+                xmult = card.edition.x_mult,
+            }
+        end
+    end
 }
 
 SMODS.Shader{
@@ -832,10 +854,9 @@ function get_flush(hand)
                     end
                 end
 
-                if flush_count >= (5 - (target and 1 or 0)) then
+                if flush_count >= target then
                     table.insert(results, t)
                     return results
-                    else return base
                 end
             end
             if suits["Spades"] > 0 and suits["Hearts"] > 0 and suits["Diamonds"] > 0 and suits["Clubs"] > 0 then

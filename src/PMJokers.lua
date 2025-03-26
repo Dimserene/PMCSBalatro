@@ -778,11 +778,10 @@ SMODS.Joker{
                     local conv_card = context.other_card
                     local current_bonus = conv_card.ability.perma_bonus or 0
                     conv_card.ability.perma_bonus = current_bonus + card.ability.extra.bonus
-
-                    conv_card:juice_up(0.3, 0.4)
                     return {
-                        colour = G.C.BONUS,
-                        localize { type = 'variable', key = 'a_bonus', vars = { card.ability.extra.bonus } }
+                        message = "+"..conv_card.ability.perma_bonus.." Chips",
+                        colour = G.C.CHIPS,
+                        card = conv_card
                     }
                 end
             end
@@ -808,11 +807,11 @@ SMODS.Joker{
             if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
                 if string.find(context.scoring_name, card.ability.extra.hand) then
                     local total_chips = pm_total_chips(context.other_card)
-                    card:juice_up(0.3, 0.4)
+                    context.other_card:juice_up(0.3, 0.4)
                     return {
                         mult = total_chips,
                         colour = G.C.MULT,
-                        message = "+"..total_chips.." Mult"
+                        card = context.other_card
                     }
                 end
             end
@@ -951,11 +950,12 @@ SMODS.Joker{
 
         -- checks for a Straight Flush to create a Moon card with.
         if context.before and (string.find(context.scoring_name, card.ability.extra.hand) or (string.find(context.scoring_name, card.ability.extra.hand_extra))) then
-            local _card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_moon')
-            _card:add_to_deck()
-            G.consumeables:emplace(_card)
-            
-            card:juice_up(0.5, 0.4)
+            local t = {
+                area = G.consumeables,
+                key = 'c_moon'
+            }
+            SMODS.add_card(t)
+            card:juice_up()
             return{
                 message = localize("pm_spiked"),
                 color = G.C.ATTENTION,
@@ -2654,28 +2654,17 @@ SMODS.Joker{
         end
 
         if context.discard then
-            if not context.blueprint and G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 then
+            if not context.blueprint and G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 and #G.consumeables.cards < G.consumeables.config.card_limit then
                 -- create the tarot card
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function() 
-                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'car')
-                                card:add_to_deck()
-                                G.consumeables:emplace(card)
-                                G.GAME.consumeable_buffer = 0
-                                return true
-                            end}))   
-                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})                       
-                        return true
-                end)}))
-
-                card:juice_up(0.3, 0.4)
+                local t = {
+                    set = 'Tarot'
+                }
+                SMODS.add_card(t)
+                card:juice_up()
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize("pm_magic")})
                 return {
                     remove = true,
-                    card = self
+                    card = context.other_card
                 }
             end
         end

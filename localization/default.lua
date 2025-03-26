@@ -806,7 +806,8 @@ return {
               
                 name = "Boomerang Bro",
                 text = { 
-                    "Played {C:spades}#1#{} cards retrigger {C:attention}once{}",
+                    "Played {C:spades}#1#{} cards", 
+                    "retrigger {C:attention}once{}",
                 },
             },
 

@@ -20,7 +20,7 @@ SMODS.Joker{
     calculate = function(self, card, context)
         
         -- disables itself if it's the first joker
-        if context.before and context.cardarea == G.jokers and not context.blueprint then
+        if context.first_hand_drawn or context.before and context.cardarea == G.jokers and not context.blueprint then
             if card == G.jokers.cards[1] then
                 G.E_MANAGER:add_event(Event({
                     func = function()
