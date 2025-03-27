@@ -131,6 +131,28 @@ SMODS.Atlas { -- All Blinds
     frames = 21,
 }
 
+SMODS.Atlas { -- All Stakes
+	-- Key for code to find it with
+	key = "PMChips",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMChips.png",
+	-- Width of each sprite in 1x size
+	px = 29,
+	-- Height of each sprite in 1x size
+	py = 29,
+}
+
+SMODS.Atlas { -- All Stakes
+	-- Key for code to find it with
+	key = "PMStickers",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMStickers.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95,
+}
+
 SMODS.Atlas { -- All Vouchers
 	-- Key for code to find it with
 	key = "PMVouchers",
@@ -426,6 +448,7 @@ SMODS.Sticker{
                     card.ability[self.key].extra.drained_turns = 0
                 else
                     card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability[self.key].extra.drained_turns.." Remaining", colour = G.C.ATTENTION, delay = 0.45})
                 end
             end
         end
@@ -468,6 +491,13 @@ SMODS.Sticker{
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability[self.key].extra.drained_turns, } }
     end,
+    should_apply = function(self, card, center, area)
+        if G.GAME.used_vouchers.v_pm_saturation or not G.GAME.modifiers['enable_pm_coloredin'] or (pm_config.drained_rarity < 1) then return false
+        elseif card.ability.set == 'Joker' or card.ability.set == 'pm_BattleCard' then 
+            if (G.GAME.used_vouchers.v_pm_autopaint and G.GAME.modifiers['enable_pm_coloredin']) and pseudorandom('mono') < SMODS.Stickers['pm_monochrome'].rate then return true end
+        end
+        return false
+    end,
     apply = function(self, card, val)
         if val then
             card.ability[self.key] = val and copy_table(self.config)
@@ -477,14 +507,15 @@ SMODS.Sticker{
         end
     end,
     calculate = function (self, card, context)
-        if context.end_of_round and context.cardarea == G.jokers and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+        if context.end_of_round and (context.cardarea == G.jokers or context.cardarea == G.consumeables) and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
             if card.ability[self.key].extra.drained_turns == 1 then
                 card.ability[self.key].extra.drained_turns = 0
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_drained"),colour = G.C.FILTER, delay = 0.45})
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_drained"), colour = G.C.FILTER, delay = 0.45})
                 SMODS.Stickers.pm_monochrome:apply(card, true)
                 SMODS.Stickers.pm_coloredin:apply(card, nil)
             else
                 card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability[self.key].extra.drained_turns.." Remaining", colour = G.C.ATTENTION, delay = 0.45})
             end
         end
     end,
@@ -630,6 +661,9 @@ SMODS.Seal{
     get_p_dollars = function(self, card)
         return card.ability.seal.p_dollars
     end,
+    in_pool = function(self, args)
+        return false
+    end,
 }
 
 -- load consumable type
@@ -673,6 +707,8 @@ SMODS.Stake{
     unlocked = true,
     colour = SMODS.Gradients.pm_rgbled,
     prefix_config = { applied_stakes = { mod = false } },
+    atlas = 'PMChips', pos = { x = 0, y = 0 },
+    sticker_atlas = 'PMStickers', sticker_pos = { x = 0, y = 0 },
     modifiers = function()
 		G.GAME.modifiers['enable_pm_coloredin'] = true
 	end,

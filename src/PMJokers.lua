@@ -2423,15 +2423,17 @@ SMODS.Joker{
         return { vars = { localize(card.ability.extra.suit, 'suits_singular') } }
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.repetition and not context.repetition_only then
-			if context.other_card:is_suit(card.ability.extra.suit) then
-				return {
-					message = 'Again!',
-					repetitions = card.ability.extra.retriggers,
-					card = context.other_card
-				}
-			end
-		end
+        if not card.ability['pm_monochrome'] or card.ability['pm_monochrome'].extra.drained_turns <= 0 then
+            if context.cardarea == G.play and context.repetition and not context.repetition_only then
+                if context.other_card:is_suit(card.ability.extra.suit) then
+                    return {
+                        message = localize('k_again_ex'),
+                        repetitions = card.ability.extra.retriggers,
+                        card = context.other_card
+                    }
+                end
+            end
+        end
     end
 }
 
