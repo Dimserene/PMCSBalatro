@@ -1034,25 +1034,40 @@ SMODS.Joker{
     cost = 9,
     blueprint_compat = false,
     pos = { x = 5, y = 2 },
-    config = { extra = {retriggers = 2} },
+    config = { extra = {retriggers = 2, index = 0, add = 0, activated = false} },
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.retriggers} }
     end,
     calculate = function(self, card, context)
         if context.retrigger_joker_check and not context.retrigger_joker then
             local copy_joker = nil
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then copy_joker = G.jokers.cards[i+1] end
-                break
+            local x = 0
+            if not card.ability.extra.activated then
+                for i=1, #G.jokers.cards do
+                    if G.jokers.cards[i] == card and G.jokers.cards[i+x] then
+                        while G.jokers.cards[i+x] and G.jokers.cards[i+x].config.center.key == 'j_pm_megaphone' do
+                            x = x+1
+                        end
+                        copy_joker = G.jokers.cards[i+x]
+                        card.ability.extra.index = i
+                        card.ability.extra.add = x
+                        card.ability.extra.activated = true
+                        break
+                    end
+                end
             end
-            if copy_joker then
+            if card.ability.extra.index and G.jokers.cards[card.ability.extra.index + card.ability.extra.add] == context.other_card then
                 return {
                     message = localize("pm_again"),
                     repetitions = card.ability.extra.retriggers,
-                    card = copy_joker
+                    card = card,
                 }
             end 
-        end    
+        end   
+        
+        if context.final_scoring_step then
+            card.ability.extra.activated = nil
+        end
     end
 }
 

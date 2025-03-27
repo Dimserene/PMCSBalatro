@@ -254,7 +254,7 @@ SMODS.Rarity{
 -- replacement rarities for consumables lmao
 SMODS.Rarity{
     key = "common",
-    default_weight = 65,
+    default_weight = 50,
     badge_colour = HEX("3479B5"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)
@@ -263,7 +263,7 @@ SMODS.Rarity{
 }
 SMODS.Rarity{
     key = "uncommon",
-    default_weight = 25,
+    default_weight = 35,
     badge_colour = HEX("2FBB82"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)
@@ -272,7 +272,7 @@ SMODS.Rarity{
 }
 SMODS.Rarity{
     key = "rare",
-    default_weight = 1,
+    default_weight = 15,
     badge_colour = HEX("E62F2C"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)

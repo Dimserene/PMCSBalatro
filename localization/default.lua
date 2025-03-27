@@ -1222,6 +1222,7 @@ return {
                 text = { 
                     "Retrigger the Joker to the",
                     "{C:attention}right #1#{} times",
+                    "{s:0.9,C:inactive}(Stacks with other Megaphones)",
                 },
             },
 
