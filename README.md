@@ -1,4 +1,7 @@
 # PMCSBalatro
+This mod adds:
+![every addition in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/additions.png?raw=true)
+![the two stickers in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/stick.png?raw=true)
 
 ## Features
 - **117** total new Jokers, based off of Paper Mario: Color Splash Enemy Cards!
