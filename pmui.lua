@@ -3,7 +3,7 @@ local no_restart_toggles = {{ref_value = "papermario_only", label = "pm_settings
 local no_restart_option_cycles = {
   {ref_value = "bc_rarity", label = "pm_settings_bc_rarity", options = {"Never", "Rarely", "Sometimes", "Moderately", "Often", "Common"}}, -- don't yell at me for doing it this way
   {ref_value = "things_rarity", label = "pm_settings_things_rarity", options = {"Never", "Rarely", "Sometimes", "Moderately", "Often", "Common"}},
-  {ref_value = "drained_rarity", label = "pm_settings_drained_rarity", options = {"Never", "Rarely", "Sometimes", "Moderately", "Often", "Common"}},
+  {ref_value = "drained_rarity", label = "pm_settings_drained_rarity", options = {"Never", "Rarely", "Sometimes", "Moderately", "Often", "Always"}},
 }
 local music_option_cycles = {
   {ref_value = "battle_track", label = "pm_settings_battle_track", options = {"64", "TTYD", "Super", "Sticker Star", "Color Splash", "Origami King", "TTYD Remake", "None"}},
