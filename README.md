@@ -51,4 +51,3 @@ used to instantly remove the Drained status from Jokers that require the suit th
 - Translations to other languages!
 - New Decks, Vouchers, and Challenges!
   - Deck that translates the classic Paper Mario battle system into Balatro?
-- Screenshots for this README.
