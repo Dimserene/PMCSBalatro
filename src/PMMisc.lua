@@ -39,7 +39,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 
@@ -75,7 +75,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 
@@ -112,7 +112,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 
@@ -149,7 +149,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 
@@ -186,7 +186,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 
@@ -223,7 +223,7 @@ SMODS.Booster {
 		ease_background_colour({ new_colour = G.C.RED, special_colour = G.C.BLACK, contrast = 2 })
 	end,
     in_pool = function(self)
-        return pm_config.bc_added
+        return pm_config.bc_rarity > 1
     end,
 }
 

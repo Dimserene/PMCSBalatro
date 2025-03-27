@@ -18,6 +18,17 @@ to_big = to_big or function(num)
 end
 
 --Creates atlases for cards to use
+SMODS.Atlas { -- All Tags
+	-- Key for code to find it with
+	key = "modicon",
+	-- The name of the file, for the code to pull the atlas from
+	path = "icon.png",
+	-- Width of each sprite in 1x size
+	px = 32,
+	-- Height of each sprite in 1x size
+	py = 32,
+}
+
 SMODS.Atlas { -- The main atlas, used for all basic enemy types (yes, even sombrero)
 	-- Key for code to find it with
 	key = "PaperMario",
@@ -165,6 +176,7 @@ G.ARGS.LOC_COLOURS.pm_rgbled = SMODS.Gradients.pm_rgbled
 -- save current paths
 mod_dir = ''..SMODS.current_mod.path
 pm_config = SMODS.current_mod.config
+
 if NFS.read(mod_dir.."/config.lua") then
     pm_config = STR_UNPACK(NFS.read(mod_dir.."/config.lua"))
 end
@@ -177,13 +189,16 @@ end
 if pm_config.drained_rarity and (type(pm_config.drained_rarity) ~= 'number' or pm_config.drained_rarity < 1) then
     pm_config.drained_rarity = 1
 end
+if pm_config.battle_track and (type(pm_config.battle_track) ~= 'number') then
+    pm_config.battle_track = 8
+end
 
 G.FUNCS.cycle_update = function(args)
     args = args or {}
     if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
         args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
-        if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
-        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.2 end
+        if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = ((args.to_key - 1) * 0.2) or 0 end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = ((args.to_key - 1) * 0.2) or 0 end
        NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
     end
 end
@@ -216,8 +231,8 @@ SMODS.Rarity{
     badge_colour = HEX("EBD534"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
-        if pm_config.things_added then
-            if pm_config.things_rarity ~= 0.1 then return pm_config.things_rarity * self.default_weight
+        if pm_config.things_rarity > 1 then
+            if pm_config.things_rarity ~= 2 then return (pm_config.things_rarity - 1) * self.default_weight
             else return weight end
         else
             return 0
@@ -623,7 +638,7 @@ SMODS.ConsumableType{
     primary_colour = HEX("CC2E23"),
     secondary_colour = HEX("CC2E23"),
     collection_row = {5, 2},
-    shop_rate = (pm_config.bc_added and pm_config.bc_rarity) or 0.0,
+    shop_rate = ((pm_config.bc_rarity > 1) and pm_config.bc_rarity - 1) or 0.0,
     allow_duplicates = (G.GAME and G.GAME.used_vouchers.v_pm_copycat) or false,
     default = "c_pm_one_up",
     rarities = {

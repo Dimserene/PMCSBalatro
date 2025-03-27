@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = -1
 
 # Paper Mario only functionality
 [[patches]]
@@ -153,3 +153,55 @@ end
 '''
 match_indent = true
 
+# Splash Screen, ty Pokermon for this (also btw should prolly add an option to turn this off)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_joker'])"
+position = "after"
+payload = '''
+if pm_config.custom_splash then
+    local pm = {}
+    for k, v in pairs(G.P_CENTERS) do
+        if v.set == 'Joker' and v.stage then
+            table.insert(pm, v)
+        end
+    end
+    if #pm > 0 then
+        local chosen = math.random(#pm)
+        local chosencard = pm[chosen]
+        SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, chosencard)
+    else -- fall back
+        SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_pm_huey'], {bypass_discovery_center = true, bypass_discovery_ui = true})
+    end
+end
+'''
+match_indent = true
+
+# Show Huey to confirm PMCS is active
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)"
+position = "at"
+payload = '''
+if pm_config.custom_splash then
+    replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.empty, G.P_CENTERS.j_pm_goomba)
+else
+    replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)
+end
+'''
+match_indent = true
+
+# Show Replica Edition to confirm PMCS is active
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "replace_card.states.visible = false"
+position = "before"
+payload = '''
+if pm_config.custom_splash then
+	replace_card:set_edition(G.P_CENTERS.e_pm_replica and 'e_pm_replica' or 'e_negative',true,true)
+end
+'''
+match_indent = true
