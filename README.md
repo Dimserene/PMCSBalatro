@@ -39,9 +39,9 @@ used to instantly remove the Drained status from Jokers that require the suit th
 
 ### Other Features
 - Ability to turn off vanilla Jokers (and other modded Jokers, so be careful if using this with other mods!)
-- Ability to turn off Thing Jokers and Battle Cards
 - You can change the rate at which Battle Cards and Thing Jokers appear in the shop!
 - You can change the rarity of Drained Jokers appearing in the shop!
+- You can change if the splash and title screen shows a Paper Mario Joker or not! 
 - You can change the music that plays while in a Small or Big Blind to be the battle themes from various Paper Mario games!
 
 ## Planned Features
