@@ -45,9 +45,5 @@ used to instantly remove the Drained status from Jokers that require the suit th
 - You can change the music that plays while in a Small or Big Blind to be the battle themes from various Paper Mario games!
 
 ## Planned Features
-- Even more **custom** Jokers that can be turned on and off!
-  - Custom Jokers may be based off of other Mario enemies and may have abilities based off of contributions from the community!
-  - You may also find Jokers based off of the Boss Blinds you can find in game!
 - Translations to other languages!
-- New Decks, Vouchers, and Challenges!
-  - Deck that translates the classic Paper Mario battle system into Balatro?
+- New Vouchers and Challenges!
