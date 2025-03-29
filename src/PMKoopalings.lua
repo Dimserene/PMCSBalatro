@@ -30,28 +30,16 @@ SMODS.Joker{
         end
 
         if context.discard then
-            if not context.blueprint and G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 then
-                -- create the tarot card
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function() 
-                                local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'car')
-                                card:add_to_deck()
-                                G.consumeables:emplace(card)
-                                G.GAME.consumeable_buffer = 0
-                                return true
-                            end}))   
-                            card_eval_status_text(context.blueprint_card or self, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})                     
-                        return true
-                end)}))
-
-                card:juice_up(0.3, 0.4)
+            if not context.blueprint and G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 and #G.consumeables.cards < G.consumeables.config.card_limit then
+                local t = {
+                    set = 'Spectral'
+                }
+                SMODS.add_card(t)
+                card:juice_up()
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize("pm_magic")})
                 return {
                     remove = true,
-                    card = self
+                    card = context.other_card
                 }
             end
         end
@@ -94,9 +82,12 @@ SMODS.Joker{
         -- Getting a Tower Card when you start a round
         if context.first_hand_drawn then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local _card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_tower')
-                _card:add_to_deck()
-                G.consumeables:emplace(_card)
+                local t = {
+                    area = G.consumeables,
+                    key = 'c_tower'
+                }
+                SMODS.add_card(t)
+                card:juice_up()
                 card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
             end
         end
@@ -294,12 +285,13 @@ SMODS.Joker{
 
         -- Getting a Negative Jupiter Card when you start a round
         if context.first_hand_drawn then
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local _card = create_card('Planet', G.consumeables, nil, nil, nil, nil, 'c_jupiter')
-                local edition = {negative = true}
-                _card:set_edition(edition, true)
-                _card:add_to_deck()
-                G.consumeables:emplace(_card)
+            if #G.consumeables.cards < G.consumeables.config.card_limit then
+                local t = {
+                    area = G.consumeables,
+                    key = 'c_jupiter'
+                }
+                SMODS.add_card(t)
+                card:juice_up()
                 card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
             end
         end
@@ -399,7 +391,8 @@ SMODS.Joker{
                 if v.ability.set == 'Enhanced' and v.ability.name ~= "Wild Card" then
                     thunk = thunk + 1
                     v:set_ability(G.P_CENTERS.m_wild, nil, true)
-                    v.perma_h_mult = v.perma_h_mult + card.ability.extra.mult
+                    local current_h_mult = v.perma_h_mult or 0
+                    v.perma_h_mult = current_h_mult + card.ability.extra.mult
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             v:juice_up()
@@ -1145,7 +1138,7 @@ SMODS.Joker{
                     c:set_ability('m_pm_quantum', nil, true)
                     c.ability.old_enhancement = key
                 end
-                if c.edition then
+                if c.edition and c.edition.old_edition ~= 'e_pm_quantum' then
                     local key = c.edition.key
                     local xtype = c.edition.type
                     c:set_edition('e_pm_quantum', nil, true)
@@ -1166,7 +1159,7 @@ SMODS.Joker{
                     c:set_ability('m_pm_quantum', nil, true)
                     c.ability.old_enhancement = key
                 end
-                if c.edition then
+                if c.edition and c.edition.old_edition ~= 'e_pm_quantum' then
                     local key = c.edition.key
                     local xtype = c.edition.type
                     c:set_edition('e_pm_quantum', nil, true)
@@ -1187,7 +1180,7 @@ SMODS.Joker{
                     c:set_ability('m_pm_quantum', nil, true)
                     c.ability.old_enhancement = key
                 end
-                if c.edition then
+                if c.edition and c.edition.old_edition ~= 'e_pm_quantum' then
                     local key = c.edition.key
                     local xtype = c.edition.type
                     c:set_edition('e_pm_quantum', nil, true)
@@ -1208,7 +1201,7 @@ SMODS.Joker{
                     c:set_ability('m_pm_quantum', nil, true)
                     c.ability.old_enhancement = key
                 end
-                if c.edition then
+                if c.edition and c.edition.old_edition ~= 'e_pm_quantum' then
                     local key = c.edition.key
                     local xtype = c.edition.type
                     c:set_edition('e_pm_quantum', nil, true)
@@ -1475,10 +1468,12 @@ SMODS.Joker{
     calculate = function(self, card, context)
 
         if context.final_scoring_step then
-            local m = mult
+            local m = to_big(mult)
+            local milt = to_number(m ^ (card.ability.extra.exponent - 1))
             return {
-                xmult = m ^ (card.ability.extra.exponent - 1),
-                message = localize("pm_exponential"),
+                xmult = milt,
+                remove_default_message  = true,
+                message = localize("pm_exponential"), 
                 colour = G.C.SECONDARY_SET.Tarot,
                 card = card
             }

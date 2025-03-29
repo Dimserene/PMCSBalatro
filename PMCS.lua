@@ -18,6 +18,17 @@ to_big = to_big or function(num)
 end
 
 --Creates atlases for cards to use
+SMODS.Atlas { -- All Tags
+	-- Key for code to find it with
+	key = "modicon",
+	-- The name of the file, for the code to pull the atlas from
+	path = "icon.png",
+	-- Width of each sprite in 1x size
+	px = 32,
+	-- Height of each sprite in 1x size
+	py = 32,
+}
+
 SMODS.Atlas { -- The main atlas, used for all basic enemy types (yes, even sombrero)
 	-- Key for code to find it with
 	key = "PaperMario",
@@ -120,6 +131,28 @@ SMODS.Atlas { -- All Blinds
     frames = 21,
 }
 
+SMODS.Atlas { -- All Stakes
+	-- Key for code to find it with
+	key = "PMChips",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMChips.png",
+	-- Width of each sprite in 1x size
+	px = 29,
+	-- Height of each sprite in 1x size
+	py = 29,
+}
+
+SMODS.Atlas { -- All Stakes
+	-- Key for code to find it with
+	key = "PMStickers",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMStickers.png",
+	-- Width of each sprite in 1x size
+	px = 71,
+	-- Height of each sprite in 1x size
+	py = 95,
+}
+
 SMODS.Atlas { -- All Vouchers
 	-- Key for code to find it with
 	key = "PMVouchers",
@@ -165,6 +198,7 @@ G.ARGS.LOC_COLOURS.pm_rgbled = SMODS.Gradients.pm_rgbled
 -- save current paths
 mod_dir = ''..SMODS.current_mod.path
 pm_config = SMODS.current_mod.config
+
 if NFS.read(mod_dir.."/config.lua") then
     pm_config = STR_UNPACK(NFS.read(mod_dir.."/config.lua"))
 end
@@ -177,13 +211,16 @@ end
 if pm_config.drained_rarity and (type(pm_config.drained_rarity) ~= 'number' or pm_config.drained_rarity < 1) then
     pm_config.drained_rarity = 1
 end
+if pm_config.battle_track and (type(pm_config.battle_track) ~= 'number') then
+    pm_config.battle_track = 8
+end
 
 G.FUNCS.cycle_update = function(args)
     args = args or {}
     if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
         args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
-        if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
-        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.2 end
+        if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = ((args.to_key - 1) * 0.2) or 0 end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = ((args.to_key - 1) * 0.2) or 0 end
        NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
     end
 end
@@ -216,8 +253,8 @@ SMODS.Rarity{
     badge_colour = HEX("EBD534"),
     pools = {["Joker"] = true},
     get_weight = function(self, weight, object_type)
-        if pm_config.things_added then
-            if pm_config.things_rarity ~= 0.1 then return pm_config.things_rarity * self.default_weight
+        if pm_config.things_rarity > 1 then
+            if pm_config.things_rarity ~= 2 then return (pm_config.things_rarity - 1) * self.default_weight
             else return weight end
         else
             return 0
@@ -239,7 +276,7 @@ SMODS.Rarity{
 -- replacement rarities for consumables lmao
 SMODS.Rarity{
     key = "common",
-    default_weight = 65,
+    default_weight = 50,
     badge_colour = HEX("3479B5"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)
@@ -248,7 +285,7 @@ SMODS.Rarity{
 }
 SMODS.Rarity{
     key = "uncommon",
-    default_weight = 25,
+    default_weight = 35,
     badge_colour = HEX("2FBB82"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)
@@ -257,7 +294,7 @@ SMODS.Rarity{
 }
 SMODS.Rarity{
     key = "rare",
-    default_weight = 1,
+    default_weight = 15,
     badge_colour = HEX("E62F2C"),
     pools = {["pm_BattleCard"] = true},
     get_weight = function(self, weight, object_type)
@@ -286,17 +323,24 @@ SMODS.Edition{
 	end,
 	config = {
         x_mult = 0.9,
+        x_mult2 = 1.5,
     },
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.x_mult } }
 	end,
     calculate = function(self, card, context)
-        if G.GAME.used_vouchers.v_pm_replicaenjoyer and context.joker_main then
-            return{
-                xmult = G.P_CENTERS.v_pm_replicaenjoyer.config.xmult,
-            }
+        if context.pre_joker then
+            if G.GAME.used_vouchers.v_pm_replicaenjoyer then
+                return {
+                    xmult = card.edition.x_mult2,
+                }
+            else
+                return {
+                    xmult = card.edition.x_mult,
+                }
+            end
         end
-    end,
+    end
 }
 
 SMODS.Edition{
@@ -330,6 +374,21 @@ SMODS.Edition{
         card.edition.old_shader = nil
         card.edition.old_edition = nil
     end,
+    calculate = function(self, card, context)
+        if context.pre_joker then
+            return {
+                chips = card.edition.chips,
+                mult = card.edition.mult,
+                xmult = card.edition.x_mult,
+            }
+        elseif context.main_scoring and context.cardarea == G.play then
+            return {
+                chips = card.edition.chips,
+                mult = card.edition.mult,
+                xmult = card.edition.x_mult,
+            }
+        end
+    end
 }
 
 SMODS.Shader{
@@ -373,7 +432,8 @@ SMODS.Sticker{
             }
             card.ability[self.key] = val and copy_table(self.config)
             card.cost = 1
-            card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono'))
+            if type(card.ability.extra) == 'table' and card.ability.extra.suit then card.ability[self.key].extra.drained_suit = card.ability.extra.suit    
+            else card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono')) end
             card.ability[self.key].extra.drained_turns = math.floor(pseudorandom('turns', 1, 10))
         else
             card.ability[self.key] = val
@@ -381,19 +441,20 @@ SMODS.Sticker{
         end
     end,
     calculate = function (self, card, context)
-        if context.individual and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+
+        if context.individual and context.cardarea == G.play and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
             if context.other_card:is_suit(card.ability[self.key].extra.drained_suit) then
                 if card.ability[self.key].extra.drained_turns == 1 then
                     card.ability[self.key].extra.drained_turns = 0
                 else
                     card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability[self.key].extra.drained_turns.." Remaining", colour = G.C.ATTENTION, delay = 0.45})
                 end
             end
         end
 
         if context.first_hand_drawn and card.ability[self.key].extra.drained_turns and card.ability.set == 'Joker' then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
-            card:set_debuff(true)
         end
 
         if context.final_scoring_step and card.ability[self.key] and card.ability[self.key].extra.drained_turns <= 0 then
@@ -430,6 +491,13 @@ SMODS.Sticker{
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability[self.key].extra.drained_turns, } }
     end,
+    should_apply = function(self, card, center, area)
+        if G.GAME.used_vouchers.v_pm_saturation or not G.GAME.modifiers['enable_pm_coloredin'] or (pm_config.drained_rarity < 1) then return false
+        elseif card.ability.set == 'Joker' or card.ability.set == 'pm_BattleCard' then 
+            if (G.GAME.used_vouchers.v_pm_autopaint and G.GAME.modifiers['enable_pm_coloredin']) and pseudorandom('mono') < SMODS.Stickers['pm_monochrome'].rate then return true end
+        end
+        return false
+    end,
     apply = function(self, card, val)
         if val then
             card.ability[self.key] = val and copy_table(self.config)
@@ -439,14 +507,15 @@ SMODS.Sticker{
         end
     end,
     calculate = function (self, card, context)
-        if context.end_of_round and context.cardarea == G.jokers and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
+        if context.end_of_round and (context.cardarea == G.jokers or context.cardarea == G.consumeables) and card.ability[self.key] and card.ability[self.key].extra.drained_turns > 0 then
             if card.ability[self.key].extra.drained_turns == 1 then
                 card.ability[self.key].extra.drained_turns = 0
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_drained"),colour = G.C.FILTER, delay = 0.45})
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize("pm_drained"), colour = G.C.FILTER, delay = 0.45})
                 SMODS.Stickers.pm_monochrome:apply(card, true)
                 SMODS.Stickers.pm_coloredin:apply(card, nil)
             else
                 card.ability[self.key].extra.drained_turns = card.ability[self.key].extra.drained_turns - 1
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability[self.key].extra.drained_turns.." Remaining", colour = G.C.ATTENTION, delay = 0.45})
             end
         end
     end,
@@ -592,6 +661,9 @@ SMODS.Seal{
     get_p_dollars = function(self, card)
         return card.ability.seal.p_dollars
     end,
+    in_pool = function(self, args)
+        return false
+    end,
 }
 
 -- load consumable type
@@ -600,7 +672,7 @@ SMODS.ConsumableType{
     primary_colour = HEX("CC2E23"),
     secondary_colour = HEX("CC2E23"),
     collection_row = {5, 2},
-    shop_rate = (pm_config.bc_added and pm_config.bc_rarity) or 0.0,
+    shop_rate = ((pm_config.bc_rarity > 1) and pm_config.bc_rarity - 1) or 0.0,
     allow_duplicates = (G.GAME and G.GAME.used_vouchers.v_pm_copycat) or false,
     default = "c_pm_one_up",
     rarities = {
@@ -635,6 +707,8 @@ SMODS.Stake{
     unlocked = true,
     colour = SMODS.Gradients.pm_rgbled,
     prefix_config = { applied_stakes = { mod = false } },
+    atlas = 'PMChips', pos = { x = 0, y = 0 },
+    sticker_atlas = 'PMStickers', sticker_pos = { x = 0, y = 0 },
     modifiers = function()
 		G.GAME.modifiers['enable_pm_coloredin'] = true
 	end,
@@ -831,10 +905,9 @@ function get_flush(hand)
                     end
                 end
 
-                if flush_count >= (5 - (target and 1 or 0)) then
+                if flush_count >= target then
                     table.insert(results, t)
                     return results
-                    else return base
                 end
             end
             if suits["Spades"] > 0 and suits["Hearts"] > 0 and suits["Diamonds"] > 0 and suits["Clubs"] > 0 then

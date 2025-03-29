@@ -806,7 +806,8 @@ return {
               
                 name = "Boomerang Bro",
                 text = { 
-                    "Played {C:spades}#1#{} cards retrigger {C:attention}once{}",
+                    "Played {C:spades}#1#{} cards", 
+                    "retrigger {C:attention}once{}",
                 },
             },
 
@@ -1221,6 +1222,7 @@ return {
                 text = { 
                     "Retrigger the Joker to the",
                     "{C:attention}right #1#{} times",
+                    "{s:0.9,C:inactive}(Stacks with other Megaphones)",
                 },
             },
 
@@ -2459,8 +2461,7 @@ return {
 
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",
-            pm_settings_things_added = "Things Allowed?",
-            pm_settings_bc_added = "Battle Cards Allowed?",
+            pm_settings_custom_splash = "Custom Splash/Title Screen",
             pm_settings_things_rarity = "Thing Weight?",
             pm_settings_bc_rarity = "Battle Card Weight?",
             pm_settings_drained_rarity = "Drained Status Weight?",
@@ -2468,7 +2469,16 @@ return {
             pm_settings_header_norequired = "Config Options:",
             pm_settings_header_required = "Config Options (Requires Restart):",
             pm_settings_header_music = "Music Options:",
-            pm_settings_reset = "Reset Config",
+
+            -- Buttons
+            pm_music_box = "Music",
+            pm_credits_fullcredits = "Credits",
+
+            -- Credits
+            pm_credits_thanks = "Credits to the following people/mods:",
+            pm_credits_lead = "Solo Developer and Artist:",
+            pm_credits_mod = "Mods Credited:",
+            pm_credits_game = "Additional Credits to:",
         },
         high_scores={},
         labels={

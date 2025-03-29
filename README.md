@@ -1,4 +1,7 @@
 # PMCSBalatro
+This mod adds:
+![every addition in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/additions.png?raw=true)
+![the two stickers in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/stick.png?raw=true)
 
 ## Features
 - **117** total new Jokers, based off of Paper Mario: Color Splash Enemy Cards!
@@ -36,16 +39,11 @@ used to instantly remove the Drained status from Jokers that require the suit th
 
 ### Other Features
 - Ability to turn off vanilla Jokers (and other modded Jokers, so be careful if using this with other mods!)
-- Ability to turn off Thing Jokers and Battle Cards
 - You can change the rate at which Battle Cards and Thing Jokers appear in the shop!
 - You can change the rarity of Drained Jokers appearing in the shop!
+- You can change if the splash and title screen shows a Paper Mario Joker or not! 
 - You can change the music that plays while in a Small or Big Blind to be the battle themes from various Paper Mario games!
 
 ## Planned Features
-- Even more **custom** Jokers that can be turned on and off!
-  - Custom Jokers may be based off of other Mario enemies and may have abilities based off of contributions from the community!
-  - You may also find Jokers based off of the Boss Blinds you can find in game!
 - Translations to other languages!
-- New Decks, Vouchers, and Challenges!
-  - Deck that translates the classic Paper Mario battle system into Balatro?
-- Screenshots for this README.
+- New Vouchers and Challenges!
