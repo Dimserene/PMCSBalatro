@@ -1,6 +1,6 @@
 SMODS.Voucher{
     key = 'copycat',
-    discovered = true,
+    discovered = false,
     cost = 10,
     atlas = 'PMVouchers', 
     pos = { x = 0, y = 0 },
@@ -8,7 +8,7 @@ SMODS.Voucher{
 
 SMODS.Voucher{
     key = 'ghostblessing',
-    discovered = true,
+    discovered = false,
     cost = 10,
     requires = {'v_crystal_ball', 'v_pm_copycat'},
     atlas = 'PMVouchers', 
@@ -17,7 +17,7 @@ SMODS.Voucher{
 
 SMODS.Voucher{
     key = 'autopaint',
-    discovered = true,
+    discovered = false,
     cost = 10,
     atlas = 'PMVouchers', 
     pos = { x = 2, y = 0 },
@@ -29,7 +29,7 @@ SMODS.Voucher{
 
 SMODS.Voucher{
     key = 'saturation',
-    discovered = true,
+    discovered = false,
     cost = 10,
     requires = {'v_pm_autopaint'},
     atlas = 'PMVouchers', 
@@ -41,7 +41,7 @@ SMODS.Voucher{
 
 SMODS.Voucher{
     key = 'thingshopper',
-    discovered = true,
+    discovered = false,
     cost = 10,
     atlas = 'PMVouchers', 
     pos = { x = 4, y = 0 },
@@ -49,7 +49,7 @@ SMODS.Voucher{
 
 SMODS.Voucher{
     key = 'replicahaver',
-    discovered = true,
+    discovered = false,
     cost = 10,
     requires = {'v_pm_thingshopper'},
     atlas = 'PMVouchers', 
@@ -58,7 +58,7 @@ SMODS.Voucher{
 --[[
 SMODS.Voucher{
     key = 'replicaenjoyer',
-    discovered = true,
+    discovered = false,
     cost = 10,
     requires = {'v_pm_replicahaver'},
     config = {xmult = 1.5},

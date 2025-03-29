@@ -10,7 +10,7 @@ target = "functions/common_events.lua"
 pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end"
 position = "after"
 payload = '''
-if v.set == 'Joker' and not v.stage and not (v.atlas == "pm_PaperMario" or v.atlas == "pm_Koopalings"or v.atlas == "pm_Things") and pm_config and pm_config.papermario_only then add = nil end
+if v.set == 'Joker' and not v.stage and not (v.atlas == "pm_PaperMario" or v.atlas == "pm_Koopalings" or v.atlas == "pm_Things" or v.atlas == "pm_PMBossCards") and pm_config and pm_config.papermario_only then add = nil end
 '''
 match_indent = true
 
@@ -102,7 +102,7 @@ elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not
 '''
 position = "at"
 payload = '''
-elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not (next(find_joker("Showman")) or G.GAME.used_vouchers.v_pm_replicahaver or (G.GAME.used_vouchers.v_pm_thingshopper and v.rarity == 'pm_thing'))) and (v.unlocked ~= false or v.rarity == 4) then
+elseif not (G.GAME.used_jokers[v.key] and not pool_opts.allow_duplicates and not (next(find_joker("Showman")) or G.GAME.used_vouchers.v_pm_replicahaver or (G.GAME.used_vouchers.v_pm_thingshopper and v.rarity == 'pm_thing'))) and (v.unlocked ~= false or v.rarity == 4 or v.rarity == 'pm_bosses') then
 '''
 match_indent = true
 

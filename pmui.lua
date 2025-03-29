@@ -50,22 +50,41 @@ pmconfig = function()
       n = G.UIT.R,
       config = {
         padding = 0,
-        align = "cm"
+        align = "cl"
       },
       nodes = {
+        { n = G.UIT.R, config = { padding = 0, align = "cl" },
+          nodes = {
+            {
+              n = G.UIT.T,
+              config = {
+                text = localize("pm_settings_header_norequired"),
+                shadow = true,
+                scale = 0.75 * 0.8,
+                colour = HEX("FFFFFF")
+              }
+            },
+            no_restart_settings,
+          },
+        },
         {
-          n = G.UIT.T,
-          config = {
-            text = localize("pm_settings_header_norequired"),
-            shadow = true,
-            scale = 0.75 * 0.8,
-            colour = HEX("FFFFFF")
-          }
+          n = G.UIT.R, config = { padding = 0, align = "cr" },
+          nodes = {
+            {
+              n = G.UIT.T,
+              config = {
+                text = localize("pm_settings_header_music"),
+                shadow = true,
+                scale = 0.75 * 0.8,
+                colour = HEX("FFFFFF")
+              },
+            },
+            music_settings,
+          },
         }
       },
-    },
-    no_restart_settings,
-    music_settings,
+      
+    }, 
   }
   return config_nodes
 end

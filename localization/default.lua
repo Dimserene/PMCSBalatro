@@ -111,6 +111,83 @@ return {
                 }
             },
 
+            bl_pm_lemmy = {
+                name = "The Wild Card",
+                text = {
+                    "Shuffles the order",
+                    "of your played cards",
+                }
+            },
+
+            bl_pm_larry = {
+                name = "The Blue",
+                text = {
+                    "Playing a hand containing #1#",
+                    "is not allowed",
+                }
+            },
+
+            bl_pm_iggy = {
+                name = "The Lanky",
+                text = {
+                    "Discards one random card and increases the",
+                    "score requirement by 100x the total chip value",
+                }
+            },
+
+            bl_pm_wendy = {
+                name = "The Ring",
+                text = {
+                    "Debuffs non-face cards",
+                }
+            },
+
+            bl_pm_morton = {
+                name = "The Moron",
+                text = {
+                    "Caps score at 50% when playing",
+                    "Stone Cards",
+                }
+            },
+
+            bl_pm_roy = {
+                name = "The Strongarm",
+                text = {
+                    "Multiplies score requirement by",
+                    "5x when debuffing this Blind",
+                }
+            },
+
+            bl_pm_ludwig = {
+                name = "The Clone",
+                text = {
+                    "Debuffs copies of Jokers",
+                }
+            },
+
+            bl_pm_boomboom = {
+                name = "The Tantrum",
+                text = {
+                    "You cannot win on the first 2 hands",
+                    "unless you have less than 3"
+                }
+            },
+
+            bl_pm_pompom = {
+                name = "The Ninja",
+                text = {
+                    "1 in 4 chance to cap score at 10%",
+                    "of required score",
+                }
+            },
+
+            bl_pm_kamek = {
+                name = "The Wizard",
+                text = {
+                    "Cards do not have base chips",
+                }
+            },
+
         },
         Edition={
             e_pm_replica = {
@@ -121,13 +198,42 @@ return {
                     "{s:0.9,C:inactive}duplicate of the original.{}",
                 },
             },
+            e_pm_quantum = {
+                name = "Quantum",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{C:mult}+#2#{} Mult",
+                    "{X:mult,C:white}X#3#{} Mult",
+                    "{C:dark_edition}+#4#{} card limit",
+                },
+            },
         },
         Enhanced={
             m_pm_frozen = {
-                name = "Frozen",
+                name = "Frozen Card",
                 text = {
                     "{C:mult}+#1#{} Mult when held in hand",
                     "cannot be {C:red}debuffed{}",
+                }
+            },
+
+            m_pm_quantum = {
+                name = "Quantum Card",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                    "{C:mult}+#2#{} Mult",
+                    "{X:mult,C:white}X#3#{} Mult",
+                    "{X:mult,C:white}X#4#{} Mult when held in hand",
+                    "{C:money}$#5#{} when held in hand at end of round",
+                    "{C:green}#6# in #9#{} chance to gain {C:mult}+#7#{} Mult",
+                    "{C:green}#6# in #10#{} chance to gain {C:money}$#8#{}",
+                    "Can be used as any suit, always scores",
+                }
+            },
+            m_pm_slipper = {
+                name = "Cursed",
+                text = {
+                    "Card does not have base chips",
                 }
             },
         },
@@ -772,6 +878,10 @@ return {
                     "{C:mult}destroy{} it and gain a {C:purple}Spectral{} card",
                     "{C:mult}+#1#{} Discard",
                 },
+                unlock = {
+                    "Beat a particularly",
+                    "{C:dark_edition}magical{} Boss Blind",
+                },
             },
 
             j_pm_morton = {
@@ -781,6 +891,10 @@ return {
                     "If hand consists of 5 {C:attention}Stone Cards{},",
                     "it counts as a {C:attention}#1#{} and gives {X:mult,C:white}X#2#{} Mult",
                     "At {C:attention}start of round{}, gain a {C:chips}Tower{}",
+                },
+                unlock = {
+                    "Beat a particularly",
+                    "{C:dark_edition}blockheaded{} Boss Blind",
                 },
             },
 
@@ -793,6 +907,10 @@ return {
                     "equal to {C:attention}1/10th{} the card's value",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive}){}",
                 },
+                unlock = {
+                    "Beat a particularly",
+                    "{C:green}lanky{} Boss Blind",
+                },
             },
 
             j_pm_ludwig = {
@@ -804,6 +922,10 @@ return {
                     "Gain {X:mult,C:white}+X#2#{} per {C:attention}Ludwig Copy{} you have.",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
                 },
+                unlock = {
+                    "Beat a {C:blue}clone-styled{}",
+                    "Boss Blind",
+                },
             },
 
             j_pm_ludwigcopy = {
@@ -811,6 +933,10 @@ return {
                 name = "Ludwig Copy",
                 text = { 
                     "{C:inactive}Does... nothing?{}",
+                },
+                unlock = {
+                    "Beat a {C:blue}clone-styled{}",
+                    "Boss Blind",
                 },
             },
 
@@ -823,6 +949,10 @@ return {
                     "Straights give {X:mult,C:white}+X#2#{}",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
                 },
+                unlock = {
+                    "Beat a {C:red}ring-centric{}",
+                    "Boss Blind",
+                },
             },
 
             j_pm_larry = {
@@ -833,6 +963,10 @@ return {
                     "If current number of Jokers is >= {C:attention}#1#{}, this",
                     "becomes {C:dark_edition}Negative{}",
                 },
+                unlock = {
+                    "Beat a {C:blue}blue-haired{}",
+                    "Boss Blind",
+                },
             },
 
             j_pm_lemmy = {
@@ -842,7 +976,12 @@ return {
                     "{C:attention}Wild Cards{} cannot be {C:attention}debuffed{}",
                     "When you play an enhanced card, make it a {C:attention}Wild Card{}",
                     "All {C:attention}Wild Cards{} give {C:mult}+#1#{} Mult when played",
-                }
+                    "and permanently gain {C:mult}+#1#{} Mult when held in hand",
+                },
+                unlock = {
+                    "Beat a {C:pm_rgbled}wild{}",
+                    "Boss Blind",
+                },
             },
             
             j_pm_roy = {
@@ -853,6 +992,10 @@ return {
                     "will {C:mult}disable{} it and give {X:mult,C:white}X#1#{} Mult",
                     "for the rest of the round",
                     "{C:inactive}(Triggered {C:attention}#2#{C:inactive} times){}",
+                },
+                unlock = {
+                    "Beat a {C:red}strong{}",
+                    "Boss Blind",
                 },
             },
 
@@ -1140,6 +1283,221 @@ return {
                 },
             },
 
+            -- Boss Jokers
+        
+            j_pm_booking = {
+                name = "King Boo",
+                text = { 
+                    "{C:green}1 in #1#{} chance to give every Joker",
+                    "{C:dark_edition}Negative{} at end of round",
+                    "{C:red}self-destructs{}",
+                    "{s:0.9,C:inactive}(chance cannot be modified)",
+                },
+                unlock = {
+                    "Beat a {C:dark_edition}Negative{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_bombking = {
+                name = "King Bob-Omb",
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult.",
+                    "Debuffs itself after first hand",
+                    "until end of round",
+                },
+                unlock = {
+                    "Beat an {C:red}explosive{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_pirahnaking = {
+                name = "Petey Pirahna",
+                text = { 
+                    "Cards cannot be {C:red}debuffed{}. Any time",
+                    "a card would be debuffed, gain {C:money}$#1#{}",
+                },
+                unlock = {
+                    "Beat an {C:green}earthy{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_pokeyking = {
+                name = "King Pokey",
+                text = { 
+                    "Every {C:attention}#1#{} hands playing {C:attention}most played hand{},",
+                    "level up your most played hand {C:attention}3{} times.",
+                    "Gain {X:mult,C:white}+X#3#{} Mult per extra hand level of {C:attention}most played hand{}",
+                    "{C:inactive}(Currently #2# hands played and {X:mult,C:white}X#4#{C:inactive} Mult){}",
+                },
+                unlock = {
+                    "Beat a {C:green}spikey{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_wigglerking = {
+                name = "King Wiggler",
+                text = { 
+                    "If hand contains a {C:attention}Straight{}, increase the ranks",
+                    "of all played cards until it becomes a {C:attention}Royal Straight{}",
+                    "{C:attention}Royal Straights{} give this card {X:mult,C:white}+X#2#{} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
+                },
+                unlock = {
+                    "Beat a {C:green}caterpillar{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_goombaking = {
+                name = "King Goomba",
+                text = { 
+                    "Using a non-{C:dark_edition}Negative{} consumable",
+                    "creates a {C:dark_edition}Negative{} copy",
+                },
+                unlock = {
+                    "Beat a {C:purple}basic king{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_bloopking = {
+                name = "Gooper Blooper",
+                text = { 
+                    "Any combo of {C:attention}numbered cards{} counts as a {C:attention}Straight{}",
+                    "Playing Straights gives {X:mult,C:white}+X#2#{} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
+                },
+                unlock = {
+                    "Beat an {C:purple}inky{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_lakituking = {
+                name = "King Lakitu",
+                text = { 
+                    "Gains {X:mult,C:white}+X#2#{} Mult per {C:attention}consecutive{} hand",
+                    "played that is your {C:attention}most played{} hand",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
+                },
+                unlock = {
+                    "Beat a {X:blue,C:white}Cloud-Driving{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_whompking = {
+                name = "King Whomp",
+                text = { 
+                    "If hand consists of 5 {C:attention}Stone Cards{},",
+                    "it counts as a {C:attention}Straight{}.",
+                    "Played {C:attention}numbered cards{} become {C:attention}Stone{}",
+                },
+                unlock = {
+                    "Beat a Stone",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_billking = {
+                name = "Banzai Bill",
+                text = { 
+                    "Gain {X:mult,C:white}X#2#{} Mult when your {C:attention}last score{}",
+                    "is greater than {C:attention}2x{} the",
+                    "{C:attention}current score requirement{}",
+                    "{C:inactive}(Last Score: #1#){}"
+                },
+                unlock = {
+                    "Beat a Bullet",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_cheepking = {
+              
+                name = "Cheep Chomp",
+                text = { 
+                    "This Joker gains {X:chips,C:white}+X#2#{} Chips",
+                    "per {C:attention}non-scoring{} card",
+                    "{C:inactive}(Currently {X:chips,C:white}X#1#{C:inactive} Chips){}",
+                },
+                unlock = {
+                    "Beat a {C:blue}fishy{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_junior = {
+              
+                name = "Bowser Jr.",
+                text = { 
+                    "Randomly grants played hands a random",
+                    "{C:attention}enhancement, edition, or seal{}",
+                    "{s:0.8,C:inactive}(chances for each are independent and cannot be modified){}",
+                },
+                unlock = {
+                    "Beat a {C:pm_rgbled}child{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_bowser = {
+              
+                name = "Bowser",
+                text = { 
+                    "Cards with {C:attention}enhancements, editions, or seals{}",
+                    "act like they have every",
+                    "{C:attention}enhancement, edition, or seal{} respectively",
+                    "{s:0.8,C:inactive}(only applies Vanilla enhancements, editions, and seals){}",
+                },
+                unlock = {
+                    "Beat the {C:red}King of Koopas{}",
+                },
+            },
+
+            j_pm_drybowser = {
+              
+                name = "Dry Bowser",
+                text = { 
+                    "{C:attention}Stone Cards{} give {V:1}#2##1#{} Mult",
+                    "when scored. Prevents {C:red}death{} if chips scored",
+                    "are at least {C:attention}50%{} of required chips",
+                    "{C:inactive}(#3#){}",
+                },
+                unlock = {
+                    "Beat a {C:blue}skeleton{}",
+                    "Boss Blind",
+                },
+            },
+
+            j_pm_boomboom = {
+              
+                name = "Boom Boom",
+                text = { 
+                    "Retriggers all Jokers and cards",
+                    "{C:attention}#1#{} time in the {C:attention}first hand",
+                },
+                unlock = {
+                    "Beat a Boss Blind",
+                    "{C:money}throwing a tantrum{}",
+                },
+            },
+
+            j_pm_pompom = {
+              
+                name = "Pom Pom",
+                text = { 
+                    "Increases score by {X:dark_edition,C:white}^#1#{}",
+                },
+                unlock = {
+                    "Beat a {C:pink}ninja{}",
+                    "Boss Blind",
+                },
+            },
         },
         Other={
             -- STICKERS
@@ -1156,6 +1514,7 @@ return {
                 text = {
                     "{C:mult}Disabled{}. Playing {C:attention}#1# {V:1}#2#{}",
                     "will remove this sticker", 
+                    "{s:0.9,C:inactive}(number of cards random upon application){}",
                 },
             },
 
@@ -1164,7 +1523,7 @@ return {
                 text = {
                     "Becomes {C:attention}Drained{} after", 
                     "{C:attention}#1#{} rounds",
-                    "{s:0.8,C:inactive}(number of rounds is random upon application){}",
+                    "{s:0.9,C:inactive}(number of rounds is random upon application){}",
                 },
             },
 
@@ -1241,6 +1600,14 @@ return {
                 },
             },
 
+            pm_royal_straight = {
+                name = "Royal Straight",
+                text = {
+                    "{C:attention}A, K, Q, J, 10{}",
+                    "of any suit",
+                },
+            },
+
             --Booster Packs
             p_pm_bc_basic_1 = {
                 name = "Basic Pack",
@@ -1285,6 +1652,18 @@ return {
                 }
             },
             
+            -- Seals
+            pm_seal_quantum_seal = {
+                name = "Quantum Seal",
+                text = {
+                    "Retriggers this card {C:attention}#1#{} time",
+                    "Gain {C:money}$#2#{} when played",
+                    "Create a {C:blue}Planet{} card for final played {C:attention}poker hand{}",
+                    "of round if {C:attention}held{} in hand {C:inactive}(Must have room){}",
+                    "Create a {C:purple}Tarot{} when discarded {C:inactive}(Must have room){}",
+                }
+            },
+
             --extra descriptions
             pm_extra_mult = {
                 text = {
@@ -1307,6 +1686,14 @@ return {
                 text = {
                     "Create a copy of a {C:attention}random{}",
                     "Joker with {C:dark_edition}Replica{}",
+                }
+            },
+
+            c_pm_soulreverse = {
+                name = "Reverse Soul",
+                text = {
+                    "Create a {C:dark_edition}Boss{} Joker",
+                    "{C:inactive}(Must have room){}",
                 }
             },
         },
@@ -1961,8 +2348,60 @@ return {
         },
     },
     misc = {
-        achievement_descriptions={},
-        achievement_names={},
+        achievement_descriptions={
+            ach_pm_booking_won = "Win against The Boo",
+            ach_pm_bombking_won = "Win against The Bomb",
+            ach_pm_pirahnaking_won = "Win against The Pirahna Plant",
+            ach_pm_pokeyking_won = "Win against The Cactus",
+            ach_pm_wigglerking_won = "Win against The Wiggler",
+            ach_pm_goombaking_won = "Win against The Goomba",
+            ach_pm_bloopking_won = "Win against The Blooper",
+            ach_pm_lakituking_won = "Win against The Lakitu",
+            ach_pm_thwompking_won = "Win against The Thwomp",
+            ach_pm_billking_won = "Win against The Bullet",
+            ach_pm_cheepking_won = "Win against The Cheep Cheep",
+            ach_pm_junior_won = "Win against The Junior",
+            ach_pm_bowser_won = "Win against The Koopa King",
+            ach_pm_drybowser_won = "Win against The Skeleton King",
+            ach_pm_lemmy_won = "Win against The Wild Card",
+            ach_pm_larry_won = "Win against The Blue",
+            ach_pm_iggy_won = "Win against The Lanky",
+            ach_pm_wendy_won = "Win against The Ring",
+            ach_pm_morton_won = "Win against The Moron",
+            ach_pm_roy_won = "Win against The Strongarm",
+            ach_pm_ludwig_won = "Win against The Clone",
+            ach_pm_boomboom_won = "Win against The Tantrum",
+            ach_pm_pompom_won = "Win against Ninja",
+            ach_pm_kamek_won = "Win against The Wizard",
+            ach_pm_color_splash = "Win against every Paper Mario Boss Blind",
+        },
+        achievement_names={
+            ach_pm_booking_won = 'King of Boos',
+            ach_pm_bombking_won = 'King of Bombs',
+            ach_pm_pirahnaking_won = 'Plant Gang',
+            ach_pm_pokeyking_won = 'Cactus Pruned!',
+            ach_pm_wigglerking_won = 'Metamorphosis',
+            ach_pm_goombaking_won = 'King of Goombas',
+            ach_pm_bloopking_won = 'Turf War',
+            ach_pm_lakituking_won = 'Cloud Ten',
+            ach_pm_thwompking_won = 'Crushed Spirit',
+            ach_pm_billking_won = 'Mach Five',
+            ach_pm_cheepking_won = "Fish Fear Me",
+            ach_pm_junior_won = 'Not My Mama!',
+            ach_pm_bowser_won = 'King of Koopas',
+            ach_pm_drybowser_won = 'Second Phase',
+            ach_pm_lemmy_won = "Balls Gaming",
+            ach_pm_larry_won = "Livin' Like Larry",
+            ach_pm_iggy_won = "Night Light Fright",
+            ach_pm_wendy_won = "Wednesday",
+            ach_pm_morton_won = "Blockheaded",
+            ach_pm_roy_won = "Parry This!",
+            ach_pm_ludwig_won = "Clone Wars",
+            ach_pm_boomboom_won = "Mad Lad",
+            ach_pm_pompom_won = "Anime Woman",
+            ach_pm_kamek_won = "Now!",
+            ach_pm_color_splash = "Color Splash",
+        },
         blind_states={},
         challenge_names={
             c_pm_burntsteak = 'Burnt Steak',
@@ -1992,18 +2431,23 @@ return {
             pm_burnt = "Burnt!",
             pm_magnified = "Magnified!",
             pm_colorized = "Colorized!",
+            pm_painted = "Painted!",
             pm_ice_spear = "Shattered!",
             pm_KO = "OHKO!",
             pm_easter_egg = "Lucky!",
+            pm_exponential = "^1.25 Mult",
 
             -- Dry Bones
             pm_chips = "Chips",
             pm_mult = "Mult",
+            pm_dmult = "+",
+            pm_xmult = "X",
             pm_dry = "1-UP Active!",
             pm_dead = "Death Prevented!",
 
             -- Rarities
             k_pm_thing = "Thing",
+            k_pm_bosses = "Boss",
 
             -- Booster Pack Label
             pm_battle_card_booster = "Battle Card Pack",
@@ -2011,6 +2455,7 @@ return {
 
             -- Placeholders
             pm_placeholderhand = "most played hand",
+            pm_placeholdersuit = "(random suit)",
 
             -- Mod Config Settings
             pm_settings_papermario_only = "Only PM Jokers?",
@@ -2032,6 +2477,10 @@ return {
 
             -- Editions
             pm_replica = "Replica",
+            pm_quantum = "Quantum",
+
+            -- Seals
+            pm_seal_quantum_seal = "Quantum Seal",
             
             -- Stickers
             pm_drained = "Drained",

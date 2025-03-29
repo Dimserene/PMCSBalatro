@@ -10,6 +10,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 0, y = 0 },
@@ -62,7 +63,14 @@ SMODS.Joker{
 	end,
 	remove_from_deck = function(self, card, from_debuff)
 		ease_discard(card.ability.extra.discards*-1)
-	end
+	end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.kamek_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Morton
@@ -71,6 +79,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 2, y = 0 },
@@ -109,7 +118,14 @@ SMODS.Joker{
         if context.final_scoring_step then
             card.ability.extra.active = false
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.morton_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Iggy
@@ -118,6 +134,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 0, y = 1 },
@@ -155,7 +172,14 @@ SMODS.Joker{
                 card = card
             }
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.iggy_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Ludwig
@@ -164,6 +188,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 2, y = 1 },
@@ -212,7 +237,14 @@ SMODS.Joker{
         else
             card.ability.extra.Xmult = 1.0
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.ludwig_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Ludwig Copy
@@ -221,6 +253,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 1,
     blueprint_compat = false,
     pos = { x = 2, y = 1 },
@@ -231,7 +264,14 @@ SMODS.Joker{
     end,
     calculate = function(self, card, context)
 
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.ludwig_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Wendy
@@ -240,6 +280,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 0, y = 2 },
@@ -280,7 +321,14 @@ SMODS.Joker{
                 card = card
             }
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.wendy_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Larry
@@ -288,7 +336,8 @@ SMODS.Joker{
     key = 'larry',
     rarity = 4,
     atlas = 'Koopalings',
-    discovered = true,
+    discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 2, y = 2 },
@@ -317,7 +366,14 @@ SMODS.Joker{
             
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE}) 
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.larry_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Lemmy
@@ -325,7 +381,8 @@ SMODS.Joker{
     key = 'lemmy',
     rarity = 4,
     atlas = 'Koopalings',
-    discovered = true,
+    discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 0, y = 3 },
@@ -342,6 +399,7 @@ SMODS.Joker{
                 if v.ability.set == 'Enhanced' and v.ability.name ~= "Wild Card" then
                     thunk = thunk + 1
                     v:set_ability(G.P_CENTERS.m_wild, nil, true)
+                    v.perma_h_mult = v.perma_h_mult + card.ability.extra.mult
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             v:juice_up()
@@ -366,7 +424,14 @@ SMODS.Joker{
                 }
             end
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.lemmy_won == true then
+                return true
+            end
+        end
+    end,
 }
 
 -- Roy
@@ -375,6 +440,7 @@ SMODS.Joker{
     rarity = 4,
     atlas = 'Koopalings',
     discovered = false,
+    unlocked = false,
     cost = 20,
     blueprint_compat = true,
     pos = { x = 2, y = 3 },
@@ -444,7 +510,989 @@ SMODS.Joker{
         if context.final_scoring_step then
             card.ability.extra.triggered = false
         end
-    end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.roy_won == true then
+                return true
+            end
+        end
+    end,
+}
+
+-- Boss Jokers
+SMODS.Joker{
+    key = 'booking',
+    rarity = 'pm_bosses',
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    eternal_compat = false,
+    atlas = 'PMBossCards',
+    pos = { x = 0, y = 1 },
+    soul_pos = { x = 0, y = 0 },
+    config = { extra = {odds = 4} },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.e_negative
+        return { vars = { card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if not context.repetition and not context.individual and context.end_of_round and not context.blueprint then
+            if pseudorandom('kingboo') < (1 / card.ability.extra.odds) then
+                if #G.jokers.cards > 0 then
+                    local eligible_editionless_jokers = {}
+                    for k, v in pairs(G.jokers.cards) do
+                      if v.ability.set == 'Joker' and v ~= card and not v.gone and not v.edition then
+                          table.insert(eligible_editionless_jokers, v)
+                      end
+                    end
+                    if #eligible_editionless_jokers > 0 then
+                      for i=1, #eligible_editionless_jokers do
+                        local eligible_card = eligible_editionless_jokers[i]
+                        local edition = {negative = true}
+                        eligible_card:set_edition(edition, true)
+                      end
+                    end
+                end
+                  
+                remove(self, card, context)
+                  
+                return {
+                    message = localize("pm_haunt")
+                }
+            else
+                return {
+                    message = localize("k_nope_ex"),
+                    colour = G.C.SECONDARY_SET.Tarot,
+                    card = card
+                }
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.booking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'bombking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 1, y = 1 },
+    soul_pos = { x = 1, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {xmult = 5} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card.debuff = true
+                    return true
+                end
+              })) 
+            return {
+                xmult = card.ability.extra.xmult,
+                card = card
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.bombking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'pirahnaking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 2, y = 1 },
+    soul_pos = { x = 2, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {money = 3} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local count = 0
+            for k, c in ipairs(context.full_hand) do
+                if c.debuff then
+                    c.set_debuff(false)
+                    count = count + 1
+                end
+            end
+            ease_dollars(card.ability.extra.money * count)
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.pirahnaking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'pokeyking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 3, y = 1 },
+    soul_pos = { x = 3, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {hands_played = 0, hands_max = 3, xmult_gain = 0.25, xmult = 1} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.hands_max, card.ability.extra.hands_played, card.ability.extra.xmult_gain, card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            if G.GAME.last_hand_played == G.GAME.current_round.most_played_poker_hand then
+                if card.ability.extra.hands_played >= 2 then
+                    card.ability.extra.hands_played = 0
+                    return {
+                        card = card,
+                        level_up = 3,
+                        message = localize('k_level_up_ex')
+                    }
+                else
+                    card.ability.extra.hands_played = card.ability.extra.hands_played + 1
+                end
+            end
+        end
+
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult,
+                card = card
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.pokeyking_won == true then
+                return true
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.xmult = 1 + ((G.GAME.hands[G.GAME.current_round.most_played_poker_hand].level - 1) * card.ability.extra.xmult_gain)
+        else
+            card.ability.extra.xmult = 1
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'wigglerking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 4, y = 1 },
+    soul_pos = { x = 4, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {xmult = 1, xmult_gain = 0.75} },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'pm_royal_straight'}
+        return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_gain } }
+    end,
+    calculate = function(self, card, context)
+        -- check if hand is <= 3, then increase their rank
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            if context.full_hand and string.find(context.scoring_name, "Straight") then
+                local max = 14
+                for k, c in ipairs(context.full_hand) do
+                    if not SMODS.has_no_rank(c) and c:get_id() < max then
+                        local rank_suffix = math.min(c:get_id()+1, max)
+                        if rank_suffix < 11 then rank_suffix = tostring(rank_suffix)
+                        elseif rank_suffix == 11 then rank_suffix = 'Jack'
+                        elseif rank_suffix == 12 then rank_suffix = 'Queen'
+                        elseif rank_suffix == 13 then rank_suffix = 'King'
+                        elseif rank_suffix == 14 then rank_suffix = 'Ace'
+                        end
+                        c:flip()             
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                assert(SMODS.change_base(c, nil, rank_suffix)) 
+                                return true
+                            end
+                        }))
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.35,
+                            func = function()
+                                c:flip()
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize('pm_upgraded'), colour = G.C.ATTENTION})
+                    end
+                    max = max - 1
+                end
+
+                local t = {}
+                local cur_num = 14
+                for k, c in ipairs(context.full_hand) do
+                    if c:get_id() == cur_num then t[#t+1] = c
+                    else t = {} 
+                    end
+                    cur_num = cur_num - 1
+                end
+
+                if #t == 5 then
+                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+                    return {
+                        message = localize('pm_upgraded'),
+                        card = card
+                    }
+                end
+            end
+
+            
+        end
+
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult,
+                card = card
+            }
+		end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.wigglerking_won == true then
+                return true
+            end
+        end
+    end,
+    
+
+}
+
+SMODS.Joker{
+    key = 'goombaking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 5, y = 1 },
+    soul_pos = { x = 5, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            if context.consumeable and not context.consumeable.edition then
+                local t = {
+                    key = context.consumeable.config.center.key
+                }
+                local _card = SMODS.add_card(t)
+                _card:set_edition('e_negative')
+                SMODS.Stickers.pm_monochrome:apply(_card, nil)
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.goombaking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'bloopking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 6, y = 1 },
+    soul_pos = { x = 6, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {xmult = 1, xmult_gain = 0.1} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult, card.ability.extra.xmult_gain} }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            if string.find(context.scoring_name, "Straight") then
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+                return {
+                    colour = G.C.MULT,
+                    message = localize("pm_upgraded"),
+                    card = card
+                }
+            end
+        end
+
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult,
+                card = card
+            }
+		end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.bloopking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'lakituking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 0, y = 3 },
+    soul_pos = { x = 0, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {xmult = 1, xmult_gain = 0.1} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xmult, card.ability.extra.xmult_gain} }
+    end,
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint then
+            local reset = true
+            local play_more_than = (G.GAME.hands[context.scoring_name].played or 0)
+            for k, v in pairs(G.GAME.hands) do
+                if k == context.scoring_name and v.played >= play_more_than and v.visible then
+                    reset = false
+                end
+            end
+            if reset then
+                if card.ability.extra.xmult > 1 then
+                    card.ability.extra.xmult = 1
+                    return {
+                        card = card,
+                        message = localize('k_reset'),
+                    }
+                end
+            else
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.lakituking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'whompking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 1, y = 3 },
+    soul_pos = { x = 1, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+        return { vars = {} }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            local active = false
+            for k, c in ipairs(context.scoring_hand) do
+                if not c:is_face() and c.config.center ~= G.P_CENTERS.m_stone then
+                    active = true
+                    c:set_ability(G.P_CENTERS.m_stone, nil, true)                       
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            c:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+        
+            if active then
+                return{
+                    message = localize("pm_upgraded"),
+                    card = card
+                }
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.whompking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'billking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 2, y = 3 },
+    soul_pos = { x = 2, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = { last_score = 0, xmult = 3 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.last_score, card.ability.extra.xmult} }
+    end,
+    calculate = function(self, card, context)
+        -- Shake while first card is active
+        if context.first_hand_drawn then
+            if not context.blueprint then
+                local eval = function() return (to_big(card.ability.extra.last_score) * 2) >= to_big(G.GAME.blind.chips) and not G.RESET_JIGGLES end
+                juice_card_until(self, eval, true)
+            end
+        end
+
+        if context.joker_main and (to_big(card.ability.extra.last_score) * 2) >= to_big(G.GAME.blind.chips) then
+            return {
+                xmult = card.ability.extra.xmult,
+                card = card
+            }
+        end
+
+        if context.end_of_round then
+            card.ability.extra.last_score = to_big(G.GAME.chips)
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.billking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'cheepking',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 3, y = 3 },
+    soul_pos = { x = 3, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    config = { extra = { xchips = 1, xchip_gain = 0.25 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xchips, card.ability.extra.xchip_gain} }
+    end,
+    calculate = function(self, card, context)
+        -- Gets all nonscoring cards and adds them to the card.
+        if context.cardarea == G.jokers and context.scoring_hand and context.full_hand then
+            if context.joker_main then
+                local gain = card.ability.extra.xchip_gain * math.abs(#context.scoring_hand - #context.full_hand)
+                card.ability.extra.xchips = card.ability.extra.xchips + gain
+                card:juice_up()
+                return {
+                    xchips = card.ability.extra.xchips,
+                    card = card
+                }
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.cheepking_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'junior',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 4, y = 3 },
+    soul_pos = { x = 4, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    calculate = function(self, card, context)
+        -- Gets all nonscoring cards and adds them to the card.
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            for k, c in ipairs(context.scoring_hand) do
+                local x = pseudorandom('junior')
+                local y = pseudorandom('junior1')
+                local z = pseudorandom('junior2')
+                if x <= 0.75 and c.config.center ~= G.P_CENTERS.m_pm_quantum then c:set_ability(SMODS.poll_enhancement({guaranteed = true}), nil, true) end
+                if y <= 0.666 and not (c.edition and c.edition.pm_quantum) then c:set_edition(poll_edition(nil, nil, nil, true), nil, true) end
+                if z <= 0.5 and (not c.seal or c.seal ~= 'pm_seal_quantum') then c:set_seal(SMODS.poll_seal({guaranteed = true}), nil, true) end   
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        c:juice_up()
+                        return true
+                    end
+                }))
+            end
+
+            return{
+                message = localize("pm_painted"),
+                card = card
+            }
+        end 
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.junior_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'bowser',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 5, y = 3 },
+    soul_pos = { x = 5, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            for k, c in ipairs(context.scoring_hand) do
+                if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                    local key = c.config.center.key
+                    c:set_ability('m_pm_quantum', nil, true)
+                    c.ability.old_enhancement = key
+                end
+                if c.edition and not c.edition.pm_quantum then -- edition check
+                    local key = c.edition.key
+                    local xtype = c.edition.type
+                    c:set_edition('e_pm_quantum', nil, true)
+                    c.edition.old_edition = key
+                    c.edition.old_shader = xtype
+                end
+                if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                    local seal = c.seal
+                    c:set_seal('pm_seal_quantum', nil, true)
+                    c.ability.seal.old_seal = seal
+                end 
+            end
+        end
+        
+        if context.main_scoring and context.cardarea == G.jokers and not context.blueprint then
+            for i=1, #G.hand.cards do
+                local c = G.hand.cards[i]
+                if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                    local key = c.config.center.key
+                    c:set_ability('m_pm_quantum', nil, true)
+                    c.ability.old_enhancement = key
+                end
+                if c.edition then
+                    local key = c.edition.key
+                    local xtype = c.edition.type
+                    c:set_edition('e_pm_quantum', nil, true)
+                    c.edition.old_edition = key
+                    c.edition.old_shader = xtype
+                end
+                if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                    local seal = c.seal
+                    c:set_seal('pm_seal_quantum', nil, true)
+                    c.ability.seal.old_seal = seal
+                end 
+            end
+
+            for i=1, #G.play.cards do
+                local c = G.play.cards[i]
+                if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                    local key = c.config.center.key
+                    c:set_ability('m_pm_quantum', nil, true)
+                    c.ability.old_enhancement = key
+                end
+                if c.edition then
+                    local key = c.edition.key
+                    local xtype = c.edition.type
+                    c:set_edition('e_pm_quantum', nil, true)
+                    c.edition.old_edition = key
+                    c.edition.old_shader = xtype
+                end
+                if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                    local seal = c.seal
+                    c:set_seal('pm_seal_quantum', nil, true)
+                    c.ability.seal.old_seal = seal
+                end 
+            end
+    
+            for i=1, #G.playing_cards do
+                local c = G.playing_cards[i]
+                if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                    local key = c.config.center.key
+                    c:set_ability('m_pm_quantum', nil, true)
+                    c.ability.old_enhancement = key
+                end
+                if c.edition then
+                    local key = c.edition.key
+                    local xtype = c.edition.type
+                    c:set_edition('e_pm_quantum', nil, true)
+                    c.edition.old_edition = key
+                    c.edition.old_shader = xtype
+                end
+                if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                    local seal = c.seal
+                    c:set_seal('pm_seal_quantum', nil, true)
+                    c.ability.seal.old_seal = seal
+                end 
+            end
+    
+            for i=1, #G.jokers.cards do
+                local c = G.jokers.cards[i]
+                if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                    local key = c.config.center.key
+                    c:set_ability('m_pm_quantum', nil, true)
+                    c.ability.old_enhancement = key
+                end
+                if c.edition then
+                    local key = c.edition.key
+                    local xtype = c.edition.type
+                    c:set_edition('e_pm_quantum', nil, true)
+                    c.edition.old_edition = key
+                    c.edition.old_shader = xtype
+                end
+                if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                    local seal = c.seal
+                    c:set_seal('pm_seal_quantum', nil, true)
+                    c.ability.seal.old_seal = seal
+                end 
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.bowser_won == true then
+                return true
+            end
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        for i=1, #G.hand.cards do
+            local c = G.hand.cards[i]
+            if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                local key = c.config.center.key
+                c:set_ability('m_pm_quantum', nil, true)
+                c.ability.old_enhancement = key
+            end
+            if c.edition then
+                local key = c.edition.key
+                local xtype = c.edition.type
+                c:set_edition('e_pm_quantum', nil, true)
+                c.edition.old_edition = key
+                c.edition.old_shader = xtype
+            end
+            if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                local seal = c.seal
+                c:set_seal('pm_seal_quantum', nil, true)
+                c.ability.seal.old_seal = seal
+            end 
+        end
+
+        for i=1, #G.playing_cards do
+            local c = G.playing_cards[i]
+            if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                local key = c.config.center.key
+                c:set_ability('m_pm_quantum', nil, true)
+                c.ability.old_enhancement = key
+            end
+            if c.edition then
+                local key = c.edition.key
+                local xtype = c.edition.type
+                c:set_edition('e_pm_quantum', nil, true)
+                c.edition.old_edition = key
+                c.edition.old_shader = xtype
+            end
+            if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                local seal = c.seal
+                c:set_seal('pm_seal_quantum', nil, true)
+                c.ability.seal.old_seal = seal
+            end 
+        end
+
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.ability.set == 'Enhanced' and c.config.center.key ~= G.P_CENTERS.m_pm_quantum then -- enhanced check
+                local key = c.config.center.key
+                c:set_ability('m_pm_quantum', nil, true)
+                c.ability.old_enhancement = key
+            end
+            if c.edition then
+                local key = c.edition.key
+                local xtype = c.edition.type
+                c:set_edition('e_pm_quantum', nil, true)
+                c.edition.old_edition = key
+                c.edition.old_shader = xtype
+            end
+            if c.seal and c.seal ~= 'pm_seal_quantum' then -- seal check
+                local seal = c.seal
+                c:set_seal('pm_seal_quantum', nil, true)
+                c.ability.seal.old_seal = seal
+            end 
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        for i=1, #G.hand.cards do
+            local c = G.hand.cards[i]
+
+            if c.config.center == G.P_CENTERS.m_pm_quantum then
+                c:set_ability(c.ability.old_enhancement, nil, true)
+            end
+
+            if c.edition and c.edition.pm_quantum then
+                c:set_edition(c.edition.old_edition, nil, true)
+            end
+
+            if c.seal and c.seal == 'pm_seal_quantum' then
+                c:set_seal(c.ability.seal.old_seal, nil, true)
+            end 
+        end
+
+        for i=1, #G.playing_cards do
+            local c = G.playing_cards[i]
+            if c.config.center == G.P_CENTERS.m_pm_quantum then
+                c:set_ability(c.ability.old_enhancement, nil, true)
+            end
+
+            if c.edition and c.edition.pm_quantum then
+                c:set_edition(c.edition.old_edition, nil, true)
+            end
+
+            if c.seal and c.seal == 'pm_seal_quantum' then
+                c:set_seal(c.ability.seal.old_seal, nil, true)
+            end 
+        end
+
+        for i=1, #G.jokers.cards do
+            local c = G.jokers.cards[i]
+            if c.config.center == G.P_CENTERS.m_pm_quantum then
+                c:set_ability(c.ability.old_enhancement, nil, true)
+            end
+
+            if c.edition and c.edition.pm_quantum then
+                c:set_edition(c.edition.old_edition, nil, true)
+            end
+
+            if c.seal and c.seal == 'pm_seal_quantum' then
+                c:set_seal(c.ability.seal.old_seal, nil, true)
+            end 
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'drybowser',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 6, y = 3 },
+    soul_pos = { x = 6, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    config = { extra = { mult = 15, xmult = 1.5, death = false } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.death and card.ability.xmult or card.ability.extra.mult, card.ability.extra.death and localize('pm_xmult') or localize('pm_dmult'), card.ability.extra.death and localize('pm_dead') or localize('pm_dry'), colours = {card.ability.extra.death and G.C.MULT or G.C.MULT} } }
+    end,
+    calculate = function(self, card, context)
+
+        if context.individual and context.cardarea == G.play and context.other_card.config.center == G.P_CENTERS.m_stone then
+            if not context.end_of_round and not context.before and not context.after and not context.other_card.debuff then
+                if card.ability.extra.death then
+                    return {
+                        xmult = card.ability.extra.xmult,
+                        card = card
+                    }
+                else
+                    return {
+                        mult = card.ability.extra.mult,
+                        card = card
+                    }
+                end
+            end
+        end
+
+        -- prevention of death
+        if context.end_of_round and not context.blueprint and context.game_over and (to_big(G.GAME.chips) / to_big(G.GAME.blind.chips)) >= to_big(0.5) and not card.ability.extra.death then
+            card.ability.extra.death = true -- death prevented, can no longer use this
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand_text_area.blind_chips:juice_up()
+                    G.hand_text_area.game_chips:juice_up()
+                    play_sound('tarot1')
+                    return true
+                end
+            })) 
+            return {
+                message = localize('k_saved_ex'),
+                saved = true,
+                colour = G.C.RED
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.drybowser_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'boomboom',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 7, y = 1 },
+    soul_pos = { x = 7, y = 0 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = false,
+    config = { extra = { retriggers = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.retriggers} }
+    end,
+    calculate = function(self, card, context)
+
+        -- Shake while first card is active
+        if context.first_hand_drawn then
+            if not context.blueprint and G.GAME.current_round.hands_played <= 0 then
+                local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+                juice_card_until(self, eval, true)
+            end
+        end
+
+        if context.repetition and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
+            return {
+                message = localize("k_again_ex"),
+                repetitions = card.ability.extra.retriggers,
+                card = card
+            }
+        end
+
+        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= card and G.GAME.current_round.hands_played == 0 then
+            for i = 1, #G.jokers.cards do
+                return {
+                    message = localize("k_again_ex"),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end 
+        end
+        
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.boomboom_won == true then
+                return true
+            end
+        end
+    end,
+    
+}
+
+SMODS.Joker{
+    key = 'pompom',
+    rarity = 'pm_bosses',
+    atlas = 'PMBossCards',
+    pos = { x = 7, y = 3 },
+    soul_pos = { x = 7, y = 2 },
+    discovered = false,
+    unlocked = false,
+    cost = 20,
+    blueprint_compat = true,
+    config = { extra = { exponent = 1.25 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.exponent} }
+    end,
+    calculate = function(self, card, context)
+
+        if context.final_scoring_step then
+            local m = mult
+            return {
+                xmult = m ^ (card.ability.extra.exponent - 1),
+                message = localize("pm_exponential"),
+                colour = G.C.SECONDARY_SET.Tarot,
+                card = card
+            }
+        end
+        
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions.pompom_won == true then
+                return true
+            end
+        end
+    end,
+    
 }
 
 

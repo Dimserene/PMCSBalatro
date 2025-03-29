@@ -22,10 +22,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -52,10 +58,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -83,10 +95,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -114,10 +132,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -145,10 +169,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -176,10 +206,16 @@ SMODS.Booster {
         return { vars = { card and card.ability.choose or self.config.choose, card and card.ability.extra or self.config.extra } }
     end,
     create_card = function(self, card)
-        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.8 then
+        if G.GAME.used_vouchers.v_pm_ghostblessing and pseudorandom('ghostblessing') > 0.75 then
             return create_card("Spectral", G.pack_cards, nil, nil, true, true, nil)
         else
-            return create_card("pm_BattleCard", G.pack_cards, nil, nil, true, true, nil)
+            local t = {
+                set = 'pm_BattleCard',
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+            }
+            return SMODS.create_card(t)
         end
     end,
     ease_background_colour = function(self)
@@ -204,7 +240,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 0 },
     config = {extra = {hands = 5}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands } }
     end,
@@ -237,7 +273,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 0 },
     config = {extra = {hands = 1}},
     cost = 2,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands } }
     end,
@@ -267,7 +303,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 0 },
     config = {extra = {hands = 2}},
     cost = 4,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands } }
     end,
@@ -297,7 +333,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 0 },
     config = {extra = {hands = 3}},
     cost = 6,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands } }
     end,
@@ -327,7 +363,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 0 },
     config = {extra = {discards = 1}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.discards } }
     end,
@@ -356,7 +392,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 0 },
     config = {extra = {discards = 2}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.discards } }
     end,
@@ -385,7 +421,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 0 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_pm_frozen
 		return { vars = { card and card.ability.extra.selection_limit or self.ability.extra.selection_limit } }
@@ -425,7 +461,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 0 },
     config = {extra = {selection_limit = 4}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_pm_frozen
 		return { vars = { card and card.ability.extra.selection_limit or self.ability.extra.selection_limit } }
@@ -464,7 +500,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 0 },
     config = {extra = {selection_limit = 5, money = 2}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.selection_limit, card.ability.extra.money } }
     end,
@@ -518,7 +554,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 0 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit } }
     end,
@@ -577,7 +613,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 1 },
     config = {extra = {}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = { } }
     end,
@@ -606,7 +642,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 1 },
     config = {extra = {selection_limit = 2}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit } }
     end,
@@ -652,7 +688,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 1 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -713,7 +749,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 1 },
     config = {extra = {count = 3, copy = 'c_pm_wojump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wojump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -743,7 +779,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 1 },
     config = {extra = {count = 5, copy = 'c_pm_wojump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wojump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy}} }
@@ -773,7 +809,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 1 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1, extra_use = false, uses = 0}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -843,7 +879,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 1 },
     config = {extra = {count = 2, copy = 'c_pm_jump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_jump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -874,7 +910,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 1 },
     config = {extra = {count = 3, copy = 'c_pm_jump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_jump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -904,7 +940,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 1 },
     config = {extra = {odds = 2, selection_limit = 1, increase = 2, extra_use = false, uses = 0}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -973,7 +1009,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 1 },
     config = {extra = {count = 2, copy = 'c_pm_bigjump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bigjump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1003,7 +1039,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 2 },
     config = {extra = {selection_limit = 1, increase = 3}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.increase} }
     end,
@@ -1044,7 +1080,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 2 },
     config = {extra = {selection_limit = 3}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit} }
     end,
@@ -1128,7 +1164,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 2 },
     config = {extra = {selection_limit = 4}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit} }
     end,
@@ -1212,7 +1248,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 2 },
     config = {extra = {selection_limit = 5}},
     cost = 8,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit} }
     end,
@@ -1296,7 +1332,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 2 },
     config = {extra = {selection_limit = 1, chip_gain = 15, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
     end,
@@ -1341,7 +1377,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 2 },
     config = {extra = {count = 2, copy = 'c_pm_hopslipper'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hopslipper
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1371,7 +1407,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 2 },
     config = {extra = {count = 3, copy = 'c_pm_hopslipper'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hopslipper
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1401,7 +1437,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 2 },
     config = {extra = {selection_limit = 1, chip_gain = 50, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.chip_gain, 5-card.ability.extra.uses} }
     end,
@@ -1446,7 +1482,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 2 },
     config = {extra = {selection_limit = 1, xchip_gain = 0.5, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.xchip_gain, 5-card.ability.extra.uses} }
     end,
@@ -1491,7 +1527,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 2 },
     config = {extra = {selection_limit = 3}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit } }
     end,
@@ -1539,7 +1575,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 3 },
     config = {extra = {count = 2, copy = 'c_pm_ironjump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_ironjump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1569,7 +1605,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 3 },
     config = {extra = {count = 3, copy = 'c_pm_ironjump'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_ironjump
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1599,7 +1635,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 3 },
     config = {extra = {selection_limit = 5}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit } }
     end,
@@ -1647,7 +1683,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 3 },
     config = {extra = {}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {} }
     end,
@@ -1695,7 +1731,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 3 },
     config = {extra = {selection_limit = 5}},
     cost = 6,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit } }
     end,
@@ -1749,7 +1785,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 3 },
     config = {extra = {}},
     cost = 8,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {} }
     end,
@@ -1803,7 +1839,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 3 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -1864,7 +1900,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 3 },
     config = {extra = {count = 3, copy = 'c_pm_wohammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wohammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1894,7 +1930,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 3 },
     config = {extra = {count = 5, copy = 'c_pm_wohammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_wohammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -1924,7 +1960,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 3 },
     config = {extra = {odds = 3, selection_limit = 1, increase = 1, extra_use = false, uses = 0}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -1994,7 +2030,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 4 },
     config = {extra = {count = 2, copy = 'c_pm_hammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2024,7 +2060,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 4 },
     config = {extra = {count = 3, copy = 'c_pm_hammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2054,7 +2090,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 4 },
     config = {extra = {odds = 2, selection_limit = 1, increase = 2, extra_use = false, uses = 0}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.increase} }
     end,
@@ -2123,7 +2159,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 4 },
     config = {extra = {count = 2, copy = 'c_pm_bighammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bighammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2153,7 +2189,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 4 },
     config = {extra = {selection_limit = 1, increase = 3}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.increase} }
     end,
@@ -2194,7 +2230,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 4 },
     config = {extra = {odds = 1000}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
@@ -2254,7 +2290,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 4 },
     config = {extra = {odds = 500}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
@@ -2316,7 +2352,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 4 },
     config = {extra = {odds = 100}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         return { vars = {  (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,
@@ -2378,7 +2414,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 4 },
     config = {extra = {selection_limit = 1, mult_gain = 3, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
     end,
@@ -2423,7 +2459,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 4 },
     config = {extra = {count = 2, copy = 'c_pm_eekhammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_eekhammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2453,7 +2489,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 5 },
     config = {extra = {count = 3, copy = 'c_pm_eekhammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_eekhammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2483,7 +2519,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 5 },
     config = {extra = {selection_limit = 1, mult_gain = 6, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.mult_gain, 5-card.ability.extra.uses} }
     end,
@@ -2528,7 +2564,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 5 },
     config = {extra = {count = 2, copy = 'c_pm_bigeekhammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_bigeekhammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2558,7 +2594,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 5 },
     config = {extra = {selection_limit = 1, xmult_gain = 0.1, uses = 0}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, card.ability.extra.xmult_gain, 5-card.ability.extra.uses} }
     end,
@@ -2603,7 +2639,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 5 },
     config = {extra = {odds = 5, selection_limit = 5}},
     cost = 4,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds} }
     end,
@@ -2658,7 +2694,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 5 },
     config = {extra = {count = 2, copy = 'c_pm_hurlhammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hurlhammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2688,7 +2724,7 @@ SMODS.Consumable{
     pos = { x = 6, y = 5 },
     config = {extra = {count = 3, copy = 'c_pm_hurlhammer'}},
     cost = 1,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_pm_hurlhammer
 		return { vars = {card.ability.extra.count, localize{type = 'name_text', set = 'pm_BattleCard', key = card.ability.extra.copy} } }
@@ -2718,7 +2754,7 @@ SMODS.Consumable{
     pos = { x = 7, y = 5 },
     config = {extra = {odds = 2, selection_limit = 5}},
     cost = 6,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit, (G.GAME.probabilities.normal or 1), card.ability.extra.odds} }
     end,
@@ -2773,7 +2809,7 @@ SMODS.Consumable{
     pos = { x = 8, y = 5 },
     config = {extra = {selection_limit = 5}},
     cost = 8,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = {card.ability.extra.selection_limit} }
     end,
@@ -2809,7 +2845,7 @@ SMODS.Consumable{
     pos = { x = 9, y = 5 },
     config = {extra = {selection_limit = 5, money = 7}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.selection_limit, card.ability.extra.money } }
     end,
@@ -2857,7 +2893,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 1 },
     config = {extra = {}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome_sticker'}
 		return { vars = { } }
@@ -2898,7 +2934,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -2910,7 +2952,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 1 },
     config = {extra = {}},
     cost = 7,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         if not card.edition or (card.edition and not card.edition == 'e_pm_replica') then
 			info_queue[#info_queue+1] = G.P_CENTERS.e_pm_replica
@@ -2937,6 +2979,52 @@ SMODS.Consumable{
     end,
 }
 
+-- Reverse Soul
+SMODS.Consumable{
+    key = 'soulreverse',
+    set = 'Spectral',
+    atlas = 'PMConsumable',
+    pos = { x = 0, y = 2 },
+    soul_pos = { x = 1, y = 2 },
+    config = {extra = {}},
+    cost = 10,
+    discovered = false,
+    hidden = {
+        soul_set = 'pm_BattleCard',
+        soul_rate = 10,
+    },
+    loc_vars = function(self, info_queue, card)
+		return { vars = { } }
+    end,
+    can_use = function(self, card)
+        return #G.jokers.cards < G.jokers.config.card_limit
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('timpani')
+            local t = {
+                set = 'Joker',
+                rarity = 'pm_bosses',
+            }
+            SMODS.add_card(t)
+            card:juice_up(0.3, 0.5)
+            return true end }))
+        delay(0.6)
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "boss_blind_win" then
+            if G.GAME.pm_ach_conditions then
+                for i=1, #G.GAME.pm_ach_conditions do
+                    if G.GAME.pm_ach_conditions[i] ~= true then
+                        return false
+                    end
+                end
+                return true
+            end
+        end
+    end
+}
+
 ------------ PAINTS --------------------------
 
 -- Black Paint
@@ -2947,7 +3035,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 0 },
     config = {extra = {dsuit = "Spades"}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit } }
@@ -2993,7 +3081,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3005,7 +3099,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 0 },
     config = {extra = {dsuit = "Clubs"}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit } }
@@ -3050,7 +3144,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3062,7 +3162,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 0 },
     config = {extra = {dsuit = "Hearts"}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit } }
@@ -3107,7 +3207,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3119,7 +3225,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 0 },
     config = {extra = {dsuit = "Diamonds"}},
     cost = 3,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit } }
@@ -3164,7 +3270,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3176,7 +3288,7 @@ SMODS.Consumable{
     pos = { x = 4, y = 0 },
     config = {extra = {dsuit = "Diamonds", bsuit = "Hearts"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3221,7 +3333,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3233,7 +3351,7 @@ SMODS.Consumable{
     pos = { x = 5, y = 0 },
     config = {extra = {dsuit = "Diamonds", bsuit = "Clubs"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3278,7 +3396,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3290,7 +3414,7 @@ SMODS.Consumable{
     pos = { x = 0, y = 1 },
     config = {extra = {dsuit = "Clubs", bsuit = "Hearts"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3335,7 +3459,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3347,7 +3477,7 @@ SMODS.Consumable{
     pos = { x = 1, y = 1 },
     config = {extra = {dsuit = "Spades", bsuit = "Hearts"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3392,7 +3522,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3404,7 +3540,7 @@ SMODS.Consumable{
     pos = { x = 2, y = 1 },
     config = {extra = {dsuit = "Spades", bsuit = "Clubs"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3449,7 +3585,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 
@@ -3461,7 +3603,7 @@ SMODS.Consumable{
     pos = { x = 3, y = 1 },
     config = {extra = {dsuit = "Spades", bsuit = "Diamonds"}},
     cost = 5,
-    discovered = true,
+    discovered = false,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'pm_monochrome', vars = {5, card.ability.extra.dsuit, colours = {G.C.SUITS[card.ability.extra.dsuit]}}}
 		return { vars = { card.ability.extra.dsuit, card.ability.extra.bsuit } }
@@ -3517,7 +3659,13 @@ SMODS.Consumable{
         end
     end,
     in_pool = function(self)
-        return SMODS.Stickers['pm_monochrome'].rate > 0
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
     end,
 }
 

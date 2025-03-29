@@ -51,6 +51,17 @@ SMODS.Atlas { -- All Thing Jokers
 	py = 307
 }
 
+SMODS.Atlas { -- All Boss Jokers
+	-- Key for code to find it with
+	key = "PMBossCards",
+	-- The name of the file, for the code to pull the atlas from
+	path = "PMBossCards.png",
+	-- Width of each sprite in 1x size
+	px = 220,
+	-- Height of each sprite in 1x size
+	py = 307
+}
+
 SMODS.Atlas { -- All Battle Cards
 	-- Key for code to find it with
 	key = "BattleCards",
@@ -109,7 +120,7 @@ SMODS.Atlas { -- All Blinds
     frames = 21,
 }
 
-SMODS.Atlas { -- All Blinds
+SMODS.Atlas { -- All Vouchers
 	-- Key for code to find it with
 	key = "PMVouchers",
 	-- The name of the file, for the code to pull the atlas from
@@ -120,7 +131,7 @@ SMODS.Atlas { -- All Blinds
 	py = 95,
 }
 
-SMODS.Atlas { -- All Blinds
+SMODS.Atlas { -- All Tags
 	-- Key for code to find it with
 	key = "PMTags",
 	-- The name of the file, for the code to pull the atlas from
@@ -172,7 +183,7 @@ G.FUNCS.cycle_update = function(args)
     if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
         args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
         if args.cycle_config.ref_value == 'bc_rarity' then G.GAME['pm_battlecard_rate'] = args.to_val end
-        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.5 end
+        if args.cycle_config.ref_value == 'drained_rarity' then SMODS.Stickers['pm_monochrome'].rate = args.to_val * 0.2 end
        NFS.write(mod_dir.."/config.lua", STR_PACK(pm_config))
     end
 end
@@ -211,6 +222,17 @@ SMODS.Rarity{
         else
             return 0
         end
+    end,
+}
+
+SMODS.Rarity{
+    key = "bosses",
+    default_weight = 0,
+    badge_colour = HEX("9c1072"),
+    pools = {["Joker"] = true},
+    hidden = true,
+    get_weight = function(self, weight, object_type)
+        return weight
     end,
 }
 
@@ -277,6 +299,39 @@ SMODS.Edition{
     end,
 }
 
+SMODS.Edition{
+    key = "quantum",
+    shader = false,
+    sound = { 
+        sound = "tarot1", 
+        per = 1.2, 
+        vol = 0.4,
+    },  
+    weight = 0.1, 
+    discovered = true,
+	in_shop = false,
+	extra_cost = 12,
+    badge_colour = SMODS.Gradients.pm_rgbled,
+    get_weight = function(self)
+		return G.GAME.edition_rate * self.weight
+	end,
+	config = {
+        chips = 50,
+        mult = 10,
+        x_mult = 1.5,
+        card_limit = 1,
+        old_shader = nil,
+        old_edition = nil,
+    },
+	loc_vars = function(self, info_queue)
+		return { vars = { self.config.chips, self.config.mult, self.config.x_mult, self.config.card_limit } }
+	end,
+    on_apply = function(card)
+        card.edition.old_shader = nil
+        card.edition.old_edition = nil
+    end,
+}
+
 SMODS.Shader{
     key = 'drained',
     path = 'drained.fs',
@@ -290,7 +345,7 @@ SMODS.Sticker{
         Joker = true,
         pm_BattleCard = true,
     },
-    rate = (pm_config.drained_rarity - 1) * 0.5,
+    rate = (pm_config.drained_rarity - 1) * 0.2,
     config = {
         extra = {
             drained_turns = 5,
@@ -319,6 +374,7 @@ SMODS.Sticker{
             card.ability[self.key] = val and copy_table(self.config)
             card.cost = 1
             card.ability[self.key].extra.drained_suit = pseudorandom_element(suits, pseudoseed('mono'))
+            card.ability[self.key].extra.drained_turns = math.floor(pseudorandom('turns', 1, 10))
         else
             card.ability[self.key] = val
             if not val and G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers.pm_coloredin:apply(card, true) end
@@ -403,6 +459,8 @@ SMODS.Sticker{
     end,
 }
 
+-- Enhancements
+
 SMODS.Enhancement({
     key = "frozen",
     atlas = "Enhancements",
@@ -414,6 +472,128 @@ SMODS.Enhancement({
     end,
 })
 
+SMODS.Enhancement({
+    key = "quantum",
+    atlas = "Enhancements",
+    pos = {x = 1, y = 0},
+    config = {
+        bonus = 30, 
+        mult = 4, 
+        x_mult = 2, 
+        h_x_mult = 1.5, 
+        h_dollars = 3, 
+        l_mult = 20, 
+        l_dollars = 20, 
+        odds = 5, 
+        l_odds = 15, 
+        old_enhancement = nil,
+        old_shader = nil, 
+    },
+    weight = 0,
+    any_suit = true,
+    always_scores = true,
+    in_pool = function(self, args)
+        return false
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.bonus, self.config.mult, self.config.x_mult, self.config.h_x_mult, self.config.h_dollars, (G.GAME.probabilities.normal or 1), self.config.l_mult, self.config.l_dollars, self.config.odds, self.config.l_odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.main_scoring and context.cardarea == G.play then
+            if pseudorandom('lucky') < (G.GAME.probabilities.normal / card.ability.odds) then
+                return{
+                    mult = card.ability.l_mult,
+                    card = card
+                }
+            end
+            if pseudorandom('lucky') < (G.GAME.probabilities.normal / card.ability.l_odds) then
+                ease_dollars(card.ability.l_dollars)
+                return{
+                    message = "$20",
+                    card = card, 
+                    colour = G.C.MONEY
+                }
+            end
+        end
+    end
+})
+
+SMODS.Enhancement{
+    key = "slipper",
+    config = {bonus = 0, old_enhancement = nil, old_nominal = 0, old_bonus = 0},
+    atlas = "Enhancements",
+    pos = {x = 2, y = 0},
+    weight = 0,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    in_pool = function(self, args)
+        return false
+    end,
+    set_ability = function(self, card, initial, delay_sprites)
+        if card.base then old_nominal = card.base.nominal or 0
+        else old_nominal = 0 end
+        card.ability.bonus = (old_nominal * -1) + (card.ability.old_bonus or 0) + (card.ability.perma_bonus or 0) 
+        card:set_sprites(card.ability.old_enhancement or G.P_CENTERS.c_base)
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') then
+            if card.sprite_facing == 'front' then
+                card:set_sprites(card.ability.old_enhancement or G.P_CENTERS.c_base)
+            end
+        end
+    end,
+}
+
+-- Seals
+SMODS.Seal{
+    key = 'seal_quantum',
+    config = {
+        p_dollars = 3,
+        repetitions = 1,
+        old_seal = nil,
+    },
+    atlas = "Enhancements",
+    pos = {x = 2, y = 0},
+    badge_colour = SMODS.Gradients.pm_rgbled,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.seal.repetitions, card.ability.seal.p_dollars} }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.repetitions,
+                card = card
+            }
+        end
+        if context.end_of_round and #G.consumeables.cards < G.consumeables.config.card_limit then 
+            if G.GAME.last_hand_played then
+                local _planet = 0
+                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                    if v.config.hand_type == G.GAME.last_hand_played then
+                        _planet = v.key
+                    end
+                end
+                local t = {
+                    set = 'Planet',
+                    key = _planet,
+                }
+                SMODS.add_card(t) 
+            end
+        end
+        if context.discard and context.other_card == card and #G.consumeables.cards < G.consumeables.config.card_limit then
+            local t = {
+                set = 'Tarot',
+            }
+            SMODS.add_card(t) 
+        end
+    end,
+    get_p_dollars = function(self, card)
+        return card.ability.seal.p_dollars
+    end,
+}
+
 -- load consumable type
 SMODS.ConsumableType{
     key = "BattleCard",
@@ -421,6 +601,7 @@ SMODS.ConsumableType{
     secondary_colour = HEX("CC2E23"),
     collection_row = {5, 2},
     shop_rate = (pm_config.bc_added and pm_config.bc_rarity) or 0.0,
+    allow_duplicates = (G.GAME and G.GAME.used_vouchers.v_pm_copycat) or false,
     default = "c_pm_one_up",
     rarities = {
         {key = 'pm_common', rate = 65},
@@ -445,15 +626,6 @@ SMODS.ConsumableType{
 			table.insert(badges, create_badge(rarity_name, rarity_color, nil, 1.0))
 		end
 	end,
-    in_pool = function(self)
-        if pm_config.bc_added then
-            return{
-                allow_duplicates = G.GAME.used_vouchers.v_pm_copycat
-            }
-        else return false
-        end
-    end,
-
 }
 
 -- Stakes
@@ -488,6 +660,43 @@ SMODS.DrawStep {
     end,
 }
 
+SMODS.DrawStep {
+    key = 'quantum_estep',
+    order = 10,
+    conditions = {
+        facing = 'front',
+    },
+    func = function (card, layer)
+        if layer == 'card' or layer == 'both' then
+            if card.edition and card.edition.pm_quantum and card.edition.old_shader and (card.config.center.discovered or card.bypass_discovery_center) then
+                card.children.center:draw_shader(card.edition.old_shader, nil, card.ARGS.send_to_shader)
+                if card.children.front and card.ability.effect ~= 'Stone Card' then
+                    card.children.front:draw_shader(card.edition.old_shader, nil, card.ARGS.send_to_shader)
+                end
+            end
+        end
+    end,
+}
+
+SMODS.DrawStep {
+    key = 'quantum_sstep',
+    order = 30,
+    conditions = {
+        facing = 'front',
+    },
+    func = function (card, layer)
+        local seal = G.P_SEALS[card.seal] or {}
+        if layer == 'card' or layer == 'both' then
+            if card.seal == 'pm_seal_quantum' and card.ability.seal.old_seal then
+                G.shared_seals[card.ability.seal.old_seal].role.draw_major = card
+                G.shared_seals[card.ability.seal.old_seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
+                if card.ability.seal.old_seal == 'Gold' then G.shared_seals[card.ability.seal.old_seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center) end
+            end
+        end
+    end,
+}
+
+
 -- drawing the front sprite for replica
 SMODS.DrawStep {
     key = 'replica_step',
@@ -512,24 +721,6 @@ pm_total_chips = function(card)
     return total_chips
   end
 
--- literally just a function check to see if a card is a slurp card. aka any card that removes enhancements or has slurp in the name
-function Card:is_slurp()
-    local check = 0
-    if self.ability.extra and self.ability.extra.slurp then
-        check = self.ability.extra.slurp
-    end
-    return check
-end
-
--- literally just a function check to see if a card is a bro card. aka any Hammer Bro variant
-function Card:is_bro()
-    local check = 0
-    if self.ability.extra and self.ability.extra.bro then
-        check = self.ability.extra.bro
-    end
-    return check
-end
-
 -- remove function, received from the Pokermon Mod
 remove = function(self, card, context)
 play_sound('tarot1')
@@ -549,33 +740,6 @@ card.gone = true
 return true
 end
 
-function Card:rand_enhance()
-    local t = {G.P_CENTERS.m_bonus, G.P_CENTERS.m_mult, G.P_CENTERS.m_wild, G.P_CENTERS.m_glass, G.P_CENTERS.m_steel, G.P_CENTERS.m_stone, G.P_CENTERS.m_gold, G.P_CENTERS.m_lucky, G.P_CENTERS.m_pm_frozen}
-    local enhancement_type = pseudorandom_element(t, pseudoseed('rand'))
-
-    self:set_ability(enhancement_type, nil, true)
-end  
-
--- checking if a value is in an array
-pm_in_array = function(table, value)
-    for i = 1, #table do
-        if (table[i] == value) then
-            return true
-        end
-    end
-    return false
-end
-
--- checking if a value is NOT in an array
-pm_nt_array = function(table, value)
-    for i = 1, #table do
-        if (table[i] == value) then
-            return false
-        end
-    end
-    return true
-end
-
 -- get the function from the blind to cap the score, credits to cryptid for making this work
 function Blind:cap_score(score)
 	if not self.disabled then
@@ -585,6 +749,10 @@ function Blind:cap_score(score)
 		end
 	end
 	return score
+end
+
+function SMODS.current_mod.reset_game_globals(run_start)
+	G.GAME.pm_ach_conditions = G.GAME.pm_ach_conditions or {}
 end
 
 -- we're injecting not using lovely babyyyyyyyyy
@@ -621,10 +789,9 @@ function get_flush(hand)
             if flush_count >= target then
               table.insert(results, t)
               return results
-            else return base
             end
         end
-        return {}
+        return base
     else
         if morton then -- morton check
             local m = {}
@@ -678,6 +845,41 @@ function get_flush(hand)
             end
         end
     end
+end
+
+local get_straight_ref = get_straight
+function get_straight(hand)
+  local base = get_straight_ref(hand)
+  local results = {}
+  local bloop = next(find_joker('j_pm_bloopking'))
+  local whomp = next(find_joker('j_pm_whompking'))
+  local target = (next(find_joker('Four Fingers')) and 4) or 5
+  
+  if #hand > 5 or #hand < target then return base
+  elseif bloop then
+    local t = {}
+    for i=1, #hand do
+        local id = hand[i]:get_id()
+        if hand[i]:is_face() then return base
+        else t[i+1] = hand[i]
+        end
+    end
+    table.insert(results, t)
+    return results
+  elseif whomp then -- morton check
+    local m = {}
+    local stone_count = 0
+    for i=1, #hand do
+        if hand[i].ability.name == 'Stone Card' then stone_count = stone_count + 1; m[#m+1] = hand[i] end
+    end
+
+    if stone_count >= target then
+        table.insert(results, m)
+        return results 
+    else return base
+    end
+  end
+  return base
 end
 
 -- replacing an SMOD function lol
