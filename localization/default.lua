@@ -194,6 +194,7 @@ return {
                 name = "Replica",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult",
+                    "Disabled during {C:mult}Boss Blinds{}",
                     "{s:0.9,C:inactive}A less effective{}",
                     "{s:0.9,C:inactive}duplicate of the original.{}",
                 },
@@ -1726,6 +1727,21 @@ return {
                     "{C:attention}Thing Joker{}",
                 }
             },
+
+            tag_pm_painter = {
+                name = "Painting Tag",
+                text = {
+                    "Shop has a free {C:dark_edition}Colorizer{}",
+                }
+            },
+
+            tag_pm_duplicater = {
+                name = "Duplication Tag",
+                text = {
+                    "Shop has a {C:attention}Replica",
+                    "of one of your Jokers",
+                }
+            },
         },
         Tarot={
             c_pm_blackpaint = {
@@ -1858,6 +1874,14 @@ return {
                 text = {
                     "Copies of any {C:attention}Joker{} can be",
                     "found in shop with {C:dark_edition}Replica{}",
+                }
+            },
+
+            v_pm_smalltoride = {
+                name = "Too Small to Ride",
+                text = {
+                    "Replica Jokers are no longer",
+                    "disabled during {C:mult}Boss Blinds{}",
                 }
             },
 

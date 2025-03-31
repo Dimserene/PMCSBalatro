@@ -4,15 +4,21 @@ SMODS.Voucher{
     cost = 10,
     atlas = 'PMVouchers', 
     pos = { x = 0, y = 0 },
+    in_pool = function(self, args)
+        return pm_config.bc_rarity > 1
+    end
 }
 
 SMODS.Voucher{
     key = 'ghostblessing',
     discovered = false,
     cost = 10,
-    requires = {'v_crystal_ball', 'v_pm_copycat'},
+    requires = {'v_pm_copycat'},
     atlas = 'PMVouchers', 
     pos = { x = 1, y = 0 },
+    in_pool = function(self, args)
+        return pm_config.bc_rarity > 1
+    end
 }
 
 SMODS.Voucher{
@@ -30,6 +36,9 @@ SMODS.Voucher{
                 if G.GAME.modifiers['enable_pm_coloredin'] then SMODS.Stickers.pm_coloredin:apply(c, true) end
             end
         end
+    end,
+    in_pool = function(self, args)
+        return pm_config.drained_rarity > 1
     end
 }
 
@@ -55,6 +64,9 @@ SMODS.Voucher{
                 card_eval_status_text(c, 'extra', nil, nil, nil, {message = localize("pm_colorized"), colour = G.C.FILTER, delay = 0.45})
             end
         end
+    end,
+    in_pool = function(self, args)
+        return pm_config.drained_rarity > 1 and G.GAME.modifiers['enable_pm_coloredin']
     end
 }
 
@@ -64,6 +76,9 @@ SMODS.Voucher{
     cost = 10,
     atlas = 'PMVouchers', 
     pos = { x = 4, y = 0 },
+    in_pool = function(self, args)
+        return pm_config.things_rarity > 1
+    end
 }
 
 SMODS.Voucher{
@@ -74,14 +89,24 @@ SMODS.Voucher{
     atlas = 'PMVouchers', 
     pos = { x = 5, y = 0 },
 }
---[[
+
+SMODS.Voucher{
+    key = 'smalltoride',
+    discovered = false,
+    cost = 10,
+    atlas = 'PMVouchers', 
+    pos = { x = 6, y = 0 },
+}
+
 SMODS.Voucher{
     key = 'replicaenjoyer',
     discovered = false,
     cost = 10,
-    requires = {'v_pm_replicahaver'},
+    requires = {'v_pm_smalltoride'},
+    atlas = 'PMVouchers', 
+    pos = { x = 7, y = 0 },
     config = {xmult = 1.5},
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.xmult} }
     end
-}]]
+}
