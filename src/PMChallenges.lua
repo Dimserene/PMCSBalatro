@@ -43,11 +43,11 @@ SMODS.Challenge {
     deck = {
         type = 'Challenge Deck',
         cards = {
-            {s = 'S', r = '10'},
-            {s = 'S', r = '10'},
-            {s = 'S', r = '10'},
-            {s = 'S', r = '10'},
-            {s = 'S', r = '10'},
+            {s = 'S', r = 'T'},
+            {s = 'S', r = 'T'},
+            {s = 'S', r = 'T'},
+            {s = 'S', r = 'T'},
+            {s = 'S', r = 'T'},
             {s = 'S', r = 'J'},
             {s = 'S', r = 'J'},
             {s = 'S', r = 'J'},

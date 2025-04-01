@@ -61,3 +61,67 @@ SMODS.Tag{
         end
     end,
 }
+
+SMODS.Tag{
+    key = 'painter',
+    atlas = 'PMTags',
+    pos = {x = 2, y = 0},
+    in_pool = function(self)
+        local count = 0
+        if G.jokers then
+            for i=1, #G.jokers.cards do
+                if G.jokers.cards[i].ability['pm_monochrome'] and G.jokers.cards[i].ability['pm_monochrome'].extra.drained_turns > 0 then count = count + 1 end
+            end
+        end
+        return SMODS.Stickers['pm_monochrome'].rate > 0 and count > 0
+    end,
+    apply = function(self, tag, context)
+        if context.type == 'store_joker_create' then 
+            local card = nil
+
+            card = create_card("Spectral", context.area, nil, nil, nil, nil, 'c_pm_colorizer')
+            create_shop_card_ui(card, 'Spectral', context.area)
+            card.states.visible = false
+            tag:yep('+', G.C.RED,function() 
+                card:start_materialize()
+                card.ability.couponed = true
+                card:set_cost()
+                return true
+            end)
+            tag.triggered = true
+            return card
+        end    
+    end,
+}
+
+SMODS.Tag{
+    key = 'duplicater',
+    atlas = 'PMTags',
+    pos = {x = 3, y = 0},
+    apply = function(self, tag, context)
+        if context.type == 'store_joker_create' then 
+            local card = nil
+            if #G.jokers.cards > 0 then
+                local lock = tag.ID
+                
+                local key = pseudorandom_element(G.jokers.cards, pseudoseed('duplicater')).config.center.key
+
+                card = create_card("Joker", context.area, nil, nil, nil, nil, key)
+                create_shop_card_ui(card, 'Joker', context.area)
+                card.states.visible = false
+                card.temp_edition = true
+                tag:yep('+', G.C.RED,function() 
+                    card:start_materialize()
+                    card:set_edition('e_pm_replica', nil, nil)
+                    card.temp_edition = nil
+                    G.CONTROLLER.locks[lock] = nil
+                    return true
+                end)
+            else
+                tag:nope()
+            end
+            tag.triggered = true
+            return card
+        end    
+    end,
+}

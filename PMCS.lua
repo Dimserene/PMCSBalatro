@@ -1,17 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Paper Mario in Balatro
---- MOD_ID: PMCS
---- MOD_AUTHOR: [TheSocialZombie]
---- MOD_DESCRIPTION: A mod that adds Paper Mario themed Jokers into Balatro!
---- VERSION: 1.0.0
---- PREFIX: PM
-----------------------------------------------
---- #ADD TABLE OF CONTENTS#-------------------
-
-
-
-------------MOD CODE -------------------------
-
 -- Talisman --
 to_big = to_big or function(num)
     return num
@@ -329,6 +315,12 @@ SMODS.Edition{
 		return { vars = { self.config.x_mult } }
 	end,
     calculate = function(self, card, context)
+        if context.setting_blind and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled and not G.GAME.used_vouchers.v_pm_replicaenjoyer then
+            card:set_debuff(true)
+            card:juice_up()
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_disabled_ex'),colour = G.C.MULT, delay = 0.45})
+        end
+        
         if context.pre_joker then
             if G.GAME.used_vouchers.v_pm_replicaenjoyer then
                 return {
