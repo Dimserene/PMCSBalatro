@@ -1,4 +1,4 @@
-# PMCSBalatro
+# ColorSplashed | A Paper Mario Balatro Mod!
 This mod adds:
 ![every addition in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/additions.png?raw=true)
 ![the two stickers in this mod!](https://github.com/TheCodingZombie/PMCSBalatro/blob/main/repository/stick.png?raw=true)
